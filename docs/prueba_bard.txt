@@ -1,0 +1,1 @@
+Este es un archivo de prueba para verificar que el agente Bard detecte cambios, haga stage selectivo y ejecute el commit de forma segura sin inyecciones bash.
