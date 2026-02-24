@@ -1,122 +1,122 @@
 ---
 name: nextjs-saas
-description: Next.js SaaS template principles (2026 Standards). React 19, Server Actions, Auth.js v6.
+description: Principios de plantilla Next.js SaaS (Estándares 2026). React 19, Server Actions, Auth.js v6.
 ---
 
-# Next.js SaaS Template (Updated 2026)
+# Plantilla Next.js SaaS (Actualizado 2026)
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology | Version / Notes |
+| Componente | Tecnología | Versión / Notas |
 |-----------|------------|-----------------|
 | Framework | Next.js | v16+ (App Router, React Compiler) |
 | Runtime | Node.js | v24 (Krypton LTS) |
-| Auth | Auth.js | v6 (formerly NextAuth) |
-| Payments | Stripe API | Latest |
-| Database | PostgreSQL | Prisma v6 (Serverless Driver) |
+| Auth | Auth.js | v6 (antes NextAuth) |
+| Pagos | Stripe API | Latest |
+| Base de Datos | PostgreSQL | Prisma v6 (Serverless Driver) |
 | Email | Resend | React Email |
-| UI | Tailwind CSS | v4 (Oxide Engine, no config file) |
+| UI | Tailwind CSS | v4 (Oxide Engine, sin config file) |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── prisma/
-│   └── schema.prisma    # Database Schema
+│   └── schema.prisma    # Schema de Base de Datos
 ├── src/
-│   ├── actions/         # NEW: Server Actions (Replaces API Routes for data mutation)
+│   ├── actions/         # NUEVO: Server Actions (Reemplaza API Routes para mutación de datos)
 │   │   ├── auth-actions.ts
 │   │   ├── billing-actions.ts
 │   │   └── user-actions.ts
 │   ├── app/
 │   │   ├── (auth)/      # Route Group: Login, register
-│   │   ├── (dashboard)/ # Route Group: Protected routes (App Layout)
+│   │   ├── (dashboard)/ # Route Group: Rutas protegidas (App Layout)
 │   │   ├── (marketing)/ # Route Group: Landing, pricing (Marketing Layout)
-│   │   └── api/         # Only used for Webhooks or Edge cases
+│   │   └── api/         # Solo usado para Webhooks o casos Edge
 │   │       └── webhooks/stripe/
 │   ├── components/
-│   │   ├── emails/      # React Email templates
-│   │   ├── forms/       # Client components using useActionState (React 19)
+│   │   ├── emails/      # Templates React Email
+│   │   ├── forms/       # Componentes client usando useActionState (React 19)
 │   │   └── ui/          # Shadcn UI
 │   ├── lib/
-│   │   ├── auth.ts      # Auth.js v6 config
+│   │   ├── auth.ts      # Config Auth.js v6
 │   │   ├── db.ts        # Prisma Singleton
 │   │   └── stripe.ts    # Stripe Singleton
 │   └── styles/
-│       └── globals.css  # Tailwind v4 imports (CSS only)
+│       └── globals.css  # Imports Tailwind v4 (Solo CSS)
 └── package.json
 ```
 
 ---
 
-## SaaS Features
+## Features SaaS
 
-| Feature | Implementation |
+| Feature | Implementación |
 |---------|---------------|
 | Auth | Auth.js v6 + Passkeys + OAuth |
-| Data Mutation | Server Actions (No API routes) |
-| Subscriptions | Stripe Checkout & Customer Portal |
-| Webhooks | Asynchronous Stripe event handling |
-| Email | Transactional via Resend |
-| Validation | Zod (Server-side validation) |
+| Mutación de Datos | Server Actions (Sin API routes) |
+| Suscripciones | Stripe Checkout & Customer Portal |
+| Webhooks | Manejo asíncrono de eventos Stripe |
+| Email | Transaccional via Resend |
+| Validación | Zod (Validación server-side) |
 
 ---
 
-## Database Schema
+## Schema de Base de Datos
 
-| Model | Fields (Key fields) |
+| Modelo | Campos (Campos clave) |
 |-------|---------------------|
 | User | id, email, stripeCustomerId, subscriptionId, plan |
-| Account | OAuth provider data (Google, GitHub...) |
-| Session | User sessions (Database strategy) |
+| Account | Datos provider OAuth (Google, GitHub...) |
+| Session | Sesiones de usuario (Estrategia Database) |
 
 ---
 
-## Environment Variables
+## Variables de Entorno
 
-| Variable | Purpose |
+| Variable | Propósito |
 |----------|---------|
-| DATABASE_URL | Prisma connection string (Postgres) |
-| AUTH_SECRET | Replaces NEXTAUTH_SECRET (Auth.js v6) |
-| STRIPE_SECRET_KEY | Payments (Server-side) |
-| STRIPE_WEBHOOK_SECRET | Webhook verification |
-| RESEND_API_KEY | Email sending |
-| NEXT_PUBLIC_APP_URL | Application Canonical URL |
+| DATABASE_URL | String de conexión Prisma (Postgres) |
+| AUTH_SECRET | Reemplaza NEXTAUTH_SECRET (Auth.js v6) |
+| STRIPE_SECRET_KEY | Pagos (Server-side) |
+| STRIPE_WEBHOOK_SECRET | Verificación Webhook |
+| RESEND_API_KEY | Envío de email |
+| NEXT_PUBLIC_APP_URL | URL Canónica de la Aplicación |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
-1. Initialize project (Node 24):
+1. Inicializar proyecto (Node 24):
    ```bash
    npx create-next-app@latest {{name}} --typescript --eslint
    ```
 
-2. Install core libraries:
+2. Instalar librerías core:
    ```bash
    npm install next-auth@beta stripe resend @prisma/client
    ```
 
-3. Install Tailwind v4 (Add to globals.css):
+3. Instalar Tailwind v4 (Agregar a globals.css):
    ```css
    @import "tailwindcss";
    ```
 
-4. Configure environment (.env.local)
+4. Configurar entorno (.env.local)
 
-5. Sync Database:
+5. Sincronizar Base de Datos:
    ```bash
    npx prisma db push
    ```
 
-6. Run local Webhook:
+6. Ejecutar Webhook local:
    ```bash
    npm run stripe:listen
    ```
 
-7. Run project:
+7. Ejecutar proyecto:
    ```bash
    npm run dev
    ```

@@ -1,37 +1,37 @@
-# Response Format Principles
+# Principios de Formato de Respuesta
 
-> Consistency is key - choose a format and stick to it.
+> La consistencia es clave - elige un formato y mantente fiel a él.
 
-## Common Patterns
+## Patrones Comunes
 
 ```
-Choose one:
-├── Envelope pattern ({ success, data, error })
-├── Direct data (just return the resource)
+Elegir uno:
+├── Patrón envelope ({ success, data, error })
+├── Datos directos (solo retornar el recurso)
 └── HAL/JSON:API (hypermedia)
 ```
 
-## Error Response
+## Respuesta de Error
 
 ```
-Include:
-├── Error code (for programmatic handling)
-├── User message (for display)
-├── Details (for debugging, field-level errors)
-├── Request ID (for support)
-└── NOT internal details (security!)
+Incluir:
+├── Código de error (para manejo programático)
+├── Mensaje de usuario (para mostrar)
+├── Detalles (para debugging, errores a nivel de campo)
+├── Request ID (para soporte)
+└── NO detalles internos (¡seguridad!)
 ```
 
-## Pagination Types
+## Tipos de Paginación
 
-| Type | Best For | Trade-offs |
+| Tipo | Mejor Para | Trade-offs |
 |------|----------|------------|
-| **Offset** | Simple, jumpable | Performance on large datasets |
-| **Cursor** | Large datasets | Can't jump to page |
-| **Keyset** | Performance critical | Requires sortable key |
+| **Offset** | Simple, permite saltar | Rendimiento en datasets grandes |
+| **Cursor** | Datasets grandes | No se puede saltar a página |
+| **Keyset** | Rendimiento crítico | Requiere key ordenable |
 
-### Selection Questions
+### Preguntas de Selección
 
-1. How large is the dataset?
-2. Do users need to jump to specific pages?
-3. Is data frequently changing?
+1. ¿Qué tan grande es el dataset?
+2. ¿Los usuarios necesitan saltar a páginas específicas?
+3. ¿Los datos cambian frecuentemente?

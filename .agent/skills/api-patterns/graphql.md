@@ -1,41 +1,41 @@
-# GraphQL Principles
+# Principios GraphQL
 
-> Flexible queries for complex, interconnected data.
+> Consultas flexibles para datos complejos e interconectados.
 
-## When to Use
-
-```
-✅ Good fit:
-├── Complex, interconnected data
-├── Multiple frontend platforms
-├── Clients need flexible queries
-├── Evolving data requirements
-└── Reducing over-fetching matters
-
-❌ Poor fit:
-├── Simple CRUD operations
-├── File upload heavy
-├── HTTP caching important
-└── Team unfamiliar with GraphQL
-```
-
-## Schema Design Principles
+## Cuándo Usar
 
 ```
-Principles:
-├── Think in graphs, not endpoints
-├── Design for evolvability (no versions)
-├── Use connections for pagination
-├── Be specific with types (not generic "data")
-└── Handle nullability thoughtfully
+✅ Buen fit:
+├── Datos complejos e interconectados
+├── Múltiples plataformas frontend
+├── Clientes necesitan consultas flexibles
+├── Requisitos de datos evolutivos
+└── Reducir over-fetching importa
+
+❌ Mal fit:
+├── Operaciones CRUD simples
+├── Mucho upload de archivos
+├── Caché HTTP importante
+└── Equipo no familiarizado con GraphQL
 ```
 
-## Security Considerations
+## Principios de Diseño de Schema
 
 ```
-Protect against:
-├── Query depth attacks → Set max depth
-├── Query complexity → Calculate cost
-├── Batching abuse → Limit batch size
-├── Introspection → Disable in production
+Principios:
+├── Pensar en grafos, no en endpoints
+├── Diseñar para evolución (sin versiones)
+├── Usar connections para paginación
+├── Ser específico con tipos (no "data" genérico)
+└── Manejar nulabilidad cuidadosamente
+```
+
+## Consideraciones de Seguridad
+
+```
+Proteger contra:
+├── Ataques de profundidad de query → Setear max depth
+├── Complejidad de query → Calcular costo
+├── Abuso de batching → Limitar batch size
+├── Introspección → Deshabilitar en producción
 ```

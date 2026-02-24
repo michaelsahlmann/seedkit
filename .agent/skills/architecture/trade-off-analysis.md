@@ -1,77 +1,77 @@
-# Trade-off Analysis & ADR
+# Análisis de Trade-off y ADR
 
-> Document every architectural decision with trade-offs.
+> Documenta cada decisión arquitectónica con trade-offs.
 
-## Decision Framework
+## Framework de Decisión
 
-For EACH architectural component, document:
+Para CADA componente arquitectónico, documentar:
 
 ```markdown
 ## Architecture Decision Record
 
-### Context
-- **Problem**: [What problem are we solving?]
-- **Constraints**: [Team size, scale, timeline, budget]
+### Contexto
+- **Problema**: [¿Qué problema estamos resolviendo?]
+- **Restricciones**: [Tamaño de equipo, escala, timeline, presupuesto]
 
-### Options Considered
+### Opciones Consideradas
 
-| Option | Pros | Cons | Complexity | When Valid |
+| Opción | Pros | Contras | Complejidad | Cuándo Válido |
 |--------|------|------|------------|-----------|
-| Option A | Benefit 1 | Cost 1 | Low | [Conditions] |
-| Option B | Benefit 2 | Cost 2 | High | [Conditions] |
+| Opción A | Beneficio 1 | Costo 1 | Baja | [Condiciones] |
+| Opción B | Beneficio 2 | Costo 2 | Alta | [Condiciones] |
 
-### Decision
-**Chosen**: [Option B]
+### Decisión
+**Elegida**: [Opción B]
 
-### Rationale
-1. [Reason 1 - tied to constraints]
-2. [Reason 2 - tied to requirements]
+### Razonamiento
+1. [Razón 1 - vinculada a restricciones]
+2. [Razón 2 - vinculada a requisitos]
 
-### Trade-offs Accepted
-- [What we're giving up]
-- [Why this is acceptable]
+### Trade-offs Aceptados
+- [Qué estamos cediendo]
+- [Por qué esto es aceptable]
 
-### Consequences
-- **Positive**: [Benefits we gain]
-- **Negative**: [Costs/risks we accept]
-- **Mitigation**: [How we'll address negatives]
+### Consecuencias
+- **Positivo**: [Beneficios que ganamos]
+- **Negativo**: [Costos/riesgos que aceptamos]
+- **Mitigación**: [Cómo abordaremos los negativos]
 
-### Revisit Trigger
-- [When to reconsider this decision]
+### Trigger de Revisión
+- [Cuándo reconsiderar esta decisión]
 ```
 
-## ADR Template
+## Template ADR
 
 ```markdown
-# ADR-[XXX]: [Decision Title]
+# ADR-[XXX]: [Título de Decisión]
 
-## Status
+## Estado
 Proposed | Accepted | Deprecated | Superseded by [ADR-YYY]
 
-## Context
-[What problem? What constraints?]
+## Contexto
+[¿Qué problema? ¿Qué restricciones?]
 
-## Decision
-[What we chose - be specific]
+## Decisión
+[Qué elegimos - ser específico]
 
-## Rationale
-[Why - tie to requirements and constraints]
+## Razonamiento
+[Por qué - vincular a requisitos y restricciones]
 
 ## Trade-offs
-[What we're giving up - be honest]
+[Qué estamos cediendo - ser honesto]
 
-## Consequences
-- **Positive**: [Benefits]
-- **Negative**: [Costs]
-- **Mitigation**: [How to address]
+## Consecuencias
+- **Positivo**: [Beneficios]
+- **Negativo**: [Costos]
+- **Mitigación**: [Cómo abordar]
 ```
 
-## ADR Storage
+## Almacenamiento de ADR
 
 ```
 docs/
 └── architecture/
-    ├── adr-001-use-nextjs.md
-    ├── adr-002-postgresql-over-mongodb.md
-    └── adr-003-adopt-repository-pattern.md
+    ├── adr-001-usar-nextjs.md
+    ├── adr-002-postgresql-sobre-mongodb.md
+    └── adr-003-adoptar-patron-repository.md
 ```

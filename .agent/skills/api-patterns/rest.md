@@ -1,40 +1,40 @@
-# REST Principles
+# Principios REST
 
-> Resource-based API design - nouns not verbs.
+> Diseño de API basado en recursos - sustantivos no verbos.
 
-## Resource Naming Rules
+## Reglas de Nombres de Recursos
 
 ```
-Principles:
-├── Use NOUNS, not verbs (resources, not actions)
-├── Use PLURAL forms (/users not /user)
-├── Use lowercase with hyphens (/user-profiles)
-├── Nest for relationships (/users/123/posts)
-└── Keep shallow (max 3 levels deep)
+Principios:
+├── Usar SUSTANTIVOS, no verbos (recursos, no acciones)
+├── Usar formas PLURALES (/users no /user)
+├── Usar minúsculas con guiones (/user-profiles)
+├── Anidar para relaciones (/users/123/posts)
+└── Mantener superficial (máx 3 niveles de profundidad)
 ```
 
-## HTTP Method Selection
+## Selección de Método HTTP
 
-| Method | Purpose | Idempotent? | Body? |
+| Método | Propósito | Idempotente? | Body? |
 |--------|---------|-------------|-------|
-| **GET** | Read resource(s) | Yes | No |
-| **POST** | Create new resource | No | Yes |
-| **PUT** | Replace entire resource | Yes | Yes |
-| **PATCH** | Partial update | No | Yes |
-| **DELETE** | Remove resource | Yes | No |
+| **GET** | Leer recurso(s) | Sí | No |
+| **POST** | Crear nuevo recurso | No | Sí |
+| **PUT** | Reemplazar recurso completo | Sí | Sí |
+| **PATCH** | Actualización parcial | No | Sí |
+| **DELETE** | Eliminar recurso | Sí | No |
 
-## Status Code Selection
+## Selección de Código de Estado
 
-| Situation | Code | Why |
+| Situación | Código | Por Qué |
 |-----------|------|-----|
-| Success (read) | 200 | Standard success |
-| Created | 201 | New resource created |
-| No content | 204 | Success, nothing to return |
-| Bad request | 400 | Malformed request |
-| Unauthorized | 401 | Missing/invalid auth |
-| Forbidden | 403 | Valid auth, no permission |
-| Not found | 404 | Resource doesn't exist |
-| Conflict | 409 | State conflict (duplicate) |
-| Validation error | 422 | Valid syntax, invalid data |
-| Rate limited | 429 | Too many requests |
-| Server error | 500 | Our fault |
+| Éxito (lectura) | 200 | Éxito estándar |
+| Creado | 201 | Nuevo recurso creado |
+| Sin contenido | 204 | Éxito, nada que retornar |
+| Bad request | 400 | Request malformada |
+| No autorizado | 401 | Auth faltante/inválida |
+| Prohibido | 403 | Auth válida, sin permiso |
+| No encontrado | 404 | Recurso no existe |
+| Conflicto | 409 | Conflicto de estado (duplicado) |
+| Error de validación | 422 | Sintaxis válida, datos inválidos |
+| Rate limited | 429 | Demasiadas requests |
+| Error de servidor | 500 | Nuestra culpa |

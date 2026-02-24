@@ -1,64 +1,64 @@
 ---
-description: Deployment command for production releases. Pre-flight checks and deployment execution.
+description: Comando de despliegue para releases a producción. Checks pre-flight y ejecución de despliegue.
 ---
 
-# /deploy - Production Deployment
+# /deploy - Despliegue a Producción
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Propósito
 
-This command handles production deployment with pre-flight checks, deployment execution, and verification.
-
----
-
-## Sub-commands
-
-```
-/deploy            - Interactive deployment wizard
-/deploy check      - Run pre-deployment checks only
-/deploy preview    - Deploy to preview/staging
-/deploy production - Deploy to production
-/deploy rollback   - Rollback to previous version
-```
+Este comando maneja despliegue a producción con checks pre-flight, ejecución de despliegue y verificación.
 
 ---
 
-## Pre-Deployment Checklist
+## Sub-comandos
 
-Before any deployment:
+```
+/deploy            - Wizard de despliegue interactivo
+/deploy check      - Ejecutar solo checks pre-despliegue
+/deploy preview    - Desplegar a preview/staging
+/deploy production - Desplegar a producción
+/deploy rollback   - Rollback a versión anterior
+```
+
+---
+
+## Checklist Pre-Despliegue
+
+Antes de cualquier despliegue:
 
 ```markdown
-## 🚀 Pre-Deploy Checklist
+## 🚀 Checklist Pre-Deploy
 
-### Code Quality
-- [ ] No TypeScript errors (`npx tsc --noEmit`)
-- [ ] ESLint passing (`npx eslint .`)
-- [ ] All tests passing (`npm test`)
+### Calidad de Código
+- [ ] Sin errores TypeScript (`npx tsc --noEmit`)
+- [ ] ESLint pasando (`npx eslint .`)
+- [ ] Todas las pruebas pasando (`npm test`)
 
-### Security
-- [ ] No hardcoded secrets
-- [ ] Environment variables documented
-- [ ] Dependencies audited (`npm audit`)
+### Seguridad
+- [ ] Sin secretos hardcodeados
+- [ ] Variables de entorno documentadas
+- [ ] Dependencias auditadas (`npm audit`)
 
-### Performance
-- [ ] Bundle size acceptable
-- [ ] No console.log statements
-- [ ] Images optimized
+### Rendimiento
+- [ ] Tamaño de bundle aceptable
+- [ ] Sin declaraciones console.log
+- [ ] Imágenes optimizadas
 
-### Documentation
-- [ ] README updated
-- [ ] CHANGELOG updated
-- [ ] API docs current
+### Documentación
+- [ ] README actualizado
+- [ ] CHANGELOG actualizado
+- [ ] Docs de API actuales
 
-### Ready to deploy? (y/n)
+### ¿Listo para desplegar? (s/n)
 ```
 
 ---
 
-## Deployment Flow
+## Flujo de Despliegue
 
 ```
 ┌─────────────────┐
@@ -67,105 +67,105 @@ Before any deployment:
          │
          ▼
 ┌─────────────────┐
-│  Pre-flight     │
-│  checks         │
+│  Checks         │
+│  pre-flight     │
 └────────┬────────┘
          │
-    Pass? ──No──► Fix issues
+   ¿Pasa? ──No──► Corregir issues
          │
-        Yes
+        Sí
          │
          ▼
 ┌─────────────────┐
-│  Build          │
-│  application    │
+│  Build de       │
+│  aplicación     │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│  Deploy to      │
-│  platform       │
+│  Desplegar a    │
+│  plataforma     │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
 │  Health check   │
-│  & verify       │
+│  y verificar    │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│  ✅ Complete    │
+│  ✅ Completado  │
 └─────────────────┘
 ```
 
 ---
 
-## Output Format
+## Formato de Salida
 
-### Successful Deploy
+### Despliegue Exitoso
 
 ```markdown
-## 🚀 Deployment Complete
+## 🚀 Despliegue Completado
 
-### Summary
-- **Version:** v1.2.3
-- **Environment:** production
-- **Duration:** 47 seconds
-- **Platform:** Vercel
+### Resumen
+- **Versión:** v1.2.3
+- **Entorno:** producción
+- **Duración:** 47 segundos
+- **Plataforma:** Vercel
 
 ### URLs
-- 🌐 Production: https://app.example.com
+- 🌐 Producción: https://app.example.com
 - 📊 Dashboard: https://vercel.com/project
 
-### What Changed
-- Added user profile feature
-- Fixed login bug
-- Updated dependencies
+### Qué Cambió
+- Agregada feature de perfil de usuario
+- Arreglado bug de login
+- Actualizadas dependencias
 
 ### Health Check
-✅ API responding (200 OK)
-✅ Database connected
-✅ All services healthy
+✅ API respondiendo (200 OK)
+✅ Base de datos conectada
+✅ Todos los servicios saludables
 ```
 
-### Failed Deploy
+### Despliegue Fallido
 
 ```markdown
-## ❌ Deployment Failed
+## ❌ Despliegue Fallido
 
 ### Error
-Build failed at step: TypeScript compilation
+Build falló en paso: Compilación TypeScript
 
-### Details
+### Detalles
 ```
 error TS2345: Argument of type 'string' is not assignable...
 ```
 
-### Resolution
-1. Fix TypeScript error in `src/services/user.ts:45`
-2. Run `npm run build` locally to verify
-3. Try `/deploy` again
+### Resolución
+1. Corregir error TypeScript en `src/services/user.ts:45`
+2. Ejecutar `npm run build` localmente para verificar
+3. Intentar `/deploy` de nuevo
 
-### Rollback Available
-Previous version (v1.2.2) is still active.
-Run `/deploy rollback` if needed.
+### Rollback Disponible
+Versión anterior (v1.2.2) sigue activa.
+Ejecutar `/deploy rollback` si es necesario.
 ```
 
 ---
 
-## Platform Support
+## Soporte de Plataformas
 
-| Platform | Command | Notes |
+| Plataforma | Comando | Notas |
 |----------|---------|-------|
-| Vercel | `vercel --prod` | Auto-detected for Next.js |
-| Railway | `railway up` | Needs Railway CLI |
-| Fly.io | `fly deploy` | Needs flyctl |
-| Docker | `docker compose up -d` | For self-hosted |
+| Vercel | `vercel --prod` | Auto-detectado para Next.js |
+| Railway | `railway up` | Necesita Railway CLI |
+| Fly.io | `fly deploy` | Necesita flyctl |
+| Docker | `docker compose up -d` | Para self-hosted |
 
 ---
 
-## Examples
+## Ejemplos
 
 ```
 /deploy

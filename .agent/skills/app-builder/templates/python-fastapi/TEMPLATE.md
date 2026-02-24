@@ -1,36 +1,36 @@
 ---
 name: python-fastapi
-description: FastAPI REST API template principles. SQLAlchemy, Pydantic, Alembic.
+description: Principios de plantilla FastAPI REST API. SQLAlchemy, Pydantic, Alembic.
 ---
 
-# FastAPI API Template
+# Plantilla FastAPI API
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Framework | FastAPI |
-| Language | Python 3.11+ |
+| Lenguaje | Python 3.11+ |
 | ORM | SQLAlchemy 2.0 |
-| Validation | Pydantic v2 |
-| Migrations | Alembic |
+| Validación | Pydantic v2 |
+| Migraciones | Alembic |
 | Auth | JWT + passlib |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
-├── alembic/             # Migrations
+nombre-proyecto/
+├── alembic/             # Migraciones
 ├── app/
-│   ├── main.py          # FastAPI app
+│   ├── main.py          # App FastAPI
 │   ├── config.py        # Settings
-│   ├── database.py      # DB connection
-│   ├── models/          # SQLAlchemy models
-│   ├── schemas/         # Pydantic schemas
-│   ├── routers/         # API routes
-│   ├── services/        # Business logic
+│   ├── database.py      # Conexión DB
+│   ├── models/          # Modelos SQLAlchemy
+│   ├── schemas/         # Schemas Pydantic
+│   ├── routers/         # Rutas API
+│   ├── services/        # Lógica de negocio
 │   ├── dependencies/    # DI
 │   └── utils/
 ├── tests/
@@ -40,44 +40,44 @@ project-name/
 
 ---
 
-## Key Concepts
+## Conceptos Clave
 
-| Concept | Description |
+| Concepto | Descripción |
 |---------|-------------|
-| Async | async/await throughout |
+| Async | async/await en todo |
 | Dependency Injection | FastAPI Depends |
-| Pydantic v2 | Validation + serialization |
-| SQLAlchemy 2.0 | Async sessions |
+| Pydantic v2 | Validación + serialización |
+| SQLAlchemy 2.0 | Sesiones async |
 
 ---
 
-## API Structure
+## Estructura API
 
-| Layer | Responsibility |
+| Capa | Responsabilidad |
 |-------|---------------|
-| Routers | HTTP handling |
-| Dependencies | Auth, validation |
-| Services | Business logic |
-| Models | Database entities |
+| Routers | Manejo HTTP |
+| Dependencies | Auth, validación |
+| Services | Lógica de negocio |
+| Models | Entidades de base de datos |
 | Schemas | Request/response |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
 1. `python -m venv venv`
 2. `source venv/bin/activate`
 3. `pip install fastapi uvicorn sqlalchemy alembic pydantic`
-4. Create `.env`
+4. Crear `.env`
 5. `alembic upgrade head`
 6. `uvicorn app.main:app --reload`
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Use async everywhere
-- Pydantic v2 for validation
-- SQLAlchemy 2.0 async sessions
-- Alembic for migrations
-- pytest-asyncio for tests
+- Usar async en todo
+- Pydantic v2 para validación
+| SQLAlchemy 2.0 sesiones async
+- Alembic para migraciones
+- pytest-asyncio para tests

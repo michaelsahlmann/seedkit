@@ -1,16 +1,16 @@
 ---
 name: cli-tool
-description: Node.js CLI tool template principles. Commander.js, interactive prompts.
+description: Principios de plantilla de herramienta CLI Node.js. Commander.js, prompts interactivos.
 ---
 
-# CLI Tool Template
+# Plantilla CLI Tool
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Runtime | Node.js 20+ |
-| Language | TypeScript |
+| Lenguaje | TypeScript |
 | CLI Framework | Commander.js |
 | Prompts | Inquirer.js |
 | Output | chalk + ora |
@@ -18,59 +18,59 @@ description: Node.js CLI tool template principles. Commander.js, interactive pro
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── src/
-│   ├── index.ts         # Entry point
-│   ├── cli.ts           # CLI setup
-│   ├── commands/        # Command handlers
+│   ├── index.ts         # Punto de entrada
+│   ├── cli.ts           # Setup CLI
+│   ├── commands/        # Handlers de comandos
 │   ├── lib/
-│   │   ├── config.ts    # Config loader
-│   │   └── logger.ts    # Styled output
+│   │   ├── config.ts    # Loader de config
+│   │   └── logger.ts    # Output estilizado
 │   └── types/
 ├── bin/
-│   └── cli.js           # Executable
+│   └── cli.js           # Ejecutable
 └── package.json
 ```
 
 ---
 
-## CLI Design Principles
+## Principios de Diseño CLI
 
-| Principle | Description |
+| Principio | Descripción |
 |-----------|-------------|
-| Subcommands | Group related actions |
-| Options | Flags with defaults |
-| Interactive | Prompts when needed |
-| Non-interactive | Support --yes flags |
+| Subcomandos | Agrupar acciones relacionadas |
+| Opciones | Flags con defaults |
+| Interactivo | Prompts cuando es necesario |
+| No interactivo | Soportar flags --yes |
 
 ---
 
-## Key Components
+## Componentes Clave
 
-| Component | Purpose |
+| Componente | Propósito |
 |-----------|---------|
-| Commander | Command parsing |
-| Inquirer | Interactive prompts |
-| Chalk | Colored output |
+| Commander | Parsing de comandos |
+| Inquirer | Prompts interactivos |
+| Chalk | Output coloreado |
 | Ora | Spinners/loading |
-| Cosmiconfig | Config file discovery |
+| Cosmiconfig | Descubrimiento de archivo de config |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
-1. Create project directory
+1. Crear directorio del proyecto
 2. `npm init -y`
-3. Install deps: `npm install commander @inquirer/prompts chalk ora cosmiconfig`
-4. Configure bin in package.json
-5. `npm link` for local testing
+3. Instalar deps: `npm install commander @inquirer/prompts chalk ora cosmiconfig`
+4. Configurar bin en package.json
+5. `npm link` para testing local
 
 ---
 
-## Publishing
+## Publicación
 
 ```bash
 npm login
@@ -79,10 +79,10 @@ npm publish
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Provide helpful error messages
-- Support both interactive and non-interactive modes
-- Use consistent output styling
-- Validate inputs with Zod
-- Exit with proper codes (0 success, 1 error)
+- Proveer mensajes de error útiles
+- Soportar modos interactivo y no interactivo
+- Usar estilizado de output consistente
+- Validar inputs con Zod
+- Exit con códigos apropiados (0 éxito, 1 error)

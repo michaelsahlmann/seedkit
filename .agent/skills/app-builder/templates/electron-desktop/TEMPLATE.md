@@ -1,35 +1,35 @@
 ---
 name: electron-desktop
-description: Electron desktop app template principles. Cross-platform, React, TypeScript.
+description: Principios de plantilla de app desktop Electron. Cross-platform, React, TypeScript.
 ---
 
-# Electron Desktop App Template
+# Plantilla Electron Desktop App
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Framework | Electron 28+ |
 | UI | React 18 |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
+| Lenguaje | TypeScript |
+| Estilos | Tailwind CSS |
 | Bundler | Vite + electron-builder |
-| IPC | Type-safe communication |
+| IPC | Comunicación type-safe |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── electron/
-│   ├── main.ts          # Main process
-│   ├── preload.ts       # Preload script
-│   └── ipc/             # IPC handlers
+│   ├── main.ts          # Proceso main
+│   ├── preload.ts       # Script preload
+│   └── ipc/             # Handlers IPC
 ├── src/
 │   ├── App.tsx
 │   ├── components/
-│   │   ├── TitleBar.tsx # Custom title bar
+│   │   ├── TitleBar.tsx # Barra de título custom
 │   │   └── ...
 │   └── hooks/
 ├── public/
@@ -38,40 +38,40 @@ project-name/
 
 ---
 
-## Process Model
+## Modelo de Procesos
 
-| Process | Role |
+| Proceso | Rol |
 |---------|------|
-| Main | Node.js, system access |
-| Renderer | Chromium, React UI |
+| Main | Node.js, acceso sistema |
+| Renderer | Chromium, UI React |
 | Preload | Bridge, context isolation |
 
 ---
 
-## Key Concepts
+## Conceptos Clave
 
-| Concept | Purpose |
+| Concepto | Propósito |
 |---------|---------|
-| contextBridge | Safe API exposure |
-| ipcMain/ipcRenderer | Process communication |
-| nodeIntegration: false | Security |
-| contextIsolation: true | Security |
+| contextBridge | Exposición segura de API |
+| ipcMain/ipcRenderer | Comunicación entre procesos |
+| nodeIntegration: false | Seguridad |
+| contextIsolation: true | Seguridad |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
 1. `npm create vite {{name}} -- --template react-ts`
-2. Install: `npm install -D electron electron-builder vite-plugin-electron`
-3. Create electron/ directory
-4. Configure main process
+2. Instalar: `npm install -D electron electron-builder vite-plugin-electron`
+3. Crear directorio electron/
+4. Configurar proceso main
 5. `npm run electron:dev`
 
 ---
 
-## Build Targets
+## Targets de Build
 
-| Platform | Output |
+| Plataforma | Output |
 |----------|--------|
 | Windows | NSIS, Portable |
 | macOS | DMG, ZIP |
@@ -79,10 +79,10 @@ project-name/
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Use preload script for main/renderer bridge
-- Type-safe IPC with typed handlers
-- Custom title bar for native feel
-- Handle window state (maximize, minimize)
-- Auto-updates with electron-updater
+- Usar script preload para bridge main/renderer
+- IPC type-safe con handlers tipados
+- Barra de título custom para feel nativo
+| Manejar estado de ventana (maximize, minimize)
+- Auto-updates con electron-updater

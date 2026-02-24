@@ -1,23 +1,23 @@
-# Tech Stack Selection (2026)
+# Selección de Stack Tech (2026)
 
-> Default and alternative technology choices for web applications.
+> Tecnologías default y alternativas para aplicaciones web.
 
-## Default Stack (Web App - 2026)
+## Stack Default (Web App - 2026)
 
 ```yaml
 Frontend:
-  framework: Next.js 16 (Stable)
+  framework: Next.js 16 (Estable)
   language: TypeScript 5.7+
   styling: Tailwind CSS v4
   state: React 19 Actions / Server Components
-  bundler: Turbopack (Stable for Dev)
+  bundler: Turbopack (Estable para Dev)
 
 Backend:
   runtime: Node.js 23
-  framework: Next.js API Routes / Hono (for Edge)
+  framework: Next.js API Routes / Hono (para Edge)
   validation: Zod / TypeBox
 
-Database:
+Base de Datos:
   primary: PostgreSQL
   orm: Prisma / Drizzle
   hosting: Supabase / Neon
@@ -29,12 +29,12 @@ Monorepo:
   tool: Turborepo 2.0
 ```
 
-## Alternative Options
+## Opciones Alternativas
 
-| Need | Default | Alternative |
+| Necesidad | Default | Alternativa |
 |------|---------|-------------|
-| Real-time | - | Supabase Realtime, Socket.io |
-| File storage | - | Cloudinary, S3 |
-| Payment | Stripe | LemonSqueezy, Paddle |
+| Tiempo real | - | Supabase Realtime, Socket.io |
+| Almacenamiento de archivos | - | Cloudinary, S3 |
+| Pagos | Stripe | LemonSqueezy, Paddle |
 | Email | - | Resend, SendGrid |
-| Search | - | Algolia, Typesense |
+| Búsqueda | - | Algolia, Typesense |

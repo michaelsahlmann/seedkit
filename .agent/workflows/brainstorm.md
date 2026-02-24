@@ -1,113 +1,113 @@
 ---
-description: Structured brainstorming for projects and features. Explores multiple options before implementation.
+description: Brainstorming estructurado para proyectos y features. Explora múltiples opciones antes de la implementación.
 ---
 
-# /brainstorm - Structured Idea Exploration
+# /brainstorm - Exploración Estructurada de Ideas
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Propósito
 
-This command activates BRAINSTORM mode for structured idea exploration. Use when you need to explore options before committing to an implementation.
-
----
-
-## Behavior
-
-When `/brainstorm` is triggered:
-
-1. **Understand the goal**
-   - What problem are we solving?
-   - Who is the user?
-   - What constraints exist?
-
-2. **Generate options**
-   - Provide at least 3 different approaches
-   - Each with pros and cons
-   - Consider unconventional solutions
-
-3. **Compare and recommend**
-   - Summarize tradeoffs
-   - Give a recommendation with reasoning
+Este comando activa el modo BRAINSTORM para exploración estructurada de ideas. Usar cuando necesites explorar opciones antes de comprometerte con una implementación.
 
 ---
 
-## Output Format
+## Comportamiento
+
+Cuando `/brainstorm` es activado:
+
+1. **Entender el objetivo**
+   - ¿Qué problema estamos resolviendo?
+   - ¿Quién es el usuario?
+   - ¿Qué restricciones existen?
+
+2. **Generar opciones**
+   - Proveer al menos 3 enfoques diferentes
+   - Cada uno con pros y contras
+   - Considerar soluciones no convencionales
+
+3. **Comparar y recomendar**
+   - Resumir tradeoffs
+   - Dar una recomendación con razonamiento
+
+---
+
+## Formato de Salida
 
 ```markdown
-## 🧠 Brainstorm: [Topic]
+## 🧠 Brainstorm: [Tema]
 
-### Context
-[Brief problem statement]
+### Contexto
+[Declaración breve del problema]
 
 ---
 
-### Option A: [Name]
-[Description]
+### Opción A: [Nombre]
+[Descripción]
 
 ✅ **Pros:**
-- [benefit 1]
-- [benefit 2]
+- [beneficio 1]
+- [beneficio 2]
 
-❌ **Cons:**
-- [drawback 1]
+❌ **Contras:**
+- [desventaja 1]
 
-📊 **Effort:** Low | Medium | High
+📊 **Esfuerzo:** Bajo | Medio | Alto
 
 ---
 
-### Option B: [Name]
-[Description]
+### Opción B: [Nombre]
+[Descripción]
 
 ✅ **Pros:**
-- [benefit 1]
+- [beneficio 1]
 
-❌ **Cons:**
-- [drawback 1]
-- [drawback 2]
+❌ **Contras:**
+- [desventaja 1]
+- [desventaja 2]
 
-📊 **Effort:** Low | Medium | High
+📊 **Esfuerzo:** Bajo | Medio | Alto
 
 ---
 
-### Option C: [Name]
-[Description]
+### Opción C: [Nombre]
+[Descripción]
 
 ✅ **Pros:**
-- [benefit 1]
+- [beneficio 1]
 
-❌ **Cons:**
-- [drawback 1]
+❌ **Contras:**
+- [desventaja 1]
 
-📊 **Effort:** Low | Medium | High
+📊 **Esfuerzo:** Bajo | Medio | Alto
 
 ---
 
-## 💡 Recommendation
+## 💡 Recomendación
 
-**Option [X]** because [reasoning].
+**Opción [X]** porque [razonamiento].
 
-What direction would you like to explore?
+¿Qué dirección te gustaría explorar?
 ```
 
 ---
 
-## Examples
+## Ejemplos
 
 ```
-/brainstorm authentication system
-/brainstorm state management for complex form
-/brainstorm database schema for social app
-/brainstorm caching strategy
+/brainstorm sistema de autenticación
+/brainstorm gestión de estado para formulario complejo
+/brainstorm esquema de base de datos para app social
+/brainstorm estrategia de caché
 ```
 
 ---
 
-## Key Principles
+## Principios Clave
 
-- **No code** - this is about ideas, not implementation
-- **Visual when helpful** - use diagrams for architecture
-- **Honest tradeoffs** - don't hide complexity
-- **Defer to user** - present options, let them decide
+- **Sin código** - esto es sobre ideas, no implementación
+- **Visual cuando ayude** - usar diagramas para arquitectura
+- **Tradeoffs honestos** - no ocultar complejidad
+- **Diferir al usuario** - presentar opciones, dejar que decida

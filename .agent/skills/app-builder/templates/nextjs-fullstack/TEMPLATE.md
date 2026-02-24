@@ -1,47 +1,47 @@
 ---
 name: nextjs-fullstack
-description: Next.js full-stack template principles. App Router, Prisma, Tailwind v4.
+description: Principios de plantilla Next.js full-stack. App Router, Prisma, Tailwind v4.
 ---
 
-# Next.js Full-Stack Template (2026 Edition)
+# Plantilla Next.js Full-Stack (Edición 2026)
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology | Version / Notes |
+| Componente | Tecnología | Versión / Notas |
 |-----------|------------|-----------------|
 | Framework | Next.js | v16+ (App Router, Turbopack) |
-| Language | TypeScript | v5+ (Strict Mode) |
-| Database | PostgreSQL | Prisma ORM (Serverless friendly) |
-| Styling | Tailwind CSS | v4.0 (Zero-config, CSS-first) |
-| Auth | Clerk / Better Auth | Middleware Protected Routes |
+| Lenguaje | TypeScript | v5+ (Strict Mode) |
+| Base de Datos | PostgreSQL | Prisma ORM (Serverless friendly) |
+| Estilos | Tailwind CSS | v4.0 (Zero-config, CSS-first) |
+| Auth | Clerk / Better Auth | Rutas Protegidas por Middleware |
 | UI Logic | React 19 | Server Actions, useActionState |
-| Validation | Zod | Schema validation (API & Forms) |
+| Validación | Zod | Schema validation (API & Forms) |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── prisma/
-│   └── schema.prisma       # Database schema
+│   └── schema.prisma       # Schema de base de datos
 ├── src/
 │   ├── app/
-│   │   ├── (auth)/         # Route groups for Login/Register
-│   │   ├── (dashboard)/    # Protected routes
-│   │   ├── api/            # Route Handlers (only for Webhooks/External integration)
+│   │   ├── (auth)/         # Route groups para Login/Register
+│   │   ├── (dashboard)/    # Rutas protegidas
+│   │   ├── api/            # Route Handlers (solo para Webhooks/Integración externa)
 │   │   ├── layout.tsx      # Root Layout (Metadata, Providers)
 │   │   ├── page.tsx        # Landing Page
-│   │   └── globals.css     # Tailwind v4 config (@theme) lives here
+│   │   └── globals.css     # Config Tailwind v4 (@theme) vive aquí
 │   ├── components/
-│   │   ├── ui/             # Reusable UI (Button, Input)
-│   │   └── forms/          # Client forms using useActionState
+│   │   ├── ui/             # UI Reutilizable (Button, Input)
+│   │   └── forms/          # Formularios client usando useActionState
 │   ├── lib/
-│   │   ├── db.ts           # Prisma singleton client
-│   │   ├── utils.ts        # Helper functions
-│   │   └── dal.ts          # Data Access Layer (Server-only)
+│   │   ├── db.ts           # Cliente singleton Prisma
+│   │   ├── utils.ts        # Funciones helper
+│   │   └── dal.ts          # Data Access Layer (Solo-Servidor)
 │   ├── actions/            # Server Actions (Mutations)
-│   └── types/              # Global TS Types
+│   └── types/              # Tipos TS Globales
 ├── public/
 ├── next.config.ts          # TypeScript Config
 └── package.json
@@ -49,46 +49,46 @@ project-name/
 
 ---
 
-## Key Concepts (Updated)
+## Conceptos Clave (Actualizado)
 
-| Concept | Description |
+| Concepto | Descripción |
 |---------|-------------|
-| Server Components | Render on server (default). Direct DB access (Prisma) without APIs. |
-| Server Actions | Handle Form mutations. Replaces traditional API Routes. Use in action={}. |
-| React 19 Hooks | Form state management: useActionState, useFormStatus, useOptimistic. |
-| Data Access Layer | Data security. Separation of DB logic (DTOs) for safe reuse. |
-| Tailwind v4 | Styling engine. No tailwind.config.js. Config directly in CSS. |
+| Server Components | Render en servidor (default). Acceso directo a DB (Prisma) sin APIs. |
+| Server Actions | Manejar mutations de Form. Reemplaza API Routes tradicionales. Usar en action={}. |
+| React 19 Hooks | Manejo de estado de form: useActionState, useFormStatus, useOptimistic. |
+| Data Access Layer | Seguridad de datos. Separación de lógica DB (DTOs) para reuso seguro. |
+| Tailwind v4 | Motor de estilos. No tailwind.config.js. Config directamente en CSS. |
 
 ---
 
-## Environment Variables
+## Variables de Entorno
 
-| Variable | Purpose |
+| Variable | Propósito |
 |----------|---------|
-| DATABASE_URL | PostgreSQL connection string (Prisma) |
-| NEXT_PUBLIC_APP_URL | Public application URL |
-| NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY | Auth (if using Clerk) |
-| CLERK_SECRET_KEY | Auth Secret (Server only) |
+| DATABASE_URL | String de conexión PostgreSQL (Prisma) |
+| NEXT_PUBLIC_APP_URL | URL pública de la aplicación |
+| NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY | Auth (si usa Clerk) |
+| CLERK_SECRET_KEY | Auth Secret (Solo Servidor) |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
-1. Initialize Project:
+1. Inicializar Proyecto:
    ```bash
    npx create-next-app@latest my-app --typescript --tailwind --eslint
-   # Select Yes for App Router
-   # Select No for src directory (optional, this template uses src)
+   # Seleccionar Sí para App Router
+   # Seleccionar No para directorio src (opcional, esta plantilla usa src)
    ```
 
-2. Install DB & Validation:
+2. Instalar DB y Validación:
    ```bash
    npm install prisma @prisma/client zod
-   npm install -D ts-node # For running seed scripts
+   npm install -D ts-node # Para ejecutar scripts seed
    ```
 
-3. Configure Tailwind v4 (If missing):
-   Ensure `src/app/globals.css` uses the new import syntax instead of a config file:
+3. Configurar Tailwind v4 (Si falta):
+   Asegurar que `src/app/globals.css` use la nueva sintaxis de import en vez de config file:
    ```css
    @import "tailwindcss";
 
@@ -98,25 +98,25 @@ project-name/
    }
    ```
 
-4. Initialize Database:
+4. Inicializar Base de Datos:
    ```bash
    npx prisma init
-   # Update schema.prisma
+   # Actualizar schema.prisma
    npm run db:push
    ```
 
-5. Run Developer Server:
+5. Ejecutar Servidor de Desarrollo:
    ```bash
    npm run dev --turbo
-   # --turbo to enable faster Turbopack
+   # --turbo para habilitar Turbopack más rápido
    ```
 
 ---
 
-## Best Practices (2026 Standards)
+## Mejores Prácticas (Estándares 2026)
 
-- **Fetch Data**: Call Prisma directly in Server Components (async/await). Do not use useEffect for initial data fetching.
-- **Mutations**: Use Server Actions combined with React 19's `useActionState` to handle loading and error states instead of manual useState.
-- **Type Safety**: Share Zod schemas between Server Actions (input validation) and Client Forms.
-- **Security**: Always validate input data with Zod before passing it to Prisma.
-- **Styling**: Use native CSS variables in Tailwind v4 for easier dynamic theming.
+- **Fetch Data**: Llamar Prisma directamente en Server Components (async/await). No usar useEffect para data fetching inicial.
+- **Mutations**: Usar Server Actions combinados con `useActionState` de React 19 para manejar estados de loading y error en vez de useState manual.
+- **Type Safety**: Compartir schemas Zod entre Server Actions (validación input) y Client Forms.
+- **Seguridad**: Siempre validar input data con Zod antes de pasarlo a Prisma.
+- **Estilos**: Usar variables CSS nativas en Tailwind v4 para theming dinámico más fácil.

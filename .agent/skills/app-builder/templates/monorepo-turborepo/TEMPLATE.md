@@ -1,35 +1,35 @@
 ---
 name: monorepo-turborepo
-description: Turborepo monorepo template principles. pnpm workspaces, shared packages.
+description: Principios de plantilla de monorepo Turborepo. pnpm workspaces, paquetes compartidos.
 ---
 
-# Turborepo Monorepo Template
+# Plantilla Turborepo Monorepo
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Build System | Turborepo |
 | Package Manager | pnpm |
 | Apps | Next.js, Express |
 | Packages | Shared UI, Config, Types |
-| Language | TypeScript |
+| Lenguaje | TypeScript |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── apps/
-│   ├── web/             # Next.js app
+│   ├── web/             # App Next.js
 │   ├── api/             # Express API
-│   └── docs/            # Documentation
+│   └── docs/            # Documentación
 ├── packages/
-│   ├── ui/              # Shared components
+│   ├── ui/              # Componentes compartidos
 │   ├── config/          # ESLint, TS, Tailwind
-│   ├── types/           # Shared types
-│   └── utils/           # Shared utilities
+│   ├── types/           # Tipos compartidos
+│   └── utils/           # Utilidades compartidas
 ├── turbo.json
 ├── pnpm-workspace.yaml
 └── package.json
@@ -37,54 +37,54 @@ project-name/
 
 ---
 
-## Key Concepts
+## Conceptos Clave
 
-| Concept | Description |
+| Concepto | Descripción |
 |---------|-------------|
 | Workspaces | pnpm-workspace.yaml |
-| Pipeline | turbo.json task graph |
-| Caching | Remote/local task caching |
-| Dependencies | `workspace:*` protocol |
+| Pipeline | Grafo de tareas turbo.json |
+| Caching | Caché de tareas remote/local |
+| Dependencies | Protocolo `workspace:*` |
 
 ---
 
-## Turbo Pipeline
+## Pipeline Turbo
 
-| Task | Depends On |
+| Tarea | Depende De |
 |------|------------|
-| build | ^build (dependencies first) |
+| build | ^build (dependencias primero) |
 | dev | cache: false, persistent |
 | lint | ^build |
 | test | ^build |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
-1. Create root directory
+1. Crear directorio raíz
 2. `pnpm init`
-3. Create pnpm-workspace.yaml
-4. Create turbo.json
-5. Add apps and packages
+3. Crear pnpm-workspace.yaml
+4. Crear turbo.json
+5. Agregar apps y packages
 6. `pnpm install`
 7. `pnpm dev`
 
 ---
 
-## Common Commands
+## Comandos Comunes
 
-| Command | Description |
+| Comando | Descripción |
 |---------|-------------|
-| `pnpm dev` | Run all apps |
-| `pnpm build` | Build all |
-| `pnpm --filter @name/web dev` | Run specific app |
-| `pnpm --filter @name/web add axios` | Add dep to app |
+| `pnpm dev` | Ejecutar todas las apps |
+| `pnpm build` | Build de todo |
+| `pnpm --filter @name/web dev` | Ejecutar app específica |
+| `pnpm --filter @name/web add axios` | Agregar dep a app |
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Shared configs in packages/config
-- Shared types in packages/types
-- Internal packages with `workspace:*`
-- Use Turbo remote caching for CI
+- Configs compartidos en packages/config
+- Tipos compartidos en packages/types
+- Paquetes internos con `workspace:*`
+- Usar Turbo remote caching para CI

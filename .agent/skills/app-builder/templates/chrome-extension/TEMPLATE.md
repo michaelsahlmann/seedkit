@@ -1,36 +1,36 @@
 ---
 name: chrome-extension
-description: Chrome Extension template principles. Manifest V3, React, TypeScript.
+description: Principios de plantilla de Chrome Extension. Manifest V3, React, TypeScript.
 ---
 
-# Chrome Extension Template
+# Plantilla Chrome Extension
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Manifest | V3 |
 | UI | React 18 |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
+| Lenguaje | TypeScript |
+| Estilos | Tailwind CSS |
 | Bundler | Vite |
 | Storage | Chrome Storage API |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── src/
-│   ├── popup/           # Extension popup
-│   ├── options/         # Options page
+│   ├── popup/           # Popup de extensión
+│   ├── options/         # Página de opciones
 │   ├── background/      # Service worker
 │   ├── content/         # Content scripts
 │   ├── components/
 │   ├── hooks/
 │   └── lib/
-│       ├── storage.ts   # Chrome storage helpers
+│       ├── storage.ts   # Helpers de Chrome storage
 │       └── messaging.ts # Message passing
 ├── public/
 │   ├── icons/
@@ -40,53 +40,53 @@ project-name/
 
 ---
 
-## Manifest V3 Concepts
+## Conceptos Manifest V3
 
-| Component | Purpose |
+| Componente | Propósito |
 |-----------|---------|
-| Service Worker | Background processing |
-| Content Scripts | Page injection |
-| Popup | User interface |
-| Options Page | Settings |
+| Service Worker | Procesamiento en background |
+| Content Scripts | Inyección en página |
+| Popup | Interfaz de usuario |
+| Options Page | Configuraciones |
 
 ---
 
-## Permissions
+## Permisos
 
-| Permission | Use |
+| Permiso | Uso |
 |------------|-----|
-| storage | Save user data |
-| activeTab | Current tab access |
-| scripting | Inject scripts |
-| host_permissions | Site access |
+| storage | Guardar datos de usuario |
+| activeTab | Acceso a tab actual |
+| scripting | Inyectar scripts |
+| host_permissions | Acceso a sitios |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
 1. `npm create vite {{name}} -- --template react-ts`
-2. Add Chrome types: `npm install -D @types/chrome`
-3. Configure Vite for multi-entry
-4. Create manifest.json
-5. `npm run dev` (watch mode)
-6. Load in Chrome: `chrome://extensions` → Load unpacked
+2. Agregar tipos Chrome: `npm install -D @types/chrome`
+3. Configurar Vite para multi-entry
+4. Crear manifest.json
+5. `npm run dev` (modo watch)
+6. Cargar en Chrome: `chrome://extensions` → Load unpacked
 
 ---
 
-## Development Tips
+## Tips de Desarrollo
 
-| Task | Method |
+| Tarea | Método |
 |------|--------|
-| Debug Popup | Right-click icon → Inspect |
+| Debug Popup | Click derecho icono → Inspect |
 | Debug Background | Extensions page → Service worker |
-| Debug Content | DevTools console on page |
-| Hot Reload | `npm run dev` with watch |
+| Debug Content | DevTools console en página |
+| Hot Reload | `npm run dev` con watch |
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Use type-safe messaging
-- Wrap Chrome APIs in promises
-- Minimize permissions
-- Handle offline gracefully
+- Usar messaging type-safe
+- Envolver Chrome APIs en promises
+- Minimizar permisos
+| Manejar offline graceful

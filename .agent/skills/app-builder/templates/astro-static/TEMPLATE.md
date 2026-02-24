@@ -1,76 +1,76 @@
 ---
 name: astro-static
-description: Astro static site template principles. Content-focused websites, blogs, documentation.
+description: Principios de plantilla de sitio estático Astro. Sitios web enfocados en contenido, blogs, documentación.
 ---
 
-# Astro Static Site Template
+# Plantilla Astro Static Site
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Framework | Astro 4.x |
-| Content | MDX + Content Collections |
-| Styling | Tailwind CSS |
-| Integrations | Sitemap, RSS, SEO |
+| Contenido | MDX + Content Collections |
+| Estilos | Tailwind CSS |
+| Integraciones | Sitemap, RSS, SEO |
 | Output | Static/SSG |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── src/
-│   ├── components/      # .astro components
-│   ├── content/         # MDX content
+│   ├── components/      # Componentes .astro
+│   ├── content/         # Contenido MDX
 │   │   ├── blog/
-│   │   └── config.ts    # Collection schemas
-│   ├── layouts/         # Page layouts
-│   ├── pages/           # File-based routing
+│   │   └── config.ts    # Schemas de Collection
+│   ├── layouts/         # Layouts de página
+│   ├── pages/           # Routing basado en archivos
 │   └── styles/
-├── public/              # Static assets
+├── public/              # Assets estáticos
 ├── astro.config.mjs
 └── package.json
 ```
 
 ---
 
-## Key Concepts
+## Conceptos Clave
 
-| Concept | Description |
+| Concepto | Descripción |
 |---------|-------------|
-| Content Collections | Type-safe content with Zod schemas |
-| Islands Architecture | Partial hydration for interactivity |
-| Zero JS by default | Static HTML unless needed |
-| MDX Support | Markdown with components |
+| Content Collections | Contenido type-safe con schemas Zod |
+| Islands Architecture | Hidratación parcial para interactividad |
+| Zero JS por defecto | HTML estático a menos que se necesite |
+| Soporte MDX | Markdown con componentes |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
 1. `npm create astro@latest {{name}}`
-2. Add integrations: `npx astro add mdx tailwind sitemap`
-3. Configure `astro.config.mjs`
-4. Create content collections
+2. Agregar integraciones: `npx astro add mdx tailwind sitemap`
+3. Configurar `astro.config.mjs`
+4. Crear content collections
 5. `npm run dev`
 
 ---
 
-## Deployment
+## Despliegue
 
-| Platform | Method |
+| Plataforma | Método |
 |----------|--------|
-| Vercel | Auto-detected |
-| Netlify | Auto-detected |
-| Cloudflare Pages | Auto-detected |
+| Vercel | Auto-detectado |
+| Netlify | Auto-detectado |
+| Cloudflare Pages | Auto-detectado |
 | GitHub Pages | Build + deploy action |
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Use Content Collections for type safety
-- Leverage static generation
-- Add islands only where needed
-- Optimize images with Astro Image
+- Usar Content Collections para type safety
+- Aprovechar generación estática
+- Agregar islands solo donde sea necesario
+- Optimizar imágenes con Astro Image

@@ -1,112 +1,112 @@
 ---
-description: Test generation and test running command. Creates and executes tests for code.
+description: Comando de generación y ejecución de pruebas. Crea y ejecuta pruebas para código.
 ---
 
-# /test - Test Generation and Execution
+# /test - Generación y Ejecución de Pruebas
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Propósito
 
-This command generates tests, runs existing tests, or checks test coverage.
+Este comando genera pruebas, ejecuta pruebas existentes o verifica cobertura de pruebas.
 
 ---
 
-## Sub-commands
+## Sub-comandos
 
 ```
-/test                - Run all tests
-/test [file/feature] - Generate tests for specific target
-/test coverage       - Show test coverage report
-/test watch          - Run tests in watch mode
+/test                - Ejecutar todas las pruebas
+/test [archivo/feature] - Generar pruebas para objetivo específico
+/test coverage       - Mostrar reporte de cobertura de pruebas
+/test watch          - Ejecutar pruebas en modo watch
 ```
 
 ---
 
-## Behavior
+## Comportamiento
 
-### Generate Tests
+### Generar Pruebas
 
-When asked to test a file or feature:
+Cuando se pide probar un archivo o feature:
 
-1. **Analyze the code**
-   - Identify functions and methods
-   - Find edge cases
-   - Detect dependencies to mock
+1. **Analizar el código**
+   - Identificar funciones y métodos
+   - Encontrar casos límite
+   - Detectar dependencias a mockear
 
-2. **Generate test cases**
-   - Happy path tests
-   - Error cases
-   - Edge cases
-   - Integration tests (if needed)
+2. **Generar casos de prueba**
+   - Pruebas de happy path
+   - Casos de error
+   - Casos límite
+   - Pruebas de integración (si es necesario)
 
-3. **Write tests**
-   - Use project's test framework (Jest, Vitest, etc.)
-   - Follow existing test patterns
-   - Mock external dependencies
+3. **Escribir pruebas**
+   - Usar framework de pruebas del proyecto (Jest, Vitest, etc.)
+   - Seguir patrones de prueba existentes
+   - Mockear dependencias externas
 
 ---
 
-## Output Format
+## Formato de Salida
 
-### For Test Generation
+### Para Generación de Pruebas
 
 ```markdown
-## 🧪 Tests: [Target]
+## 🧪 Pruebas: [Objetivo]
 
-### Test Plan
-| Test Case | Type | Coverage |
+### Plan de Pruebas
+| Caso de Prueba | Tipo | Cobertura |
 |-----------|------|----------|
 | Should create user | Unit | Happy path |
-| Should reject invalid email | Unit | Validation |
-| Should handle db error | Unit | Error case |
+| Should reject invalid email | Unit | Validación |
+| Should handle db error | Unit | Caso de error |
 
-### Generated Tests
+### Pruebas Generadas
 
-`tests/[file].test.ts`
+`tests/[archivo].test.ts`
 
-[Code block with tests]
+[Bloque de código con pruebas]
 
 ---
 
-Run with: `npm test`
+Ejecutar con: `npm test`
 ```
 
-### For Test Execution
+### Para Ejecución de Pruebas
 
 ```
-🧪 Running tests...
+🧪 Ejecutando pruebas...
 
-✅ auth.test.ts (5 passed)
-✅ user.test.ts (8 passed)
-❌ order.test.ts (2 passed, 1 failed)
+✅ auth.test.ts (5 pasaron)
+✅ user.test.ts (8 pasaron)
+❌ order.test.ts (2 pasaron, 1 falló)
 
-Failed:
+Falló:
   ✗ should calculate total with discount
-    Expected: 90
-    Received: 100
+    Esperado: 90
+    Recibido: 100
 
-Total: 15 tests (14 passed, 1 failed)
+Total: 15 pruebas (14 pasaron, 1 falló)
 ```
 
 ---
 
-## Examples
+## Ejemplos
 
 ```
 /test src/services/auth.service.ts
-/test user registration flow
+/test flujo de registro de usuario
 /test coverage
-/test fix failed tests
+/test arreglar pruebas fallidas
 ```
 
 ---
 
-## Test Patterns
+## Patrones de Prueba
 
-### Unit Test Structure
+### Estructura de Prueba Unitaria
 
 ```typescript
 describe('AuthService', () => {
@@ -135,10 +135,10 @@ describe('AuthService', () => {
 
 ---
 
-## Key Principles
+## Principios Clave
 
-- **Test behavior not implementation**
-- **One assertion per test** (when practical)
-- **Descriptive test names**
-- **Arrange-Act-Assert pattern**
-- **Mock external dependencies**
+- **Probar comportamiento no implementación**
+- **Una aserción por prueba** (cuando sea práctico)
+- **Nombres de prueba descriptivos**
+- **Patrón Arrange-Act-Assert**
+- **Mockear dependencias externas**

@@ -1,119 +1,119 @@
 ---
 name: react-native-app
-description: React Native mobile app template principles. Expo, TypeScript, navigation.
+description: Principios de plantilla de app móvil React Native. Expo, TypeScript, navegación.
 ---
 
-# React Native App Template (2026 Edition)
+# Plantilla React Native App (Edición 2026)
 
-Modern mobile app template, optimized for New Architecture and React 19.
+Plantilla de app móvil moderna, optimizada para New Architecture y React 19.
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology | Version / Notes |
+| Componente | Tecnología | Versión / Notas |
 |-----------|------------|-----------------|
-| Core | React Native + Expo | SDK 52+ (New Architecture Enabled) |
-| Language | TypeScript | v5+ (Strict Mode) |
+| Core | React Native + Expo | SDK 52+ (New Architecture Habilitado) |
+| Lenguaje | TypeScript | v5+ (Strict Mode) |
 | UI Logic | React | v19 (React Compiler, auto-memoization) |
-| Navigation | Expo Router | v4+ (File-based, Universal Links) |
-| Styling | NativeWind | v4.0 (Tailwind v4, CSS-first config) |
-| State | Zustand + React Query | v5+ (Async State Management) |
-| Storage | Expo SecureStore | Encrypted local storage |
+| Navegación | Expo Router | v4+ (File-based, Universal Links) |
+| Estilos | NativeWind | v4.0 (Tailwind v4, config CSS-first) |
+| Estado | Zustand + React Query | v5+ (Async State Management) |
+| Storage | Expo SecureStore | Almacenamiento local encriptado |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
-Standardized structure for Expo Router and NativeWind v4.
+Estructura estandarizada para Expo Router y NativeWind v4.
 
 ```
-project-name/
-├── app/                 # Expo Router (File-based routing)
-│   ├── _layout.tsx      # Root Layout (Stack/Tabs config)
-│   ├── index.tsx        # Main Screen
-│   ├── (tabs)/          # Route Group for Tab Bar
+nombre-proyecto/
+├── app/                 # Expo Router (Routing basado en archivos)
+│   ├── _layout.tsx      # Root Layout (Config Stack/Tabs)
+│   ├── index.tsx        # Pantalla Principal
+│   ├── (tabs)/          # Route Group para Tab Bar
 │   │   ├── _layout.tsx
 │   │   ├── home.tsx
 │   │   └── profile.tsx
-│   ├── +not-found.tsx   # 404 Page
-│   └── [id].tsx         # Dynamic Route (Typed)
+│   ├── +not-found.tsx   # Página 404
+│   └── [id].tsx         # Ruta Dinámica (Tipada)
 ├── components/
-│   ├── ui/              # Primitive Components (Button, Text)
-│   └── features/        # Complex Components
+│   ├── ui/              # Componentes Primitivos (Button, Text)
+│   └── features/        # Componentes Complejos
 ├── hooks/               # Custom Hooks
 ├── lib/
-│   ├── api.ts           # Axios/Fetch client
-│   └── storage.ts       # SecureStore wrapper
-├── store/               # Zustand stores
-├── constants/           # Colors, Theme config
-├── assets/              # Fonts, Images
-├── global.css           # Entry point for NativeWind v4
-├── tailwind.config.ts   # Tailwind Config (if custom theme needed)
-├── babel.config.js      # NativeWind Babel Plugin
+│   ├── api.ts           # Cliente Axios/Fetch
+│   └── storage.ts       # Wrapper SecureStore
+├── store/               # Stores Zustand
+├── constants/           # Colores, Config Theme
+├── assets/              # Fuentes, Imágenes
+├── global.css           # Punto de entrada para NativeWind v4
+├── tailwind.config.ts   # Tailwind Config (si se necesita theme custom)
+├── babel.config.js      # Plugin Babel NativeWind
 └── app.json             # Expo Config
 ```
 
 ---
 
-## Navigation Patterns (Expo Router)
+## Patrones de Navegación (Expo Router)
 
-| Pattern | Description | Implement |
+| Patrón | Descripción | Implementar |
 |---------|-------------|-----------|
-| Stack | Hierarchical navigation (Push/Pop) | `<Stack />` in `_layout.tsx` |
-| Tabs | Bottom navigation bar | `<Tabs />` in `(tabs)/_layout.tsx` |
-| Drawer | Side slide-out menu | `expo-router/drawer` |
-| Modals | Overlay screens | `presentation: 'modal'` in Stack screen |
+| Stack | Navegación jerárquica (Push/Pop) | `<Stack />` en `_layout.tsx` |
+| Tabs | Barra de navegación inferior | `<Tabs />` en `(tabs)/_layout.tsx` |
+| Drawer | Menú lateral deslizante | `expo-router/drawer` |
+| Modals | Pantallas overlay | `presentation: 'modal'` en Stack screen |
 
 ---
 
-## Key Packages & Purpose
+## Paquetes Clave y Propósito
 
-| Package | Purpose |
+| Paquete | Propósito |
 |---------|---------|
-| expo-router | File-based routing (Next.js like) |
-| nativewind | Use Tailwind CSS classes in React Native |
-| react-native-reanimated | Smooth animations (runs on UI thread) |
-| @tanstack/react-query | Server state management, caching, pre-fetching |
-| zustand | Global state management (lighter than Redux) |
-| expo-image | Optimized image rendering for performance |
+| expo-router | Routing basado en archivos (tipo Next.js) |
+| nativewind | Usar clases Tailwind CSS en React Native |
+| react-native-reanimated | Animaciones suaves (corre en UI thread) |
+| @tanstack/react-query | Manejo de estado server, caché, pre-fetching |
+| zustand | Manejo de estado global (más ligero que Redux) |
+| expo-image | Render de imágenes optimizado para rendimiento |
 
 ---
 
-## Setup Steps (2026 Standard)
+## Pasos de Setup (Estándar 2026)
 
-1. Initialize Project:
+1. Inicializar Proyecto:
    ```bash
    npx create-expo-app@latest my-app --template default
    cd my-app
    ```
 
-2. Install Core Dependencies:
+2. Instalar Dependencias Core:
    ```bash
    npx expo install expo-router react-native-safe-area-context react-native-screens expo-link expo-constants expo-status-bar
    ```
 
-3. Install NativeWind v4:
+3. Instalar NativeWind v4:
    ```bash
    npm install nativewind tailwindcss react-native-reanimated
    ```
 
-4. Configure NativeWind (Babel & CSS):
-   - Add plugin to `babel.config.js`: `plugins: ["nativewind/babel"]`.
-   - Create `global.css` with: `@import "tailwindcss";`.
-   - Import `global.css` in `app/_layout.tsx`.
+4. Configurar NativeWind (Babel y CSS):
+   - Agregar plugin a `babel.config.js`: `plugins: ["nativewind/babel"]`.
+   - Crear `global.css` con: `@import "tailwindcss";`.
+   - Importar `global.css` en `app/_layout.tsx`.
 
-5. Run Project:
+5. Ejecutar Proyecto:
    ```bash
    npx expo start -c
-   # Press 'i' for iOS simulator or 'a' for Android emulator
+   # Presionar 'i' para simulador iOS o 'a' para emulador Android
    ```
 
 ---
 
-## Best Practices (Updated)
+## Mejores Prácticas (Actualizado)
 
-- **New Architecture**: Ensure `newArchEnabled: true` in `app.json` to leverage TurboModules and Fabric Renderer.
-- **Typed Routes**: Use Expo Router's "Typed Routes" feature for type-safe routing (e.g., `router.push('/path')`).
-- **React 19**: Reduce usage of `useMemo` or `useCallback` thanks to React Compiler (if enabled).
-- **Components**: Build UI primitives (Box, Text) with NativeWind className for reusability.
-- **Assets**: Use `expo-image` instead of default `<Image />` for better caching and performance.
-- **API**: Always wrap API calls with TanStack Query, avoid direct calls in `useEffect`.
+- **New Architecture**: Asegurar `newArchEnabled: true` en `app.json` para aprovechar TurboModules y Fabric Renderer.
+- **Typed Routes**: Usar feature "Typed Routes" de Expo Router para routing type-safe (ej. `router.push('/path')`).
+- **React 19**: Reducir uso de `useMemo` o `useCallback` gracias a React Compiler (si está habilitado).
+- **Componentes**: Construir primitivas UI (Box, Text) con NativeWind className para reutilización.
+- **Assets**: Usar `expo-image` en vez del default `<Image />` para mejor caché y rendimiento.
+- **API**: Siempre envolver llamadas API con TanStack Query, evitar llamadas directas en `useEffect`.

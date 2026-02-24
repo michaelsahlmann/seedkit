@@ -1,50 +1,50 @@
-# Architecture Patterns Reference
+# Referencia de Patrones de Arquitectura
 
-> Quick reference for common patterns with usage guidance.
+> Referencia rápida para patrones comunes con guía de uso.
 
-## Data Access Patterns
+## Patrones de Acceso a Datos
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Patrón | Cuándo Usar | Cuándo NO Usar | Complejidad |
 |---------|-------------|-----------------|------------|
-| **Active Record** | Simple CRUD, rapid prototyping | Complex queries, multiple sources | Low |
-| **Repository** | Testing needed, multiple sources | Simple CRUD, single database | Medium |
-| **Unit of Work** | Complex transactions | Simple operations | High |
-| **Data Mapper** | Complex domain, performance | Simple CRUD, rapid dev | High |
+| **Active Record** | CRUD simple, prototipado rápido | Queries complejas, múltiples fuentes | Baja |
+| **Repository** | Testing necesario, múltiples fuentes | CRUD simple, base de datos única | Media |
+| **Unit of Work** | Transacciones complejas | Operaciones simples | Alta |
+| **Data Mapper** | Dominio complejo, rendimiento | CRUD simple, dev rápido | Alta |
 
-## Domain Logic Patterns
+## Patrones de Lógica de Dominio
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Patrón | Cuándo Usar | Cuándo NO Usar | Complejidad |
 |---------|-------------|-----------------|------------|
-| **Transaction Script** | Simple CRUD, procedural | Complex business rules | Low |
-| **Table Module** | Record-based logic | Rich behavior needed | Low |
-| **Domain Model** | Complex business logic | Simple CRUD | Medium |
-| **DDD (Full)** | Complex domain, domain experts | Simple domain, no experts | High |
+| **Transaction Script** | CRUD simple, procedural | Reglas de negocio complejas | Baja |
+| **Table Module** | Lógica basada en records | Comportamiento rico necesario | Baja |
+| **Domain Model** | Lógica de negocio compleja | CRUD simple | Media |
+| **DDD (Completo)** | Dominio complejo, expertos de dominio | Dominio simple, sin expertos | Alta |
 
-## Distributed System Patterns
+## Patrones de Sistema Distribuido
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Patrón | Cuándo Usar | Cuándo NO Usar | Complejidad |
 |---------|-------------|-----------------|------------|
-| **Modular Monolith** | Small teams, unclear boundaries | Clear contexts, different scales | Medium |
-| **Microservices** | Different scales, large teams | Small teams, simple domain | Very High |
-| **Event-Driven** | Real-time, loose coupling | Simple workflows, strong consistency | High |
-| **CQRS** | Read/write performance diverges | Simple CRUD, same model | High |
-| **Saga** | Distributed transactions | Single database, simple ACID | High |
+| **Monolito Modular** | Equipos pequeños, límites poco claros | Contextos claros, diferentes escalas | Media |
+| **Microservices** | Diferentes escalas, equipos grandes | Equipos pequeños, dominio simple | Muy Alta |
+| **Event-Driven** | Tiempo real, acoplamiento loose | Workflows simples, consistencia fuerte | Alta |
+| **CQRS** | Rendimiento read/write diverge | CRUD simple, mismo modelo | Alta |
+| **Saga** | Transacciones distribuidas | Base de datos única, ACID simple | Alta |
 
-## API Patterns
+## Patrones de API
 
-| Pattern | When to Use | When NOT to Use | Complexity |
+| Patrón | Cuándo Usar | Cuándo NO Usar | Complejidad |
 |---------|-------------|-----------------|------------|
-| **REST** | Standard CRUD, resources | Real-time, complex queries | Low |
-| **GraphQL** | Flexible queries, multiple clients | Simple CRUD, caching needs | Medium |
-| **gRPC** | Internal services, performance | Public APIs, browser clients | Medium |
-| **WebSocket** | Real-time updates | Simple request/response | Medium |
+| **REST** | CRUD estándar, recursos | Tiempo real, queries complejas | Baja |
+| **GraphQL** | Queries flexibles, múltiples clientes | CRUD simple, necesidades de caché | Media |
+| **gRPC** | Servicios internos, rendimiento | APIs públicas, clientes browser | Media |
+| **WebSocket** | Actualizaciones en tiempo real | Request/response simple | Media |
 
 ---
 
-## Simplicity Principle
+## Principio de Simplicidad
 
-**"Start simple, add complexity only when proven necessary."**
+**"Empezar simple, agregar complejidad solo cuando se demuestre necesario."**
 
-- You can always add patterns later
-- Removing complexity is MUCH harder than adding it
-- When in doubt, choose simpler option
+- Siempre puedes agregar patrones después
+- Eliminar complejidad es MUCHO más difícil que agregarla
+- En duda, elegir la opción más simple

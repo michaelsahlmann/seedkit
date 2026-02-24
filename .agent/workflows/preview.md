@@ -1,81 +1,80 @@
 ---
-description: Preview server start, stop, and status check. Local development server management.
+description: Inicio, detención y verificación de estado del servidor de preview. Gestión de servidor de desarrollo local.
 ---
 
-# /preview - Preview Management
+# /preview - Gestión de Preview
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Tarea
 
-Manage preview server: start, stop, status check.
+Gestionar servidor de preview: iniciar, detener, verificar estado.
 
-### Commands
+### Comandos
 
 ```
-/preview           - Show current status
-/preview start     - Start server
-/preview stop      - Stop server
-/preview restart   - Restart
+/preview           - Mostrar estado actual
+/preview start     - Iniciar servidor
+/preview stop      - Detener servidor
+/preview restart   - Reiniciar
 /preview check     - Health check
 ```
 
 ---
 
-## Usage Examples
+## Ejemplos de Uso
 
-### Start Server
+### Iniciar Servidor
 ```
 /preview start
 
-Response:
-🚀 Starting preview...
-   Port: 3000
-   Type: Next.js
+Respuesta:
+🚀 Iniciando preview...
+   Puerto: 3000
+   Tipo: Next.js
 
-✅ Preview ready!
+✅ ¡Preview listo!
    URL: http://localhost:3000
 ```
 
-### Status Check
+### Verificar Estado
 ```
 /preview
 
-Response:
-=== Preview Status ===
+Respuesta:
+=== Estado de Preview ===
 
 🌐 URL: http://localhost:3000
-📁 Project: C:/projects/my-app
-🏷️ Type: nextjs
-💚 Health: OK
+📁 Proyecto: C:/projects/my-app
+🏷️ Tipo: nextjs
+💚 Salud: OK
 ```
 
-### Port Conflict
+### Conflicto de Puerto
 ```
 /preview start
 
-Response:
-⚠️ Port 3000 is in use.
+Respuesta:
+⚠️ Puerto 3000 está en uso.
 
-Options:
-1. Start on port 3001
-2. Close app on 3000
-3. Specify different port
+Opciones:
+1. Iniciar en puerto 3001
+2. Cerrar app en 3000
+3. Especificar puerto diferente
 
-Which one? (default: 1)
+¿Cuál? (default: 1)
 ```
 
 ---
 
-## Technical
+## Técnico
 
-Auto preview uses `auto_preview.py` script:
+Auto preview usa script `auto_preview.py`:
 
 ```bash
-python .agent/scripts/auto_preview.py start [port]
+python .agent/scripts/auto_preview.py start [puerto]
 python .agent/scripts/auto_preview.py stop
 python .agent/scripts/auto_preview.py status
 ```
-

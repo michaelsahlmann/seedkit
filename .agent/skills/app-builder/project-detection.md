@@ -1,34 +1,34 @@
-# Project Type Detection
+# Detección de Tipo de Proyecto
 
-> Analyze user requests to determine project type and template.
+> Analiza solicitudes del usuario para determinar tipo de proyecto y plantilla.
 
-## Keyword Matrix
+## Matriz de Keywords
 
-| Keywords | Project Type | Template |
+| Keywords | Tipo de Proyecto | Plantilla |
 |----------|--------------|----------|
-| blog, post, article | Blog | astro-static |
-| e-commerce, product, cart, payment | E-commerce | nextjs-saas |
-| dashboard, panel, management | Admin Dashboard | nextjs-fullstack |
-| api, backend, service, rest | API Service | express-api |
-| python, fastapi, django | Python API | python-fastapi |
-| mobile, android, ios, react native | Mobile App (RN) | react-native-app |
+| blog, post, artículo | Blog | astro-static |
+| e-commerce, producto, carrito, pago | E-commerce | nextjs-saas |
+| dashboard, panel, gestión | Admin Dashboard | nextjs-fullstack |
+| api, backend, servicio, rest | API Service | express-api |
+| python, fastapi, django | API Python | python-fastapi |
+| móvil, android, ios, react native | Mobile App (RN) | react-native-app |
 | flutter, dart | Mobile App (Flutter) | flutter-app |
-| portfolio, personal, cv | Portfolio | nextjs-static |
-| crm, customer, sales | CRM | nextjs-fullstack |
-| saas, subscription, stripe | SaaS | nextjs-saas |
-| landing, promotional, marketing | Landing Page | nextjs-static |
-| docs, documentation | Documentation | astro-static |
-| extension, plugin, chrome | Browser Extension | chrome-extension |
-| desktop, electron | Desktop App | electron-desktop |
-| cli, command line, terminal | CLI Tool | cli-tool |
+| portafolio, personal, cv | Portafolio | nextjs-static |
+| crm, cliente, ventas | CRM | nextjs-fullstack |
+| saas, suscripción, stripe | SaaS | nextjs-saas |
+| landing, promocional, marketing | Landing Page | nextjs-static |
+| docs, documentación | Documentación | astro-static |
+| extensión, plugin, chrome | Extensión de Navegador | chrome-extension |
+| desktop, electron | App Desktop | electron-desktop |
+| cli, línea de comandos, terminal | CLI Tool | cli-tool |
 | monorepo, workspace | Monorepo | monorepo-turborepo |
 
-## Detection Process
+## Proceso de Detección
 
 ```
-1. Tokenize user request
-2. Extract keywords
-3. Determine project type
-4. Detect missing information → forward to conversation-manager
-5. Suggest tech stack
+1. Tokenizar solicitud del usuario
+2. Extraer keywords
+3. Determinar tipo de proyecto
+4. Detectar información faltante → derivar a conversation-manager
+5. Sugerir stack tech
 ```

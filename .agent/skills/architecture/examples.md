@@ -1,94 +1,94 @@
-# Architecture Examples
+# Ejemplos de Arquitectura
 
-> Real-world architecture decisions by project type.
+> Decisiones de arquitectura del mundo real por tipo de proyecto.
 
 ---
 
-## Example 1: MVP E-commerce (Solo Developer)
+## Ejemplo 1: E-commerce MVP (Desarrollador Solo)
 
 ```yaml
-Requirements:
-  - <1000 users initially
-  - Solo developer
-  - Fast to market (8 weeks)
-  - Budget-conscious
+Requisitos:
+  - <1000 usuarios inicialmente
+  - Desarrollador solo
+  - Rápido al mercado (8 semanas)
+  - Consciente del presupuesto
 
-Architecture Decisions:
-  App Structure: Monolith (simpler for solo)
-  Framework: Next.js (full-stack, fast)
-  Data Layer: Prisma direct (no over-abstraction)
-  Authentication: JWT (simpler than OAuth)
-  Payment: Stripe (hosted solution)
-  Database: PostgreSQL (ACID for orders)
+Decisiones de Arquitectura:
+  Estructura App: Monolito (más simple para solo)
+  Framework: Next.js (full-stack, rápido)
+  Capa de Datos: Prisma directo (sin over-abstracción)
+  Autenticación: JWT (más simple que OAuth)
+  Pago: Stripe (solución hosteada)
+  Base de Datos: PostgreSQL (ACID para órdenes)
 
-Trade-offs Accepted:
-  - Monolith → Can't scale independently (team doesn't justify it)
-  - No Repository → Less testable (simple CRUD doesn't need it)
-  - JWT → No social login initially (can add later)
+Trade-offs Aceptados:
+  - Monolito → No puede escalar independientemente (equipo no lo justifica)
+  - Sin Repository → Menos testeable (CRUD simple no lo necesita)
+  - JWT → Sin social login inicialmente (se puede agregar después)
 
-Future Migration Path:
-  - Users > 10K → Extract payment service
-  - Team > 3 → Add Repository pattern
-  - Social login requested → Add OAuth
+Path de Migración Futuro:
+  - Usuarios > 10K → Extraer servicio de pagos
+  - Equipo > 3 → Agregar patrón Repository
+  - Social login solicitado → Agregar OAuth
 ```
 
 ---
 
-## Example 2: SaaS Product (5-10 Developers)
+## Ejemplo 2: Producto SaaS (5-10 Desarrolladores)
 
 ```yaml
-Requirements:
-  - 1K-100K users
-  - 5-10 developers
-  - Long-term (12+ months)
-  - Multiple domains (billing, users, core)
+Requisitos:
+  - 1K-100K usuarios
+  - 5-10 desarrolladores
+  - Largo plazo (12+ meses)
+  - Múltiples dominios (billing, users, core)
 
-Architecture Decisions:
-  App Structure: Modular Monolith (team size optimal)
-  Framework: NestJS (modular by design)
-  Data Layer: Repository pattern (testing, flexibility)
-  Domain Model: Partial DDD (rich entities)
-  Authentication: OAuth + JWT
-  Caching: Redis
-  Database: PostgreSQL
+Decisiones de Arquitectura:
+  Estructura App: Monolito Modular (óptimo para tamaño de equipo)
+  Framework: NestJS (modular por diseño)
+  Capa de Datos: Patrón Repository (testing, flexibilidad)
+  Modelo de Dominio: DDD Parcial (entidades ricas)
+  Autenticación: OAuth + JWT
+  Caché: Redis
+  Base de Datos: PostgreSQL
 
-Trade-offs Accepted:
-  - Modular Monolith → Some module coupling (microservices not justified)
-  - Partial DDD → No full aggregates (no domain experts)
-  - RabbitMQ later → Initial synchronous (add when proven needed)
+Trade-offs Aceptados:
+  - Monolito Modular → Algo de acoplamiento entre módulos (microservices no justificado)
+  - DDD Parcial → Sin aggregates completos (sin expertos de dominio)
+  - RabbitMQ después → Inicial síncrono (agregar cuando se demuestre necesario)
 
-Migration Path:
-  - Team > 10 → Consider microservices
-  - Domains conflict → Extract bounded contexts
-  - Read performance issues → Add CQRS
+Path de Migración:
+  - Equipo > 10 → Considerar microservices
+  - Dominios en conflicto → Extraer bounded contexts
+  - Issues de rendimiento de lectura → Agregar CQRS
 ```
 
 ---
 
-## Example 3: Enterprise (100K+ Users)
+## Ejemplo 3: Enterprise (100K+ Usuarios)
 
 ```yaml
-Requirements:
-  - 100K+ users
-  - 10+ developers
-  - Multiple business domains
-  - Different scaling needs
-  - 24/7 availability
+Requisitos:
+  - 100K+ usuarios
+  - 10+ desarrolladores
+  - Múltiples dominios de negocio
+  - Diferentes necesidades de escalado
+  - Disponibilidad 24/7
 
-Architecture Decisions:
-  App Structure: Microservices (independent scale)
+Decisiones de Arquitectura:
+  Estructura App: Microservices (escala independiente)
   API Gateway: Kong/AWS API GW
-  Domain Model: Full DDD
-  Consistency: Event-driven (eventual OK)
+  Modelo de Dominio: DDD Completo
+  Consistencia: Event-driven (eventual OK)
   Message Bus: Kafka
-  Authentication: OAuth + SAML (enterprise SSO)
-  Database: Polyglot (right tool per job)
-  CQRS: Selected services
+  Autenticación: OAuth + SAML (SSO enterprise)
+  Base de Datos: Polyglot (tool correcta por trabajo)
+  CQRS: Servicios seleccionados
 
-Operational Requirements:
+Requisitos Operacionales:
   - Service mesh (Istio/Linkerd)
   - Distributed tracing (Jaeger/Tempo)
-  - Centralized logging (ELK/Loki)
+  - Logging centralizado (ELK/Loki)
   - Circuit breakers (Resilience4j)
   - Kubernetes/Helm
 ```

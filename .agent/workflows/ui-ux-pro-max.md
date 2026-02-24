@@ -1,24 +1,24 @@
 ---
-description: Plan and implement UI
+description: Planificar e implementar UI
 ---
 
 ---
-description: AI-powered design intelligence with 50+ styles, 95+ color palettes, and automated design system generation
+description: Inteligencia de diseño potenciada por IA con 50+ estilos, 95+ paletas de colores y generación automatizada de sistema de diseño
 ---
 
 # ui-ux-pro-max
 
-Comprehensive design guide for web and mobile applications. Contains 50+ styles, 97 color palettes, 57 font pairings, 99 UX guidelines, and 25 chart types across 9 technology stacks. Searchable database with priority-based recommendations.
+Guía de diseño comprehensiva para aplicaciones web y móviles. Contiene 50+ estilos, 97 paletas de colores, 57 combinaciones de fuentes, 99 guidelines de UX y 25 tipos de gráficos en 9 stacks tecnológicos. Base de datos buscable con recomendaciones basadas en prioridad.
 
-## Prerequisites
+## Prerrequisitos
 
-Check if Python is installed:
+Verificar si Python está instalado:
 
 ```bash
 python3 --version || python --version
 ```
 
-If Python is not installed, install it based on user's OS:
+Si Python no está instalado, instalarlo según el SO del usuario:
 
 **macOS:**
 ```bash
@@ -37,260 +37,260 @@ winget install Python.Python.3.12
 
 ---
 
-## How to Use This Workflow
+## Cómo Usar Este Workflow
 
-When user requests UI/UX work (design, build, create, implement, review, fix, improve), follow this workflow:
+Cuando el usuario solicita trabajo de UI/UX (design, build, create, implement, review, fix, improve), seguir este workflow:
 
-### Step 1: Analyze User Requirements
+### Paso 1: Analizar Requisitos del Usuario
 
-Extract key information from user request:
-- **Product type**: SaaS, e-commerce, portfolio, dashboard, landing page, etc.
-- **Style keywords**: minimal, playful, professional, elegant, dark mode, etc.
-- **Industry**: healthcare, fintech, gaming, education, etc.
-- **Stack**: React, Vue, Next.js, or default to `html-tailwind`
+Extraer información clave de la solicitud del usuario:
+- **Tipo de producto**: SaaS, e-commerce, portafolio, dashboard, landing page, etc.
+- **Palabras clave de estilo**: minimal, playful, professional, elegant, dark mode, etc.
+- **Industria**: healthcare, fintech, gaming, education, etc.
+- **Stack**: React, Vue, Next.js, o default a `html-tailwind`
 
-### Step 2: Generate Design System (REQUIRED)
+### Paso 2: Generar Sistema de Diseño (REQUERIDO)
 
-**Always start with `--design-system`** to get comprehensive recommendations with reasoning:
+**Siempre comenzar con `--design-system`** para obtener recomendaciones comprehensivas con razonamiento:
 
 ```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<product_type> <industry> <keywords>" --design-system [-p "Project Name"]
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<tipo_producto> <industria> <keywords>" --design-system [-p "Nombre del Proyecto"]
 ```
 
-This command:
-1. Searches 5 domains in parallel (product, style, color, landing, typography)
-2. Applies reasoning rules from `ui-reasoning.csv` to select best matches
-3. Returns complete design system: pattern, style, colors, typography, effects
-4. Includes anti-patterns to avoid
+Este comando:
+1. Busca 5 dominios en paralelo (product, style, color, landing, typography)
+2. Aplica reglas de razonamiento de `ui-reasoning.csv` para seleccionar mejores matches
+3. Retorna sistema de diseño completo: pattern, style, colors, typography, effects
+4. Incluye anti-patrones a evitar
 
-**Example:**
+**Ejemplo:**
 ```bash
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "beauty spa wellness service" --design-system -p "Serenity Spa"
 ```
 
-### Step 2b: Persist Design System (Master + Overrides Pattern)
+### Paso 2b: Persistir Sistema de Diseño (Patrón Master + Overrides)
 
-To save the design system for hierarchical retrieval across sessions, add `--persist`:
-
-```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name"
-```
-
-This creates:
-- `design-system/MASTER.md` — Global Source of Truth with all design rules
-- `design-system/pages/` — Folder for page-specific overrides
-
-**With page-specific override:**
-```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name" --page "dashboard"
-```
-
-This also creates:
-- `design-system/pages/dashboard.md` — Page-specific deviations from Master
-
-**How hierarchical retrieval works:**
-1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md`
-2. If the page file exists, its rules **override** the Master file
-3. If not, use `design-system/MASTER.md` exclusively
-
-### Step 3: Supplement with Detailed Searches (as needed)
-
-After getting the design system, use domain searches to get additional details:
+Para guardar el sistema de diseño para recuperación jerárquica entre sesiones, agregar `--persist`:
 
 ```bash
-python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Nombre del Proyecto"
 ```
 
-**When to use detailed searches:**
+Esto crea:
+- `design-system/MASTER.md` — Fuente de Verdad Global con todas las reglas de diseño
+- `design-system/pages/` — Carpeta para overrides específicos de página
 
-| Need | Domain | Example |
+**Con override específico de página:**
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Nombre del Proyecto" --page "dashboard"
+```
+
+Esto también crea:
+- `design-system/pages/dashboard.md` — Desviaciones específicas de página del Master
+
+**Cómo funciona la recuperación jerárquica:**
+1. Al construir una página específica (ej. "Checkout"), primero verificar `design-system/pages/checkout.md`
+2. Si el archivo de página existe, sus reglas **sobrescriben** el archivo Master
+3. Si no, usar `design-system/MASTER.md` exclusivamente
+
+### Paso 3: Suplementar con Búsquedas Detalladas (según necesidad)
+
+Después de obtener el sistema de diseño, usar búsquedas de dominio para obtener detalles adicionales:
+
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <dominio> [-n <max_resultados>]
+```
+
+**Cuándo usar búsquedas detalladas:**
+
+| Necesidad | Dominio | Ejemplo |
 |------|--------|---------|
-| More style options | `style` | `--domain style "glassmorphism dark"` |
-| Chart recommendations | `chart` | `--domain chart "real-time dashboard"` |
-| UX best practices | `ux` | `--domain ux "animation accessibility"` |
-| Alternative fonts | `typography` | `--domain typography "elegant luxury"` |
-| Landing structure | `landing` | `--domain landing "hero social-proof"` |
+| Más opciones de estilo | `style` | `--domain style "glassmorphism dark"` |
+| Recomendaciones de gráficos | `chart` | `--domain chart "real-time dashboard"` |
+| Mejores prácticas UX | `ux` | `--domain ux "animation accessibility"` |
+| Fuentes alternativas | `typography` | `--domain typography "elegant luxury"` |
+| Estructura de landing | `landing` | `--domain landing "hero social-proof"` |
 
-### Step 4: Stack Guidelines (Default: html-tailwind)
+### Paso 4: Guidelines de Stack (Default: html-tailwind)
 
-Get implementation-specific best practices. If user doesn't specify a stack, **default to `html-tailwind`**.
+Obtener mejores prácticas específicas de implementación. Si el usuario no especifica un stack, **default a `html-tailwind`**.
 
 ```bash
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --stack html-tailwind
 ```
 
-Available stacks: `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
-, `jetpack-compose`
+Stacks disponibles: `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
+
 ---
 
-## Search Reference
+## Referencia de Búsqueda
 
-### Available Domains
+### Dominios Disponibles
 
-| Domain | Use For | Example Keywords |
+| Dominio | Usar Para | Palabras Clave de Ejemplo |
 |--------|---------|------------------|
-| `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare, beauty, service |
-| `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode, brutalism |
-| `typography` | Font pairings, Google Fonts | elegant, playful, professional, modern |
-| `color` | Color palettes by product type | saas, ecommerce, healthcare, beauty, fintech, service |
-| `landing` | Page structure, CTA strategies | hero, hero-centric, testimonial, pricing, social-proof |
-| `chart` | Chart types, library recommendations | trend, comparison, timeline, funnel, pie |
-| `ux` | Best practices, anti-patterns | animation, accessibility, z-index, loading |
-| `react` | React/Next.js performance | waterfall, bundle, suspense, memo, rerender, cache |
-| `web` | Web interface guidelines | aria, focus, keyboard, semantic, virtualize |
-| `prompt` | AI prompts, CSS keywords | (style name) |
+| `product` | Recomendaciones de tipo de producto | SaaS, e-commerce, portafolio, healthcare, beauty, service |
+| `style` | Estilos UI, colores, efectos | glassmorphism, minimalism, dark mode, brutalism |
+| `typography` | Combinaciones de fuentes, Google Fonts | elegant, playful, professional, modern |
+| `color` | Paletas de colores por tipo de producto | saas, ecommerce, healthcare, beauty, fintech, service |
+| `landing` | Estructura de página, estrategias CTA | hero, hero-centric, testimonial, pricing, social-proof |
+| `chart` | Tipos de gráficos, recomendaciones de librería | trend, comparison, timeline, funnel, pie |
+| `ux` | Mejores prácticas, anti-patrones | animation, accessibility, z-index, loading |
+| `react` | Rendimiento React/Next.js | waterfall, bundle, suspense, memo, rerender, cache |
+| `web` | Guidelines de interfaz web | aria, focus, keyboard, semantic, virtualize |
+| `prompt` | Prompts de IA, palabras clave CSS | (nombre de estilo) |
 
-### Available Stacks
+### Stacks Disponibles
 
-| Stack | Focus |
+| Stack | Enfoque |
 |-------|-------|
-| `html-tailwind` | Tailwind utilities, responsive, a11y (DEFAULT) |
-| `react` | State, hooks, performance, patterns |
-| `nextjs` | SSR, routing, images, API routes |
+| `html-tailwind` | Utilidades Tailwind, responsive, a11y (DEFAULT) |
+| `react` | Estado, hooks, rendimiento, patrones |
+| `nextjs` | SSR, routing, imágenes, API routes |
 | `vue` | Composition API, Pinia, Vue Router |
 | `svelte` | Runes, stores, SvelteKit |
 | `swiftui` | Views, State, Navigation, Animation |
-| `react-native` | Components, Navigation, Lists |
+| `react-native` | Componentes, Navigation, Lists |
 | `flutter` | Widgets, State, Layout, Theming |
-| `shadcn` | shadcn/ui components, theming, forms, patterns |
+| `shadcn` | Componentes shadcn/ui, theming, forms, patterns |
 | `jetpack-compose` | Composables, Modifiers, State Hoisting, Recomposition |
 
 ---
 
-## Example Workflow
+## Ejemplo de Workflow
 
-**User request:** "Làm landing page cho dịch vụ chăm sóc da chuyên nghiệp"
+**Solicitud del usuario:** "Hacer landing page para servicio de cuidado de piel profesional"
 
-### Step 1: Analyze Requirements
-- Product type: Beauty/Spa service
-- Style keywords: elegant, professional, soft
-- Industry: Beauty/Wellness
+### Paso 1: Analizar Requisitos
+- Tipo de producto: Beauty/Spa service
+- Palabras clave de estilo: elegant, professional, soft
+- Industria: Beauty/Wellness
 - Stack: html-tailwind (default)
 
-### Step 2: Generate Design System (REQUIRED)
+### Paso 2: Generar Sistema de Diseño (REQUERIDO)
 
 ```bash
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "beauty spa wellness service elegant" --design-system -p "Serenity Spa"
 ```
 
-**Output:** Complete design system with pattern, style, colors, typography, effects, and anti-patterns.
+**Salida:** Sistema de diseño completo con pattern, style, colors, typography, effects y anti-patterns.
 
-### Step 3: Supplement with Detailed Searches (as needed)
+### Paso 3: Suplementar con Búsquedas Detalladas (según necesidad)
 
 ```bash
-# Get UX guidelines for animation and accessibility
+# Obtener guidelines UX para animación y accesibilidad
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "animation accessibility" --domain ux
 
-# Get alternative typography options if needed
+# Obtener opciones de tipografía alternativas si es necesario
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "elegant luxury serif" --domain typography
 ```
 
-### Step 4: Stack Guidelines
+### Paso 4: Guidelines de Stack
 
 ```bash
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "layout responsive form" --stack html-tailwind
 ```
 
-**Then:** Synthesize design system + detailed searches and implement the design.
+**Luego:** Sintetizar sistema de diseño + búsquedas detalladas e implementar el diseño.
 
 ---
 
-## Output Formats
+## Formatos de Salida
 
-The `--design-system` flag supports two output formats:
+El flag `--design-system` soporta dos formatos de salida:
 
 ```bash
-# ASCII box (default) - best for terminal display
+# Caja ASCII (default) - mejor para visualización en terminal
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system
 
-# Markdown - best for documentation
+# Markdown - mejor para documentación
 python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system -f markdown
 ```
 
 ---
 
-## Tips for Better Results
+## Tips para Mejores Resultados
 
-1. **Be specific with keywords** - "healthcare SaaS dashboard" > "app"
-2. **Search multiple times** - Different keywords reveal different insights
-3. **Combine domains** - Style + Typography + Color = Complete design system
-4. **Always check UX** - Search "animation", "z-index", "accessibility" for common issues
-5. **Use stack flag** - Get implementation-specific best practices
-6. **Iterate** - If first search doesn't match, try different keywords
-
----
-
-## Common Rules for Professional UI
-
-These are frequently overlooked issues that make UI look unprofessional:
-
-### Icons & Visual Elements
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **No emoji icons** | Use SVG icons (Heroicons, Lucide, Simple Icons) | Use emojis like 🎨 🚀 ⚙️ as UI icons |
-| **Stable hover states** | Use color/opacity transitions on hover | Use scale transforms that shift layout |
-| **Correct brand logos** | Research official SVG from Simple Icons | Guess or use incorrect logo paths |
-| **Consistent icon sizing** | Use fixed viewBox (24x24) with w-6 h-6 | Mix different icon sizes randomly |
-
-### Interaction & Cursor
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **Cursor pointer** | Add `cursor-pointer` to all clickable/hoverable cards | Leave default cursor on interactive elements |
-| **Hover feedback** | Provide visual feedback (color, shadow, border) | No indication element is interactive |
-| **Smooth transitions** | Use `transition-colors duration-200` | Instant state changes or too slow (>500ms) |
-
-### Light/Dark Mode Contrast
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **Glass card light mode** | Use `bg-white/80` or higher opacity | Use `bg-white/10` (too transparent) |
-| **Text contrast light** | Use `#0F172A` (slate-900) for text | Use `#94A3B8` (slate-400) for body text |
-| **Muted text light** | Use `#475569` (slate-600) minimum | Use gray-400 or lighter |
-| **Border visibility** | Use `border-gray-200` in light mode | Use `border-white/10` (invisible) |
-
-### Layout & Spacing
-
-| Rule | Do | Don't |
-|------|----|----- |
-| **Floating navbar** | Add `top-4 left-4 right-4` spacing | Stick navbar to `top-0 left-0 right-0` |
-| **Content padding** | Account for fixed navbar height | Let content hide behind fixed elements |
-| **Consistent max-width** | Use same `max-w-6xl` or `max-w-7xl` | Mix different container widths |
+1. **Ser específico con palabras clave** - "healthcare SaaS dashboard" > "app"
+2. **Buscar múltiples veces** - Diferentes keywords revelan diferentes insights
+3. **Combinar dominios** - Style + Typography + Color = Sistema de diseño completo
+4. **Siempre verificar UX** - Buscar "animation", "z-index", "accessibility" para issues comunes
+5. **Usar flag de stack** - Obtener mejores prácticas específicas de implementación
+6. **Iterar** - Si la primera búsqueda no coincide, probar diferentes keywords
 
 ---
 
-## Pre-Delivery Checklist
+## Reglas Comunes para UI Profesional
 
-Before delivering UI code, verify these items:
+Estos son issues frecuentemente ignorados que hacen que la UI se vea poco profesional:
 
-### Visual Quality
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
-- [ ] Brand logos are correct (verified from Simple Icons)
-- [ ] Hover states don't cause layout shift
-- [ ] Use theme colors directly (bg-primary) not var() wrapper
+### Iconos y Elementos Visuales
 
-### Interaction
-- [ ] All clickable elements have `cursor-pointer`
-- [ ] Hover states provide clear visual feedback
-- [ ] Transitions are smooth (150-300ms)
-- [ ] Focus states visible for keyboard navigation
+| Regla | Sí | No |
+|------|----|----- |
+| **Sin iconos emoji** | Usar iconos SVG (Heroicons, Lucide, Simple Icons) | Usar emojis como 🎨 🚀 ⚙️ como iconos UI |
+| **Estados hover estables** | Usar transiciones de color/opacidad en hover | Usar transforms de scale que desplacen layout |
+| **Logos de marca correctos** | Investigar SVG oficial de Simple Icons | Adivinar o usar paths de logo incorrectos |
+| **Tamaño de iconos consistente** | Usar viewBox fijo (24x24) con w-6 h-6 | Mezclar diferentes tamaños de icono aleatoriamente |
 
-### Light/Dark Mode
-- [ ] Light mode text has sufficient contrast (4.5:1 minimum)
-- [ ] Glass/transparent elements visible in light mode
-- [ ] Borders visible in both modes
-- [ ] Test both modes before delivery
+### Interacción y Cursor
+
+| Regla | Sí | No |
+|------|----|----- |
+| **Cursor pointer** | Agregar `cursor-pointer` a todos los elementos clickeables/hoverables | Dejar cursor default en elementos interactivos |
+| **Feedback en hover** | Proveer feedback visual (color, shadow, border) | Sin indicación de que el elemento es interactivo |
+| **Transiciones suaves** | Usar `transition-colors duration-200` | Cambios de estado instantáneos o muy lentos (>500ms) |
+
+### Contraste Modo Claro/Oscuro
+
+| Regla | Sí | No |
+|------|----|----- |
+| **Tarjeta glass modo claro** | Usar `bg-white/80` o mayor opacidad | Usar `bg-white/10` (muy transparente) |
+| **Contraste de texto claro** | Usar `#0F172A` (slate-900) para texto | Usar `#94A3B8` (slate-400) para texto de cuerpo |
+| **Texto muted claro** | Usar `#475569` (slate-600) mínimo | Usar gray-400 o más claro |
+| **Visibilidad de borde** | Usar `border-gray-200` en modo claro | Usar `border-white/10` (invisible) |
+
+### Layout y Espaciado
+
+| Regla | Sí | No |
+|------|----|----- |
+| **Navbar flotante** | Agregar espaciado `top-4 left-4 right-4` | Pegar navbar a `top-0 left-0 right-0` |
+| **Padding de contenido** | Contabilizar altura de navbar fijo | Dejar contenido oculto detrás de elementos fijos |
+| **Max-width consistente** | Usar mismo `max-w-6xl` o `max-w-7xl` | Mezclar diferentes anchos de contenedor |
+
+---
+
+## Checklist Pre-Entrega
+
+Antes de entregar código UI, verificar estos items:
+
+### Calidad Visual
+- [ ] Sin emojis usados como iconos (usar SVG en su lugar)
+- [ ] Todos los iconos de set de iconos consistente (Heroicons/Lucide)
+- [ ] Logos de marca son correctos (verificados de Simple Icons)
+- [ ] Estados hover no causan desplazamiento de layout
+- [ ] Usar colores de tema directamente (bg-primary) no wrapper var()
+
+### Interacción
+- [ ] Todos los elementos clickeables tienen `cursor-pointer`
+- [ ] Estados hover proveen feedback visual claro
+- [ ] Transiciones son suaves (150-300ms)
+- [ ] Estados de focus visibles para navegación por teclado
+
+### Modo Claro/Oscuro
+- [ ] Texto en modo claro tiene contraste suficiente (4.5:1 mínimo)
+- [ ] Elementos glass/transparentes visibles en modo claro
+- [ ] Bordes visibles en ambos modos
+- [ ] Probar ambos modos antes de entregar
 
 ### Layout
-- [ ] Floating elements have proper spacing from edges
-- [ ] No content hidden behind fixed navbars
-- [ ] Responsive at 375px, 768px, 1024px, 1440px
-- [ ] No horizontal scroll on mobile
+- [ ] Elementos flotantes tienen espaciado apropiado de bordes
+- [ ] Sin contenido oculto detrás de navbars fijos
+- [ ] Responsive a 375px, 768px, 1024px, 1440px
+- [ ] Sin scroll horizontal en móvil
 
-### Accessibility
-- [ ] All images have alt text
-- [ ] Form inputs have labels
-- [ ] Color is not the only indicator
-- [ ] `prefers-reduced-motion` respected
+### Accesibilidad
+- [ ] Todas las imágenes tienen alt text
+- [ ] Inputs de formulario tienen labels
+- [ ] El color no es el único indicador
+- [ ] `prefers-reduced-motion` respetado

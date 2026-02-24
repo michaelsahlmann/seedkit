@@ -1,39 +1,39 @@
 ---
 name: templates
-description: Project scaffolding templates for new applications. Use when creating new projects from scratch. Contains 12 templates for various tech stacks.
+description: Plantillas de scaffolding de proyecto para nuevas aplicaciones. Usar cuando se crean nuevos proyectos desde cero. Contiene 12 plantillas para varios stacks tech.
 allowed-tools: Read, Glob, Grep
 ---
 
-# Project Templates
+# Plantillas de Proyecto
 
-> Quick-start templates for scaffolding new projects.
+> Plantillas de inicio rápido para scaffolding de nuevos proyectos.
 
 ---
 
-## 🎯 Selective Reading Rule
+## 🎯 Regla de Lectura Selectiva
 
-**Read ONLY the template matching user's project type!**
+**¡Lee SOLO la plantilla que coincide con el tipo de proyecto del usuario!**
 
-| Template | Tech Stack | When to Use |
+| Plantilla | Stack Tech | Cuándo Usar |
 |----------|------------|-------------|
-| [nextjs-fullstack](nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | Full-stack web app |
-| [nextjs-saas](nextjs-saas/TEMPLATE.md) | Next.js + Stripe | SaaS product |
+| [nextjs-fullstack](nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | App web full-stack |
+| [nextjs-saas](nextjs-saas/TEMPLATE.md) | Next.js + Stripe | Producto SaaS |
 | [nextjs-static](nextjs-static/TEMPLATE.md) | Next.js + Framer | Landing page |
 | [express-api](express-api/TEMPLATE.md) | Express + JWT | REST API |
-| [python-fastapi](python-fastapi/TEMPLATE.md) | FastAPI | Python API |
-| [react-native-app](react-native-app/TEMPLATE.md) | Expo + Zustand | Mobile app |
+| [python-fastapi](python-fastapi/TEMPLATE.md) | FastAPI | API Python |
+| [react-native-app](react-native-app/TEMPLATE.md) | Expo + Zustand | App móvil |
 | [flutter-app](flutter-app/TEMPLATE.md) | Flutter + Riverpod | Cross-platform |
-| [electron-desktop](electron-desktop/TEMPLATE.md) | Electron + React | Desktop app |
-| [chrome-extension](chrome-extension/TEMPLATE.md) | Chrome MV3 | Browser extension |
-| [cli-tool](cli-tool/TEMPLATE.md) | Node.js + Commander | CLI app |
+| [electron-desktop](electron-desktop/TEMPLATE.md) | Electron + React | App desktop |
+| [chrome-extension](chrome-extension/TEMPLATE.md) | Chrome MV3 | Extensión de navegador |
+| [cli-tool](cli-tool/TEMPLATE.md) | Node.js + Commander | App CLI |
 | [monorepo-turborepo](monorepo-turborepo/TEMPLATE.md) | Turborepo + pnpm | Monorepo |
 | [astro-static](astro-static/TEMPLATE.md) | Astro + MDX | Blog / Docs |
 
 ---
 
-## Usage
+## Uso
 
-1. User says "create [type] app"
-2. Match to appropriate template
-3. Read ONLY that template's TEMPLATE.md
-4. Follow its tech stack and structure
+1. Usuario dice "crear app de [tipo]"
+2. Emparejar con plantilla apropiada
+3. Leer SOLO el TEMPLATE.md de esa plantilla
+4. Seguir su stack tech y estructura

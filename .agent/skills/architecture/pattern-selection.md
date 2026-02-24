@@ -1,68 +1,68 @@
-# Pattern Selection Guidelines
+# Guidelines de Selección de Patrones
 
-> Decision trees for choosing architectural patterns.
+> Árboles de decisión para elegir patrones arquitectónicos.
 
-## Main Decision Tree
+## Árbol de Decisión Principal
 
 ```
-START: What's your MAIN concern?
+INICIO: ¿Cuál es tu PREOCUPACIÓN PRINCIPAL?
 
-┌─ Data Access Complexity?
-│  ├─ HIGH (complex queries, testing needed)
-│  │  → Repository Pattern + Unit of Work
-│  │  VALIDATE: Will data source change frequently?
-│  │     ├─ YES → Repository worth the indirection
-│  │     └─ NO  → Consider simpler ORM direct access
-│  └─ LOW (simple CRUD, single database)
-│     → ORM directly (Prisma, Drizzle)
-│     Simpler = Better, Faster
+┌─ Complejidad de Acceso a Datos?
+│  ├─ ALTA (queries complejas, testing necesario)
+│  │  → Patrón Repository + Unit of Work
+│  │  VALIDAR: ¿La fuente de datos cambiará frecuentemente?
+│  │     ├─ SÍ → Repository vale la indirección
+│  │     └─ NO  → Considerar acceso directo ORM más simple
+│  └─ BAJA (CRUD simple, base de datos única)
+│     → ORM directamente (Prisma, Drizzle)
+│     Más Simple = Mejor, Más Rápido
 │
-├─ Business Rules Complexity?
-│  ├─ HIGH (domain logic, rules vary by context)
+├─ Complejidad de Reglas de Negocio?
+│  ├─ ALTA (lógica de dominio, reglas varían por contexto)
 │  │  → Domain-Driven Design
-│  │  VALIDATE: Do you have domain experts on team?
-│  │     ├─ YES → Full DDD (Aggregates, Value Objects)
-│  │     └─ NO  → Partial DDD (rich entities, clear boundaries)
-│  └─ LOW (mostly CRUD, simple validation)
-│     → Transaction Script pattern
-│     Simpler = Better, Faster
+│  │  VALIDAR: ¿Tienes expertos de dominio en el equipo?
+│  │     ├─ SÍ → DDD Completo (Aggregates, Value Objects)
+│  │     └─ NO  → DDD Parcial (entidades ricas, límites claros)
+│  └─ BAJA (maymente CRUD, validación simple)
+│     → Patrón Transaction Script
+│     Más Simple = Mejor, Más Rápido
 │
-├─ Independent Scaling Needed?
-│  ├─ YES (different components scale differently)
-│  │  → Microservices WORTH the complexity
-│  │  REQUIREMENTS (ALL must be true):
-│  │    - Clear domain boundaries
-│  │    - Team > 10 developers
-│  │    - Different scaling needs per service
-│  │  IF NOT ALL MET → Modular Monolith instead
-│  └─ NO (everything scales together)
-│     → Modular Monolith
-│     Can extract services later when proven needed
+├─ Escalado Independiente Necesario?
+│  ├─ SÍ (diferentes componentes escalan diferente)
+│  │  → Microservices VALE la complejidad
+│  │  REQUISITOS (TODOS deben ser verdad):
+│  │    - Límites de dominio claros
+│  │    - Equipo > 10 desarrolladores
+│  │    - Diferentes necesidades de escalado por servicio
+│  │  SI NO TODOS → Monolito Modular en su lugar
+│  └─ NO (todo escala junto)
+│     → Monolito Modular
+│     Se pueden extraer servicios después cuando se demuestre necesario
 │
-└─ Real-time Requirements?
-   ├─ HIGH (immediate updates, multi-user sync)
-   │  → Event-Driven Architecture
-   │  → Message Queue (RabbitMQ, Redis, Kafka)
-   │  VALIDATE: Can you handle eventual consistency?
-   │     ├─ YES → Event-driven valid
-   │     └─ NO  → Synchronous with polling
-   └─ LOW (eventual consistency acceptable)
-      → Synchronous (REST/GraphQL)
-      Simpler = Better, Faster
+└─ Requisitos de Tiempo Real?
+   ├─ ALTA (actualizaciones inmediatas, sync multi-usuario)
+   │  → Arquitectura Event-Driven
+│  │  → Message Queue (RabbitMQ, Redis, Kafka)
+   │  VALIDAR: ¿Puedes manejar consistencia eventual?
+   │     ├─ SÍ → Event-driven válido
+   │     └─ NO  → Síncrono con polling
+   └─ BAJA (consistencia eventual aceptable)
+      → Síncrono (REST/GraphQL)
+      Más Simple = Mejor, Más Rápido
 ```
 
-## The 3 Questions (Before ANY Pattern)
+## Las 3 Preguntas (Antes de CUALQUIER Patrón)
 
-1. **Problem Solved**: What SPECIFIC problem does this pattern solve?
-2. **Simpler Alternative**: Is there a simpler solution?
-3. **Deferred Complexity**: Can we add this LATER when needed?
+1. **Problema Resuelto**: ¿Qué problema ESPECÍFICO resuelve este patrón?
+2. **Alternativa Más Simple**: ¿Hay una solución más simple?
+3. **Complejidad Diferida**: ¿Podemos agregar esto DESPUÉS cuando se necesite?
 
-## Red Flags (Anti-patterns)
+## Red Flags (Anti-patrones)
 
-| Pattern | Anti-pattern | Simpler Alternative |
+| Patrón | Anti-patrón | Alternativa Más Simple |
 |---------|-------------|-------------------|
-| Microservices | Premature splitting | Start monolith, extract later |
-| Clean/Hexagonal | Over-abstraction | Concrete first, interfaces later |
-| Event Sourcing | Over-engineering | Append-only audit log |
-| CQRS | Unnecessary complexity | Single model |
-| Repository | YAGNI for simple CRUD | ORM direct access |
+| Microservices | Splitting prematuro | Empezar monolito, extraer después |
+| Clean/Hexagonal | Over-abstracción | Concreto primero, interfaces después |
+| Event Sourcing | Over-engineering | Audit log append-only |
+| CQRS | Complejidad innecesaria | Modelo único |
+| Repository | YAGNI para CRUD simple | Acceso directo ORM |

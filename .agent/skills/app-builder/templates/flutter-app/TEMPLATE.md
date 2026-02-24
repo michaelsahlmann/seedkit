@@ -1,27 +1,27 @@
 ---
 name: flutter-app
-description: Flutter mobile app template principles. Riverpod, Go Router, clean architecture.
+description: Principios de plantilla de app móvil Flutter. Riverpod, Go Router, clean architecture.
 ---
 
-# Flutter App Template
+# Plantilla Flutter App
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Framework | Flutter 3.x |
-| Language | Dart 3.x |
-| State | Riverpod 2.0 |
-| Navigation | Go Router |
+| Lenguaje | Dart 3.x |
+| Estado | Riverpod 2.0 |
+| Navegación | Go Router |
 | HTTP | Dio |
 | Storage | Hive |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project_name/
+nombre_proyecto/
 ├── lib/
 │   ├── main.dart
 │   ├── app.dart
@@ -48,9 +48,9 @@ project_name/
 
 ---
 
-## Architecture Layers
+## Capas de Arquitectura
 
-| Layer | Contents |
+| Capa | Contenidos |
 |-------|----------|
 | Presentation | Screens, Widgets, Providers |
 | Domain | Entities, Use Cases |
@@ -58,33 +58,33 @@ project_name/
 
 ---
 
-## Key Packages
+## Paquetes Clave
 
-| Package | Purpose |
+| Paquete | Propósito |
 |---------|---------|
-| flutter_riverpod | State management |
-| riverpod_annotation | Code generation |
-| go_router | Navigation |
-| dio | HTTP client |
-| freezed | Immutable models |
-| hive | Local storage |
+| flutter_riverpod | Manejo de estado |
+| riverpod_annotation | Generación de código |
+| go_router | Navegación |
+| dio | Cliente HTTP |
+| freezed | Modelos inmutables |
+| hive | Almacenamiento local |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
 1. `flutter create {{name}} --org com.{{bundle}}`
-2. Update `pubspec.yaml`
+2. Actualizar `pubspec.yaml`
 3. `flutter pub get`
-4. Run code generation: `dart run build_runner build`
+4. Ejecutar generación de código: `dart run build_runner build`
 5. `flutter run`
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Feature-first folder structure
-- Riverpod for state, React Query pattern for server state
-- Freezed for immutable data classes
-- Go Router for declarative navigation
-- Material 3 theming
+- Estructura de carpetas feature-first
+- Riverpod para estado, patrón React Query para estado server
+- Freezed para data classes inmutables
+- Go Router para navegación declarativa
+- Theming Material 3

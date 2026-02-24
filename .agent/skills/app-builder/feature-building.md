@@ -1,53 +1,53 @@
-# Feature Building
+# Construcción de Features
 
-> How to analyze and implement new features.
+> Cómo analizar e implementar nuevas features.
 
-## Feature Analysis
+## Análisis de Feature
 
 ```
-Request: "add payment system"
+Solicitud: "agregar sistema de pagos"
 
-Analysis:
-├── Required Changes:
-│   ├── Database: orders, payments tables
+Análisis:
+├── Cambios Requeridos:
+│   ├── Base de datos: tablas orders, payments
 │   ├── Backend: /api/checkout, /api/webhooks/stripe
 │   ├── Frontend: CheckoutForm, PaymentSuccess
-│   └── Config: Stripe API keys
+│   └── Config: API keys de Stripe
 │
-├── Dependencies:
-│   ├── stripe package
-│   └── Existing user authentication
+├── Dependencias:
+│   ├── paquete stripe
+│   └── Autenticación de usuario existente
 │
-└── Estimated Time: 15-20 minutes
+└── Tiempo Estimado: 15-20 minutos
 ```
 
-## Iterative Enhancement Process
+## Proceso de Mejora Iterativa
 
 ```
-1. Analyze existing project
-2. Create change plan
-3. Present plan to user
-4. Get approval
-5. Apply changes
-6. Test
-7. Show preview
+1. Analizar proyecto existente
+2. Crear plan de cambios
+3. Presentar plan al usuario
+4. Obtener aprobación
+5. Aplicar cambios
+6. Probar
+7. Mostrar preview
 ```
 
-## Error Handling
+## Manejo de Errores
 
-| Error Type | Solution Strategy |
+| Tipo de Error | Estrategia de Solución |
 |------------|-------------------|
-| TypeScript Error | Fix type, add missing import |
-| Missing Dependency | Run npm install |
-| Port Conflict | Suggest alternative port |
-| Database Error | Check migration, validate connection |
+| Error de TypeScript | Corregir tipo, agregar import faltante |
+| Dependencia Faltante | Ejecutar npm install |
+| Conflicto de Puerto | Sugerir puerto alternativo |
+| Error de Base de Datos | Verificar migración, validar conexión |
 
-## Recovery Strategy
+## Estrategia de Recuperación
 
 ```
-1. Detect error
-2. Try automatic fix
-3. If failed, report to user
-4. Suggest alternative
-5. Rollback if necessary
+1. Detectar error
+2. Intentar corrección automática
+3. Si falla, reportar al usuario
+4. Sugerir alternativa
+5. Rollback si es necesario
 ```

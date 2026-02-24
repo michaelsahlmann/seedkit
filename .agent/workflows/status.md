@@ -1,86 +1,86 @@
 ---
-description: Display agent and project status. Progress tracking and status board.
+description: Mostrar estado de agente y proyecto. Seguimiento de progreso y tablero de estado.
 ---
 
-# /status - Show Status
+# /status - Mostrar Estado
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Tarea
 
-Show current project and agent status.
+Mostrar estado actual del proyecto y de los agentes.
 
-### What It Shows
+### Qué Muestra
 
-1. **Project Info**
-   - Project name and path
-   - Tech stack
-   - Current features
+1. **Info del Proyecto**
+   - Nombre y ruta del proyecto
+   - Stack tech
+   - Features actuales
 
-2. **Agent Status Board**
-   - Which agents are running
-   - Which tasks are completed
-   - Pending work
+2. **Tablero de Estado de Agentes**
+   - Qué agentes están ejecutando
+   - Qué tareas están completadas
+   - Trabajo pendiente
 
-3. **File Statistics**
-   - Files created count
-   - Files modified count
+3. **Estadísticas de Archivos**
+   - Conteo de archivos creados
+   - Conteo de archivos modificados
 
-4. **Preview Status**
-   - Is server running
+4. **Estado de Preview**
+   - Si el servidor está corriendo
    - URL
    - Health check
 
 ---
 
-## Example Output
+## Ejemplo de Salida
 
 ```
-=== Project Status ===
+=== Estado del Proyecto ===
 
-📁 Project: my-ecommerce
-📂 Path: C:/projects/my-ecommerce
-🏷️ Type: nextjs-ecommerce
-📊 Status: active
+📁 Proyecto: my-ecommerce
+📂 Ruta: C:/projects/my-ecommerce
+🏷️ Tipo: nextjs-ecommerce
+📊 Estado: activo
 
-🔧 Tech Stack:
+🔧 Stack Tech:
    Framework: next.js
-   Database: postgresql
+   Base de Datos: postgresql
    Auth: clerk
-   Payment: stripe
+   Pago: stripe
 
 ✅ Features (5):
-   • product-listing
-   • cart
+   • listado-productos
+   • carrito
    • checkout
    • user-auth
-   • order-history
+   • historial-ordenes
 
-⏳ Pending (2):
-   • admin-panel
-   • email-notifications
+⏳ Pendiente (2):
+   • panel-admin
+   • notificaciones-email
 
-📄 Files: 73 created, 12 modified
+📄 Archivos: 73 creados, 12 modificados
 
-=== Agent Status ===
+=== Estado de Agentes ===
 
-✅ database-architect → Completed
-✅ backend-specialist → Completed
-🔄 frontend-specialist → Dashboard components (60%)
-⏳ test-engineer → Waiting
+✅ database-architect → Completado
+✅ backend-specialist → Completado
+🔄 frontend-specialist → Componentes Dashboard (60%)
+⏳ test-engineer → Esperando
 
 === Preview ===
 
 🌐 URL: http://localhost:3000
-💚 Health: OK
+💚 Salud: OK
 ```
 
 ---
 
-## Technical
+## Técnico
 
-Status uses these scripts:
+Estado usa estos scripts:
 - `python .agent/scripts/session_manager.py status`
 - `python .agent/scripts/auto_preview.py status`

@@ -1,65 +1,65 @@
 ---
 name: nextjs-static
-description: Modern template for Next.js 16, React 19 & Tailwind v4. Optimized for Landing pages and Portfolios.
+description: Plantilla moderna para Next.js 16, React 19 y Tailwind v4. Optimizada para Landing pages y Portafolios.
 ---
 
-# Next.js Static Site Template (Modern Edition)
+# Plantilla Next.js Static Site (Edición Moderna)
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology | Notes |
+| Componente | Tecnología | Notas |
 |-----------|------------|-------|
 | Framework | Next.js 16+ | App Router, Turbopack, Static Exports |
-| Core | React 19 | Server Components, New Hooks, Compiler |
-| Language | TypeScript | Strict Mode |
-| Styling | Tailwind CSS v4 | CSS-first configuration (No js config), Oxide Engine |
-| Animations | Framer Motion | Layout animations & gestures |
-| Icons | Lucide React | Lightweight SVG icons |
-| SEO | Metadata API | Native Next.js API (Replaces next-seo) |
+| Core | React 19 | Server Components, Nuevos Hooks, Compiler |
+| Lenguaje | TypeScript | Strict Mode |
+| Estilos | Tailwind CSS v4 | Config CSS-first (Sin config js), Oxide Engine |
+| Animaciones | Framer Motion | Layout animations y gestures |
+| Iconos | Lucide React | Iconos SVG ligeros |
+| SEO | Metadata API | API nativa de Next.js (Reemplaza next-seo) |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
-Streamlined structure thanks to Tailwind v4 (theme configuration lives inside CSS).
+Estructura simplificada gracias a Tailwind v4 (configuración de theme vive dentro de CSS).
 
 ```
-project-name/
+nombre-proyecto/
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx    # Contains root SEO Metadata
+│   │   ├── layout.tsx    # Contiene SEO Metadata root
 │   │   ├── page.tsx      # Landing Page
-│   │   ├── globals.css   # Import Tailwind v4 & @theme config
-│   │   ├── not-found.tsx # Custom 404 page
+│   │   ├── globals.css   # Import Tailwind v4 y config @theme
+│   │   ├── not-found.tsx # Página 404 personalizada
 │   │   └── (routes)/     # Route groups (about, contact...)
 │   ├── components/
 │   │   ├── layout/       # Header, Footer
 │   │   ├── sections/     # Hero, Features, Pricing, CTA
-│   │   └── ui/           # Atomic components (Button, Card)
+│   │   └── ui/           # Componentes atómicos (Button, Card)
 │   └── lib/
-│       └── utils.ts      # Helper functions (cn, formatters)
-├── content/              # Markdown/MDX content
-├── public/               # Static assets (images, fonts)
+│       └── utils.ts      # Funciones helper (cn, formatters)
+├── content/              # Contenido Markdown/MDX
+├── public/               # Assets estáticos (imágenes, fuentes)
 ├── next.config.ts        # Next.js Config (TypeScript)
 └── package.json
 ```
 
 ---
 
-## Static Export Config
+## Config de Static Export
 
-Using `next.config.ts` instead of `.js` for better type safety.
+Usando `next.config.ts` en vez de `.js` para mejor type safety.
 
 ```typescript
 // next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',        // Required for Static Hosting (S3, GitHub Pages)
+  output: 'export',        // Requerido para Static Hosting (S3, GitHub Pages)
   images: { 
-    unoptimized: true      // Required if not using Node.js server image optimization
+    unoptimized: true      // Requerido si no se usa optimización de imágenes de Node.js server
   },
-  trailingSlash: true,     // Recommended for SEO and fixing 404s on some hosts
+  trailingSlash: true,     // Recomendado para SEO y arreglar 404s en algunos hosts
   reactStrictMode: true,
 };
 
@@ -68,9 +68,9 @@ export default nextConfig;
 
 ---
 
-## SEO Implementation (Metadata API)
+## Implementación SEO (Metadata API)
 
-Deprecated next-seo. Configure directly in layout.tsx or page.tsx.
+Deprecado next-seo. Configurar directamente en layout.tsx o page.tsx.
 
 ```typescript
 // src/app/layout.tsx
@@ -78,62 +78,62 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Product Name',
-    default: 'Home - Product Name',
+    template: '%s | Nombre del Producto',
+    default: 'Home - Nombre del Producto',
   },
-  description: 'SEO optimized description for the landing page.',
+  description: 'Descripción SEO optimizada para la landing page.',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://mysite.com',
-    siteName: 'My Brand',
+    locale: 'es_LA',
+    url: 'https://misitio.com',
+    siteName: 'Mi Marca',
   },
 };
 ```
 
 ---
 
-## Landing Page Sections
+## Secciones de Landing Page
 
-| Section | Purpose | Suggested Component |
+| Sección | Propósito | Componente Sugerido |
 |---------|---------|---------------------|
-| Hero | First impression, H1 & Main CTA | `<HeroSection />` |
-| Features | Product benefits (Grid/Bento layout) | `<FeaturesGrid />` |
-| Social Proof | Partner logos, User numbers | `<LogoCloud />` |
-| Testimonials | Customer reviews | `<TestimonialCarousel />` |
-| Pricing | Service plans | `<PricingCards />` |
-| FAQ | Questions & Answers (Good for SEO) | `<Accordion />` |
-| CTA | Final conversion | `<CallToAction />` |
+| Hero | Primera impresión, H1 y CTA principal | `<HeroSection />` |
+| Features | Beneficios del producto (Layout Grid/Bento) | `<FeaturesGrid />` |
+| Social Proof | Logos de partners, Números de usuarios | `<LogoCloud />` |
+| Testimonios | Reviews de clientes | `<TestimonialCarousel />` |
+| Precios | Planes de servicio | `<PricingCards />` |
+| FAQ | Preguntas y Respuestas (Bueno para SEO) | `<Accordion />` |
+| CTA | Conversión final | `<CallToAction />` |
 
 ---
 
-## Animation Patterns (Framer Motion)
+## Patrones de Animación (Framer Motion)
 
-| Pattern | Usage | Implementation |
+| Patrón | Uso | Implementación |
 |---------|-------|----------------|
-| Fade Up | Headlines, paragraphs | `initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}` |
-| Stagger | Lists of Features/Cards | Use variants with `staggerChildren` |
-| Parallax | Background images or floating elements | `useScroll` & `useTransform` |
-| Micro-interactions | Hover buttons, click effects | `whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}` |
+| Fade Up | Headlines, párrafos | `initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}` |
+| Stagger | Listas de Features/Cards | Usar variants con `staggerChildren` |
+| Parallax | Imágenes de fondo o elementos flotantes | `useScroll` y `useTransform` |
+| Micro-interacciones | Botones hover, efectos click | `whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}` |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
-1. Initialize Project:
+1. Inicializar Proyecto:
    ```bash
    npx create-next-app@latest my-site --typescript --tailwind --eslint
-   # Select 'Yes' for App Router
-   # Select 'No' for 'Would you like to customize the default import alias?'
+   # Seleccionar 'Sí' para App Router
+   # Seleccionar 'No' para 'Would you like to customize the default import alias?'
    ```
 
-2. Install Auxiliary Libraries:
+2. Instalar Librerías Auxiliares:
    ```bash
    npm install framer-motion lucide-react clsx tailwind-merge
-   # clsx and tailwind-merge help handle dynamic classes better
+   # clsx y tailwind-merge ayudan a manejar clases dinámicas mejor
    ```
 
-3. Configure Tailwind v4 (in `src/app/globals.css`):
+3. Configurar Tailwind v4 (en `src/app/globals.css`):
    ```css
    @import "tailwindcss";
 
@@ -143,27 +143,27 @@ export const metadata: Metadata = {
    }
    ```
 
-4. Development:
+4. Desarrollo:
    ```bash
    npm run dev --turbopack
    ```
 
 ---
 
-## Deployment
+## Despliegue
 
-| Platform | Method | Important Notes |
+| Plataforma | Método | Notas Importantes |
 |----------|--------|-----------------|
-| Vercel | Git Push | Auto-detects Next.js. Best for performance. |
-| GitHub Pages | GitHub Actions | Need to set `basePath` in `next.config.ts` if not using a custom domain. |
-| AWS S3 / CloudFront | Upload out folder | Ensure Error Document is configured to `404.html`. |
-| Netlify | Git Push | Set build command to `npm run build`. |
+| Vercel | Git Push | Auto-detecta Next.js. Mejor para rendimiento. |
+| GitHub Pages | GitHub Actions | Necesita setear `basePath` en `next.config.ts` si no se usa dominio custom. |
+| AWS S3 / CloudFront | Upload carpeta out | Asegurar que Error Document esté configurado a `404.html`. |
+| Netlify | Git Push | Setear build command a `npm run build`. |
 
 ---
 
-## Best Practices (Modern)
+## Mejores Prácticas (Modernas)
 
-- **React Server Components (RSC)**: Default all components to Server Components. Only add `'use client'` when you need state (`useState`) or event listeners (`onClick`).
-- **Image Optimization**: Use the `<Image />` component but remember `unoptimized: true` for static export or use an external image CDN (Cloudinary/Imgix).
-- **Font Optimization**: Use `next/font` (Google Fonts) to automatically host fonts and prevent layout shift.
-- **Responsive**: Mobile-first design using Tailwind prefixes like `sm:`, `md:`, `lg:`.
+- **React Server Components (RSC)**: Por defecto todos los componentes son Server Components. Solo agregar `'use client'` cuando se necesita estado (`useState`) o event listeners (`onClick`).
+- **Optimización de Imágenes**: Usar el componente `<Image />` pero recordar `unoptimized: true` para static export o usar CDN de imágenes externo (Cloudinary/Imgix).
+- **Optimización de Fuentes**: Usar `next/font` (Google Fonts) para hostear fuentes automáticamente y prevenir layout shift.
+- **Responsive**: Diseño mobile-first usando prefijos de Tailwind como `sm:`, `md:`, `lg:`.

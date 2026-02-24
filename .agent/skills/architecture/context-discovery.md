@@ -1,43 +1,43 @@
-# Context Discovery
+# Descubrimiento de Contexto
 
-> Before suggesting any architecture, gather context.
+> Antes de sugerir cualquier arquitectura, recopila contexto.
 
-## Question Hierarchy (Ask User FIRST)
+## Jerarquía de Preguntas (Preguntar al Usuario PRIMERO)
 
-1. **Scale**
-   - How many users? (10, 1K, 100K, 1M+)
-   - Data volume? (MB, GB, TB)
-   - Transaction rate? (per second/minute)
+1. **Escala**
+   - ¿Cuántos usuarios? (10, 1K, 100K, 1M+)
+   - ¿Volumen de datos? (MB, GB, TB)
+   - ¿Tasa de transacciones? (por segundo/minuto)
 
-2. **Team**
-   - Solo developer or team?
-   - Team size and expertise?
-   - Distributed or co-located?
+2. **Equipo**
+   - ¿Desarrollador solo o equipo?
+   - ¿Tamaño del equipo y expertise?
+   - ¿Distribuido o co-ubicado?
 
 3. **Timeline**
-   - MVP/Prototype or long-term product?
-   - Time to market pressure?
+   - ¿MVP/Prototipo o producto a largo plazo?
+   - ¿Presión de time to market?
 
-4. **Domain**
-   - CRUD-heavy or business logic complex?
-   - Real-time requirements?
-   - Compliance/regulations?
+4. **Dominio**
+   - ¿CRUD-heavy o lógica de negocio compleja?
+   - ¿Requisitos de tiempo real?
+   - ¿Compliance/regulaciones?
 
-5. **Constraints**
-   - Budget limitations?
-   - Legacy systems to integrate?
-   - Technology stack preferences?
+5. **Restricciones**
+   - ¿Limitaciones de presupuesto?
+   - ¿Sistemas legacy a integrar?
+   - ¿Preferencias de stack tecnológico?
 
-## Project Classification Matrix
+## Matriz de Clasificación de Proyecto
 
 ```
                     MVP              SaaS           Enterprise
 ┌─────────────────────────────────────────────────────────────┐
-│ Scale        │ <1K           │ 1K-100K      │ 100K+        │
-│ Team         │ Solo          │ 2-10         │ 10+          │
-│ Timeline     │ Fast (weeks)  │ Medium (months)│ Long (years)│
-│ Architecture │ Simple        │ Modular      │ Distributed  │
-│ Patterns     │ Minimal       │ Selective    │ Comprehensive│
-│ Example      │ Next.js API   │ NestJS       │ Microservices│
+│ Escala       │ <1K           │ 1K-100K      │ 100K+        │
+│ Equipo       │ Solo          │ 2-10         │ 10+          │
+│ Timeline     │ Rápido (semanas) │ Medio (meses) │ Largo (años) │
+│ Arquitectura │ Simple        │ Modular      │ Distribuida  │
+│ Patrones     │ Mínimo        │ Selectivo    │ Comprehensivo│
+│ Ejemplo      │ Next.js API   │ NestJS       │ Microservices│
 └─────────────────────────────────────────────────────────────┘
 ```

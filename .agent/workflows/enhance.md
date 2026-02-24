@@ -1,63 +1,63 @@
 ---
-description: Add or update features in existing application. Used for iterative development.
+description: Agregar o actualizar features en aplicación existente. Usado para desarrollo iterativo.
 ---
 
-# /enhance - Update Application
+# /enhance - Actualizar Aplicación
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Tarea
 
-This command adds features or makes updates to existing application.
+Este comando agrega features o hace actualizaciones a aplicación existente.
 
-### Steps:
+### Pasos:
 
-1. **Understand Current State**
-   - Load project state with `python .agent/scripts/session_manager.py info`
-   - Understand existing features, tech stack
+1. **Entender Estado Actual**
+   - Cargar estado del proyecto con `python .agent/scripts/session_manager.py info`
+   - Entender features existentes, stack tech
 
-2. **Plan Changes**
-   - Determine what will be added/changed
-   - Detect affected files
-   - Check dependencies
+2. **Planificar Cambios**
+   - Determinar qué será agregado/cambiado
+   - Detectar archivos afectados
+   - Verificar dependencias
 
-3. **Present Plan to User** (for major changes)
+3. **Presentar Plan al Usuario** (para cambios mayores)
    ```
-   "To add admin panel:
-   - I'll create 15 new files
-   - Update 8 files
-   - Takes ~10 minutes
+   "Para agregar panel de admin:
+   - Crearé 15 archivos nuevos
+   - Actualizaré 8 archivos
+   - Toma ~10 minutos
    
-   Should I start?"
+   ¿Debo comenzar?"
    ```
 
-4. **Apply**
-   - Call relevant agents
-   - Make changes
-   - Test
+4. **Aplicar**
+   - Llamar agentes relevantes
+   - Hacer cambios
+   - Probar
 
-5. **Update Preview**
-   - Hot reload or restart
-
----
-
-## Usage Examples
-
-```
-/enhance add dark mode
-/enhance build admin panel
-/enhance integrate payment system
-/enhance add search feature
-/enhance edit profile page
-/enhance make responsive
-```
+5. **Actualizar Preview**
+   - Hot reload o reiniciar
 
 ---
 
-## Caution
+## Ejemplos de Uso
 
-- Get approval for major changes
-- Warn on conflicting requests (e.g., "use Firebase" when project uses PostgreSQL)
-- Commit each change with git
+```
+/enhance agregar modo oscuro
+/enhance construir panel de admin
+/enhance integrar sistema de pagos
+/enhance agregar feature de búsqueda
+/enhance editar página de perfil
+/enhance hacer responsivo
+```
+
+---
+
+## Precaución
+
+- Obtener aprobación para cambios mayores
+- Advertir sobre solicitudes conflictivas (ej. "usar Firebase" cuando el proyecto usa PostgreSQL)
+- Commitear cada cambio con git

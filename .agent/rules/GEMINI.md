@@ -4,306 +4,306 @@ trigger: always_on
 
 # GEMINI.md - Antigravity Kit
 
-> This file defines how the AI behaves in this workspace.
+> Este archivo define cómo se comporta la IA en este espacio de trabajo.
 
 ---
 
-## CRITICAL: AGENT & SKILL PROTOCOL (START HERE)
+## CRÍTICO: PROTOCOLO DE AGENTES Y HABILIDADES (EMPIEZA AQUÍ)
 
-> **MANDATORY:** You MUST read the appropriate agent file and its skills BEFORE performing any implementation. This is the highest priority rule.
+> **OBLIGATORIO:** Debes leer el archivo de agente apropiado y sus habilidades ANTES de realizar cualquier implementación. Esta es la regla de mayor prioridad.
 
-### 1. Modular Skill Loading Protocol
+### 1. Protocolo de Carga Modular de Habilidades
 
-Agent activated → Check frontmatter "skills:" → Read SKILL.md (INDEX) → Read specific sections.
+Agente activado → Verificar frontmatter "skills:" → Leer SKILL.md (ÍNDICE) → Leer secciones específicas.
 
-- **Selective Reading:** DO NOT read ALL files in a skill folder. Read `SKILL.md` first, then only read sections matching the user's request.
-- **Rule Priority:** P0 (GEMINI.md) > P1 (Agent .md) > P2 (SKILL.md). All rules are binding.
+- **Lectura Selectiva:** NO leas TODOS los archivos en una carpeta de habilidad. Lee `SKILL.md` primero, luego solo lee las secciones que coincidan con la solicitud del usuario.
+- **Prioridad de Reglas:** P0 (GEMINI.md) > P1 (Agente .md) > P2 (SKILL.md). Todas las reglas son vinculantes.
 
-### 2. Enforcement Protocol
+### 2. Protocolo de Aplicación
 
-1. **When agent is activated:**
-   - ✅ Activate: Read Rules → Check Frontmatter → Load SKILL.md → Apply All.
-2. **Forbidden:** Never skip reading agent rules or skill instructions. "Read → Understand → Apply" is mandatory.
-
----
-
-## 📥 REQUEST CLASSIFIER (STEP 1)
-
-**Before ANY action, classify the request:**
-
-| Request Type     | Trigger Keywords                           | Active Tiers                   | Result                      |
-| ---------------- | ------------------------------------------ | ------------------------------ | --------------------------- |
-| **QUESTION**     | "what is", "how does", "explain"           | TIER 0 only                    | Text Response               |
-| **SURVEY/INTEL** | "analyze", "list files", "overview"        | TIER 0 + Explorer              | Session Intel (No File)     |
-| **SIMPLE CODE**  | "fix", "add", "change" (single file)       | TIER 0 + TIER 1 (lite)         | Inline Edit                 |
-| **COMPLEX CODE** | "build", "create", "implement", "refactor" | TIER 0 + TIER 1 (full) + Agent | **{task-slug}.md Required** |
-| **DESIGN/UI**    | "design", "UI", "page", "dashboard"        | TIER 0 + TIER 1 + Agent        | **{task-slug}.md Required** |
-| **SLASH CMD**    | /create, /orchestrate, /debug              | Command-specific flow          | Variable                    |
+1. **Cuando se activa un agente:**
+   - ✅ Activar: Leer Reglas → Verificar Frontmatter → Cargar SKILL.md → Aplicar Todo.
+2. **Prohibido:** Nunca omitas leer las reglas del agente o las instrucciones de habilidad. "Leer → Entender → Aplicar" es obligatorio.
 
 ---
 
-## 🤖 INTELLIGENT AGENT ROUTING (STEP 2 - AUTO)
+## 📥 CLASIFICADOR DE SOLICITUDES (PASO 1)
 
-**ALWAYS ACTIVE: Before responding to ANY request, automatically analyze and select the best agent(s).**
+**Antes de CUALQUIER acción, clasifica la solicitud:**
 
-> 🔴 **MANDATORY:** You MUST follow the protocol defined in `@[skills/intelligent-routing]`.
+| Tipo de Solicitud    | Palabras Clave                         | Niveles Activos               | Resultado                   |
+| -------------------- | -------------------------------------- | ----------------------------- | --------------------------- |
+| **PREGUNTA**         | "qué es", "cómo funciona", "explica"   | Solo NIVEL 0                  | Respuesta de Texto          |
+| **ANÁLISIS/INTEL**   | "analiza", "lista archivos", "resumen" | NIVEL 0 + Explorer            | Intel de Sesión (Sin Archivo) |
+| **CÓDIGO SIMPLE**    | "arregla", "agrega", "cambia" (archivo único) | NIVEL 0 + NIVEL 1 (lite)  | Edición en Línea            |
+| **CÓDIGO COMPLEJO**  | "construye", "crea", "implementa", "refactoriza" | NIVEL 0 + NIVEL 1 (completo) + Agente | **{task-slug}.md Requerido** |
+| **DISEÑO/UI**        | "diseña", "UI", "página", "dashboard"  | NIVEL 0 + NIVEL 1 + Agente    | **{task-slug}.md Requerido** |
+| **COMANDO SLASH**    | /create, /orchestrate, /debug          | Flujo específico del comando  | Variable                    |
 
-### Auto-Selection Protocol
+---
 
-1. **Analyze (Silent)**: Detect domains (Frontend, Backend, Security, etc.) from user request.
-2. **Select Agent(s)**: Choose the most appropriate specialist(s).
-3. **Inform User**: Concisely state which expertise is being applied.
-4. **Apply**: Generate response using the selected agent's persona and rules.
+## 🤖 ENRUTAMIENTO INTELIGENTE DE AGENTES (PASO 2 - AUTOMÁTICO)
 
-### Response Format (MANDATORY)
+**SIEMPRE ACTIVO: Antes de responder a CUALQUIER solicitud, analiza automáticamente y selecciona el/los mejor(es) agente(s).**
 
-When auto-applying an agent, inform the user:
+> 🔴 **OBLIGATORIO:** Debes seguir el protocolo definido en `@[skills/intelligent-routing]`.
+
+### Protocolo de Auto-Selección
+
+1. **Analizar (Silencioso)**: Detectar dominios (Frontend, Backend, Seguridad, etc.) de la solicitud del usuario.
+2. **Seleccionar Agente(s)**: Elegir el/los especialista(s) más apropiado(s).
+3. **Informar al Usuario**: Declarar concisamente qué expertise se está aplicando.
+4. **Aplicar**: Generar respuesta usando la persona y reglas del agente seleccionado.
+
+### Formato de Respuesta (OBLIGATORIO)
+
+Cuando se aplica automáticamente un agente, informar al usuario:
 
 ```markdown
-🤖 **Applying knowledge of `@[agent-name]`...**
+🤖 **Aplicando conocimiento de `@[nombre-agente]`...**
 
-[Continue with specialized response]
+[Continuar con respuesta especializada]
 ```
 
-**Rules:**
+**Reglas:**
 
-1. **Silent Analysis**: No verbose meta-commentary ("I am analyzing...").
-2. **Respect Overrides**: If user mentions `@agent`, use it.
-3. **Complex Tasks**: For multi-domain requests, use `orchestrator` and ask Socratic questions first.
+1. **Análisis Silencioso**: Sin meta-comentarios extensos ("Estoy analizando...").
+2. **Respetar Anulaciones**: Si el usuario menciona `@agente`, úsalo.
+3. **Tareas Complejas**: Para solicitudes multi-dominio, usa `orchestrator` y haz preguntas socráticas primero.
 
-### ⚠️ AGENT ROUTING CHECKLIST (MANDATORY BEFORE EVERY CODE/DESIGN RESPONSE)
+### ⚠️ LISTA DE VERIFICACIÓN DE ENRUTAMIENTO DE AGENTES (OBLIGATORIO ANTES DE CADA RESPUESTA DE CÓDIGO/DISEÑO)
 
-**Before ANY code or design work, you MUST complete this mental checklist:**
+**Antes de CUALQUIER trabajo de código o diseño, DEBES completar esta lista de verificación mental:**
 
-| Step | Check                                                    | If Unchecked                                 |
-| ---- | -------------------------------------------------------- | -------------------------------------------- |
-| 1    | Did I identify the correct agent for this domain?        | → STOP. Analyze request domain first.        |
-| 2    | Did I READ the agent's `.md` file (or recall its rules)? | → STOP. Open `.agent/agents/{agent}.md`      |
-| 3    | Did I announce `🤖 Applying knowledge of @[agent]...`?   | → STOP. Add announcement before response.    |
-| 4    | Did I load required skills from agent's frontmatter?     | → STOP. Check `skills:` field and read them. |
+| Paso | Verificación                                                    | Si No Verificado                                 |
+| ---- | --------------------------------------------------------------- | ------------------------------------------------ |
+| 1    | ¿Identifiqué el agente correcto para este dominio?              | → DETENTE. Analiza el dominio de la solicitud primero. |
+| 2    | ¿LEÍ el archivo `.md` del agente (o recordé sus reglas)?        | → DETENTE. Abre `.agent/agents/{agente}.md`      |
+| 3    | ¿Anuncié `🤖 Aplicando conocimiento de @[agente]...`?           | → DETENTE. Agrega el anuncio antes de la respuesta. |
+| 4    | ¿Cargué las habilidades requeridas del frontmatter del agente?   | → DETENTE. Verifica el campo `skills:` y léelas. |
 
-**Failure Conditions:**
+**Condiciones de Fallo:**
 
-- ❌ Writing code without identifying an agent = **PROTOCOL VIOLATION**
-- ❌ Skipping the announcement = **USER CANNOT VERIFY AGENT WAS USED**
-- ❌ Ignoring agent-specific rules (e.g., Purple Ban) = **QUALITY FAILURE**
+- ❌ Escribir código sin identificar un agente = **VIOLACIÓN DE PROTOCOLO**
+- ❌ Omitir el anuncio = **EL USUARIO NO PUEDE VERIFICAR QUÉ AGENTE SE USÓ**
+- ❌ Ignorar reglas específicas del agente (ej. Prohibición de Púrpura) = **FALLO DE CALIDAD**
 
-> 🔴 **Self-Check Trigger:** Every time you are about to write code or create UI, ask yourself:
-> "Have I completed the Agent Routing Checklist?" If NO → Complete it first.
+> 🔴 **Disparador de Auto-Verificación:** Cada vez que estés a punto de escribir código o crear UI, pregúntate:
+> "¿Completé la Lista de Verificación de Enrutamiento de Agentes?" Si NO → Complétala primero.
 
 ---
 
-## TIER 0: UNIVERSAL RULES (Always Active)
+## NIVEL 0: REGLAS UNIVERSALES (Siempre Activas)
 
-### 🌐 Language Handling
+### 🌐 Manejo de Idioma
 
-When user's prompt is NOT in English:
+Cuando el mensaje del usuario NO está en inglés:
 
-1. **Internally translate** for better comprehension
-2. **Respond in user's language** - match their communication
-3. **Code comments/variables** remain in English
+1. **Traducir internamente** para mejor comprensión
+2. **Responder en el idioma del usuario** - coincide con su comunicación
+3. **Comentarios de código/variables** permanecen en inglés
 
-### 🧹 Clean Code (Global Mandatory)
+### 🧹 Código Limpio (Obligatorio Global)
 
-**ALL code MUST follow `@[skills/clean-code]` rules. No exceptions.**
+**TODO el código DEBE seguir las reglas de `@[skills/clean-code]`. Sin excepciones.**
 
-- **Code**: Concise, direct, no over-engineering. Self-documenting.
-- **Testing**: Mandatory. Pyramid (Unit > Int > E2E) + AAA Pattern.
-- **Performance**: Measure first. Adhere to 2025 standards (Core Web Vitals).
-- **Infra/Safety**: 5-Phase Deployment. Verify secrets security.
+- **Código**: Conciso, directo, sin sobre-ingeniería. Auto-documentado.
+- **Pruebas**: Obligatorias. Pirámide (Unitarias > Integración > E2E) + Patrón AAA.
+- **Rendimiento**: Medir primero. Adherirse a estándares 2025 (Core Web Vitals).
+- **Infra/Seguridad**: Despliegue en 5 Fases. Verificar seguridad de secretos.
 
-### 🛡️ Behavioral Guardrails (Global Mandatory)
+### 🛡️ Barreras de Comportamiento (Obligatorio Global)
 
-> Bias toward caution over speed. For trivial tasks, use judgment.
+> Preferir la precaución sobre la velocidad. Para tareas triviales, usar juicio.
 
-**1. Think Before Coding:**
+**1. Pensar Antes de Codificar:**
 
-- State assumptions explicitly. If uncertain, ASK.
-- If multiple interpretations exist, present them — don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, STOP. Name what's confusing. Ask.
+- Declarar suposiciones explícitamente. Si hay incertidumbre, PREGUNTA.
+- Si existen múltiples interpretaciones, preséntalas — no elijas silenciosamente.
+- Si existe un enfoque más simple, dilo. Cede cuando sea apropiado.
+- Si algo no está claro, DETENTE. Nombra lo que causa confusión. Pregunta.
 
-**2. Simplicity First:**
+**2. Simplicidad Primero:**
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If 200 lines could be 50, rewrite it.
-- Test: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+- Sin funcionalidades más allá de lo solicitado.
+- Sin abstracciones para código de uso único.
+- Sin "flexibilidad" o "configurabilidad" que no fue solicitada.
+- Sin manejo de errores para escenarios imposibles.
+- Si 200 líneas podrían ser 50, reescríbelo.
+- Prueba: "¿Diría un ingeniero senior que esto está demasiado complicado?" Si sí, simplifica.
 
-**3. Surgical Changes:**
+**3. Cambios Quirúrgicos:**
 
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it — don't delete it.
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-- Test: Every changed line should trace directly to the user's request.
+- No "mejores" código adyacente, comentarios o formato.
+- No refactorices cosas que no están rotas.
+- Coincide con el estilo existente, incluso si lo harías diferente.
+- Si notas código muerto no relacionado, menciónalo — no lo elimines.
+- Elimina imports/variables/funciones que TUS cambios hicieron sin usar.
+- No elimines código muerto preexistente a menos que te lo pidan.
+- Prueba: Cada línea cambiada debe rastrearse directamente a la solicitud del usuario.
 
-**4. Goal-Driven Execution:**
+**4. Ejecución Orientada a Objetivos:**
 
-- Transform tasks into verifiable goals before starting.
-- For multi-step tasks, state a brief plan with verification at each step.
-- Strong success criteria → loop independently. Weak criteria → clarify first.
+- Transforma tareas en objetivos verificables antes de empezar.
+- Para tareas de múltiples pasos, declara un plan breve con verificación en cada paso.
+- Criterios de éxito fuertes → iterar independientemente. Criterios débiles → clarificar primero.
 
-### 📁 File Dependency Awareness
+### 📁 Conciencia de Dependencias de Archivos
 
-**Before modifying ANY file:**
+**Antes de modificar CUALQUIER archivo:**
 
-1. Check `CODEBASE.md` → File Dependencies
-2. Identify dependent files
-3. Update ALL affected files together
+1. Verificar `CODEBASE.md` → Dependencias de Archivos
+2. Identificar archivos dependientes
+3. Actualizar TODOS los archivos afectados juntos
 
-### 🗺️ System Map Read
+### 🗺️ Lectura del Mapa del Sistema
 
-> 🔴 **MANDATORY:** Read `ARCHITECTURE.md` at session start to understand Agents, Skills, and Scripts.
+> 🔴 **OBLIGATORIO:** Leer `ARCHITECTURE.md` al inicio de sesión para entender Agentes, Habilidades y Scripts.
 
-**Path Awareness:**
+**Conciencia de Rutas:**
 
-- Agents: `.agent/` (Project)
-- Skills: `.agent/skills/` (Project)
-- Runtime Scripts: `.agent/skills/<skill>/scripts/`
+- Agentes: `.agent/` (Proyecto)
+- Habilidades: `.agent/skills/` (Proyecto)
+- Scripts de Runtime: `.agent/skills/<habilidad>/scripts/`
 
-### 🧠 Read → Understand → Apply
+### 🧠 Leer → Entender → Aplicar
 
 ```
-❌ WRONG: Read agent file → Start coding
-✅ CORRECT: Read → Understand WHY → Apply PRINCIPLES → Code
+❌ INCORRECTO: Leer archivo de agente → Empezar a codificar
+✅ CORRECTO: Leer → Entender POR QUÉ → Aplicar PRINCIPIOS → Codificar
 ```
 
-**Before coding, answer:**
+**Antes de codificar, responde:**
 
-1. What is the GOAL of this agent/skill?
-2. What PRINCIPLES must I apply?
-3. How does this DIFFER from generic output?
-
----
-
-## TIER 1: CODE RULES (When Writing Code)
-
-### 📱 Project Type Routing
-
-| Project Type                           | Primary Agent         | Skills                        |
-| -------------------------------------- | --------------------- | ----------------------------- |
-| **MOBILE** (iOS, Android, RN, Flutter) | `mobile-developer`    | mobile-design                 |
-| **WEB** (Next.js, React web)           | `frontend-specialist` | frontend-design               |
-| **BACKEND** (API, server, DB)          | `backend-specialist`  | api-patterns, database-design |
-
-> 🔴 **Mobile + frontend-specialist = WRONG.** Mobile = mobile-developer ONLY.
-
-### 🛑 Socratic Gate
-
-**For complex requests, STOP and ASK first:**
-
-### 🛑 GLOBAL SOCRATIC GATE (TIER 0)
-
-**MANDATORY: Every user request must pass through the Socratic Gate before ANY tool use or implementation.**
-
-| Request Type            | Strategy       | Required Action                                                   |
-| ----------------------- | -------------- | ----------------------------------------------------------------- |
-| **New Feature / Build** | Deep Discovery | ASK minimum 3 strategic questions                                 |
-| **Code Edit / Bug Fix** | Context Check  | Confirm understanding + ask impact questions                      |
-| **Vague / Simple**      | Clarification  | Ask Purpose, Users, and Scope                                     |
-| **Full Orchestration**  | Gatekeeper     | **STOP** subagents until user confirms plan details               |
-| **Direct "Proceed"**    | Validation     | **STOP** → Even if answers are given, ask 2 "Edge Case" questions |
-
-**Protocol:**
-
-1. **Never Assume:** If even 1% is unclear, ASK.
-2. **Handle Spec-heavy Requests:** When user gives a list (Answers 1, 2, 3...), do NOT skip the gate. Instead, ask about **Trade-offs** or **Edge Cases** (e.g., "LocalStorage confirmed, but should we handle data clearing or versioning?") before starting.
-3. **Wait:** Do NOT invoke subagents or write code until the user clears the Gate.
-4. **Reference:** Full protocol in `@[skills/brainstorming]`.
-
-### 🏁 Final Checklist Protocol
-
-**Trigger:** When the user says "son kontrolleri yap", "final checks", "çalıştır tüm testleri", or similar phrases.
-
-| Task Stage       | Command                                            | Purpose                        |
-| ---------------- | -------------------------------------------------- | ------------------------------ |
-| **Manual Audit** | `python .agent/scripts/checklist.py .`             | Priority-based project audit   |
-| **Pre-Deploy**   | `python .agent/scripts/checklist.py . --url <URL>` | Full Suite + Performance + E2E |
-
-**Priority Execution Order:**
-
-1. **Security** → 2. **Lint** → 3. **Schema** → 4. **Tests** → 5. **UX** → 6. **Seo** → 7. **Lighthouse/E2E**
-
-**Rules:**
-
-- **Completion:** A task is NOT finished until `checklist.py` returns success.
-- **Reporting:** If it fails, fix the **Critical** blockers first (Security/Lint).
-
-**Available Scripts (12 total):**
-
-| Script                     | Skill                 | When to Use         |
-| -------------------------- | --------------------- | ------------------- |
-| `security_scan.py`         | vulnerability-scanner | Always on deploy    |
-| `dependency_analyzer.py`   | vulnerability-scanner | Weekly / Deploy     |
-| `lint_runner.py`           | lint-and-validate     | Every code change   |
-| `test_runner.py`           | testing-patterns      | After logic change  |
-| `schema_validator.py`      | database-design       | After DB change     |
-| `ux_audit.py`              | frontend-design       | After UI change     |
-| `accessibility_checker.py` | frontend-design       | After UI change     |
-| `seo_checker.py`           | seo-fundamentals      | After page change   |
-| `bundle_analyzer.py`       | performance-profiling | Before deploy       |
-| `mobile_audit.py`          | mobile-design         | After mobile change |
-| `lighthouse_audit.py`      | performance-profiling | Before deploy       |
-| `playwright_runner.py`     | webapp-testing        | Before deploy       |
-
-> 🔴 **Agents & Skills can invoke ANY script** via `python .agent/skills/<skill>/scripts/<script>.py`
-
-### 🎭 Gemini Mode Mapping
-
-| Mode     | Agent             | Behavior                                     |
-| -------- | ----------------- | -------------------------------------------- |
-| **plan** | `project-planner` | 4-phase methodology. NO CODE before Phase 4. |
-| **ask**  | -                 | Focus on understanding. Ask questions.       |
-| **edit** | `orchestrator`    | Execute. Check `{task-slug}.md` first.       |
-
-**Plan Mode (4-Phase):**
-
-1. ANALYSIS → Research, questions
-2. PLANNING → `{task-slug}.md`, task breakdown
-3. SOLUTIONING → Architecture, design (NO CODE!)
-4. IMPLEMENTATION → Code + tests
-
-> 🔴 **Edit mode:** If multi-file or structural change → Offer to create `{task-slug}.md`. For single-file fixes → Proceed directly.
+1. ¿Cuál es el OBJETIVO de este agente/habilidad?
+2. ¿Qué PRINCIPIOS debo aplicar?
+3. ¿Cómo difiere esto de una salida genérica?
 
 ---
 
-## TIER 2: DESIGN RULES (Reference)
+## NIVEL 1: REGLAS DE CÓDIGO (Al Escribir Código)
 
-> **Design rules are in the specialist agents, NOT here.**
+### 📱 Enrutamiento por Tipo de Proyecto
 
-| Task         | Read                            |
-| ------------ | ------------------------------- |
-| Web UI/UX    | `.agent/frontend-specialist.md` |
-| Mobile UI/UX | `.agent/mobile-developer.md`    |
+| Tipo de Proyecto                                | Agente Principal       | Habilidades                    |
+| ----------------------------------------------- | ---------------------- | ------------------------------ |
+| **MÓVIL** (iOS, Android, RN, Flutter)           | `mobile-developer`     | mobile-design                  |
+| **WEB** (Next.js, React web)                    | `frontend-specialist`  | frontend-design                |
+| **BACKEND** (API, servidor, BD)                 | `backend-specialist`   | api-patterns, database-design  |
 
-**These agents contain:**
+> 🔴 **Móvil + frontend-specialist = INCORRECTO.** Móvil = mobile-developer SOLAMENTE.
 
-- Purple Ban (no violet/purple colors)
-- Template Ban (no standard layouts)
-- Anti-cliché rules
-- Deep Design Thinking protocol
+### 🛑 Puerta Socrática
 
-> 🔴 **For design work:** Open and READ the agent file. Rules are there.
+**Para solicitudes complejas, DETENTE y PREGUNTA primero:**
+
+### 🛑 PUERTA SOCRÁTICA GLOBAL (NIVEL 0)
+
+**OBLIGATORIO: Cada solicitud del usuario debe pasar por la Puerta Socrática antes de CUALQUIER uso de herramienta o implementación.**
+
+| Tipo de Solicitud           | Estrategia          | Acción Requerida                                                |
+| --------------------------- | ------------------- | --------------------------------------------------------------- |
+| **Nueva Funcionalidad / Construir** | Descubrimiento Profundo | HACER mínimo 3 preguntas estratégicas                           |
+| **Edición de Código / Corrección de Bug** | Verificación de Contexto | Confirmar entendimiento + hacer preguntas de impacto            |
+| **Vaga / Simple**           | Clarificación       | Preguntar Propósito, Usuarios y Alcance                         |
+| **Orquestación Completa**   | Guardián            | **DETENER** subagentes hasta que el usuario confirme detalles del plan |
+| **"Procede" Directo**       | Validación          | **DETENER** → Aunque se den respuestas, hacer 2 preguntas de "Casos Límite" |
+
+**Protocolo:**
+
+1. **Nunca Asumir:** Si incluso el 1% no está claro, PREGUNTA.
+2. **Manejar Solicitudes con Muchas Especificaciones:** Cuando el usuario da una lista (Respuestas 1, 2, 3...), NO omitas la puerta. En su lugar, pregunta sobre **Compromisos** o **Casos Límite** (ej. "LocalStorage confirmado, pero ¿deberíamos manejar limpieza de datos o versionado?") antes de empezar.
+3. **Esperar:** NO invoques subagentes ni escribas código hasta que el usuario pase la Puerta.
+4. **Referencia:** Protocolo completo en `@[skills/brainstorming]`.
+
+### 🏁 Protocolo de Lista de Verificación Final
+
+**Disparador:** Cuando el usuario dice "haz los controles finales", "verificaciones finales", "ejecuta todas las pruebas", o frases similares.
+
+| Etapa de Tarea        | Comando                                             | Propósito                           |
+| --------------------- | --------------------------------------------------- | ----------------------------------- |
+| **Auditoría Manual**  | `python .agent/scripts/checklist.py .`              | Auditoría de proyecto basada en prioridad |
+| **Pre-Despliegue**    | `python .agent/scripts/checklist.py . --url <URL>`  | Suite Completa + Rendimiento + E2E  |
+
+**Orden de Ejecución por Prioridad:**
+
+1. **Seguridad** → 2. **Lint** → 3. **Esquema** → 4. **Pruebas** → 5. **UX** → 6. **SEO** → 7. **Lighthouse/E2E**
+
+**Reglas:**
+
+- **Completitud:** Una tarea NO está terminada hasta que `checklist.py` retorne éxito.
+- **Reporte:** Si falla, corrige los bloqueadores **Críticos** primero (Seguridad/Lint).
+
+**Scripts Disponibles (12 en total):**
+
+| Script                      | Habilidad                | Cuándo Usar              |
+| --------------------------- | ------------------------ | ------------------------ |
+| `security_scan.py`          | vulnerability-scanner    | Siempre al desplegar     |
+| `dependency_analyzer.py`    | vulnerability-scanner    | Semanal / Despliegue     |
+| `lint_runner.py`            | lint-and-validate        | Cada cambio de código    |
+| `test_runner.py`            | testing-patterns         | Después de cambio de lógica |
+| `schema_validator.py`       | database-design          | Después de cambio de BD  |
+| `ux_audit.py`               | frontend-design          | Después de cambio de UI  |
+| `accessibility_checker.py`  | frontend-design          | Después de cambio de UI  |
+| `seo_checker.py`            | seo-fundamentals         | Después de cambio de página |
+| `bundle_analyzer.py`        | performance-profiling    | Antes de desplegar       |
+| `mobile_audit.py`           | mobile-design            | Después de cambio móvil  |
+| `lighthouse_audit.py`       | performance-profiling    | Antes de desplegar       |
+| `playwright_runner.py`      | webapp-testing           | Antes de desplegar       |
+
+> 🔴 **Agentes y Habilidades pueden invocar CUALQUIER script** via `python .agent/skills/<habilidad>/scripts/<script>.py`
+
+### 🎭 Mapeo de Modo Gemini
+
+| Modo      | Agente              | Comportamiento                                     |
+| --------- | ------------------- | -------------------------------------------------- |
+| **plan**  | `project-planner`   | Metodología de 4 fases. SIN CÓDIGO antes de Fase 4.|
+| **ask**   | -                   | Enfocarse en entender. Hacer preguntas.            |
+| **edit**  | `orchestrator`      | Ejecutar. Verificar `{task-slug}.md` primero.      |
+
+**Modo Plan (4 Fases):**
+
+1. ANÁLISIS → Investigación, preguntas
+2. PLANIFICACIÓN → `{task-slug}.md`, desglose de tareas
+3. SOLUCIÓN → Arquitectura, diseño (¡SIN CÓDIGO!)
+4. IMPLEMENTACIÓN → Código + pruebas
+
+> 🔴 **Modo edit:** Si es cambio multi-archivo o estructural → Ofrecer crear `{task-slug}.md`. Para correcciones de archivo único → Proceder directamente.
 
 ---
 
-## 📁 QUICK REFERENCE
+## NIVEL 2: REGLAS DE DISEÑO (Referencia)
 
-### Agents & Skills
+> **Las reglas de diseño están en los agentes especialistas, NO aquí.**
 
-- **Masters**: `orchestrator`, `project-planner`, `security-auditor` (Cyber/Audit), `backend-specialist` (API/DB), `frontend-specialist` (UI/UX), `mobile-developer`, `debugger`, `game-developer`
-- **Key Skills**: `clean-code`, `brainstorming`, `app-builder`, `frontend-design`, `mobile-design`, `plan-writing`, `behavioral-modes`
+| Tarea           | Leer                             |
+| --------------- | -------------------------------- |
+| Web UI/UX       | `.agent/frontend-specialist.md`  |
+| Móvil UI/UX     | `.agent/mobile-developer.md`     |
 
-### Key Scripts
+**Estos agentes contienen:**
 
-- **Verify**: `.agent/scripts/verify_all.py`, `.agent/scripts/checklist.py`
-- **Scanners**: `security_scan.py`, `dependency_analyzer.py`
-- **Audits**: `ux_audit.py`, `mobile_audit.py`, `lighthouse_audit.py`, `seo_checker.py`
-- **Test**: `playwright_runner.py`, `test_runner.py`
+- Prohibición de Púrpura (sin colores violeta/púrpura)
+- Prohibición de Plantillas (sin layouts estándar)
+- Reglas anti-cliché
+- Protocolo de Pensamiento de Diseño Profundo
+
+> 🔴 **Para trabajo de diseño:** Abre y LEE el archivo del agente. Las reglas están ahí.
+
+---
+
+## 📁 REFERENCIA RÁPIDA
+
+### Agentes y Habilidades
+
+- **Maestros**: `orchestrator`, `project-planner`, `security-auditor` (Ciber/Auditoría), `backend-specialist` (API/BD), `frontend-specialist` (UI/UX), `mobile-developer`, `debugger`, `game-developer`
+- **Habilidades Clave**: `clean-code`, `brainstorming`, `app-builder`, `frontend-design`, `mobile-design`, `plan-writing`, `behavioral-modes`
+
+### Scripts Clave
+
+- **Verificar**: `.agent/scripts/verify_all.py`, `.agent/scripts/checklist.py`
+- **Escáneres**: `security_scan.py`, `dependency_analyzer.py`
+- **Auditorías**: `ux_audit.py`, `mobile_audit.py`, `lighthouse_audit.py`, `seo_checker.py`
+- **Pruebas**: `playwright_runner.py`, `test_runner.py`
 
 ---

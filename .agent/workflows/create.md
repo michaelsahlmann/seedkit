@@ -1,59 +1,59 @@
 ---
-description: Create new application command. Triggers App Builder skill and starts interactive dialogue with user.
+description: Comando para crear nueva aplicación. Activa la habilidad App Builder e inicia diálogo interactivo con el usuario.
 ---
 
-# /create - Create Application
+# /create - Crear Aplicación
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Tarea
 
-This command starts a new application creation process.
+Este comando inicia un nuevo proceso de creación de aplicación.
 
-### Steps:
+### Pasos:
 
-1. **Request Analysis**
-   - Understand what the user wants
-   - If information is missing, use `conversation-manager` skill to ask
+1. **Análisis de Solicitud**
+   - Entender qué quiere el usuario
+   - Si falta información, usar habilidad `conversation-manager` para preguntar
 
-2. **Project Planning**
-   - Use `project-planner` agent for task breakdown
-   - Determine tech stack
-   - Plan file structure
-   - Create plan file and proceed to building
+2. **Planificación de Proyecto**
+   - Usar agente `project-planner` para desglose de tareas
+   - Determinar stack tech
+   - Planificar estructura de archivos
+   - Crear archivo de plan y proceder a construir
 
-3. **Application Building (After Approval)**
-   - Orchestrate with `app-builder` skill
-   - Coordinate expert agents:
-     - `database-architect` → Schema
+3. **Construcción de Aplicación (Después de Aprobación)**
+   - Orquestar con habilidad `app-builder`
+   - Coordinar agentes expertos:
+     - `database-architect` → Esquema
      - `backend-specialist` → API
      - `frontend-specialist` → UI
 
 4. **Preview**
-   - Start with `auto_preview.py` when complete
-   - Present URL to user
+   - Iniciar con `auto_preview.py` cuando esté completo
+   - Presentar URL al usuario
 
 ---
 
-## Usage Examples
+## Ejemplos de Uso
 
 ```
-/create blog site
-/create e-commerce app with product listing and cart
-/create todo app
-/create Instagram clone
-/create crm system with customer management
+/create sitio de blog
+/create app e-commerce con listado de productos y carrito
+/create app de tareas
+/create clon de Instagram
+/create sistema crm con gestión de clientes
 ```
 
 ---
 
-## Before Starting
+## Antes de Comenzar
 
-If request is unclear, ask these questions:
-- What type of application?
-- What are the basic features?
-- Who will use it?
+Si la solicitud no está clara, haz estas preguntas:
+- ¿Qué tipo de aplicación?
+- ¿Cuáles son las features básicas?
+- ¿Quién la usará?
 
-Use defaults, add details later.
+Usa defaults, agrega detalles después.

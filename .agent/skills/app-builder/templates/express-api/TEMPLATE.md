@@ -1,51 +1,51 @@
 ---
 name: express-api
-description: Express.js REST API template principles. TypeScript, Prisma, JWT.
+description: Principios de plantilla Express.js REST API. TypeScript, Prisma, JWT.
 ---
 
-# Express.js API Template
+# Plantilla Express.js API
 
-## Tech Stack
+## Stack Tech
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|------------|
 | Runtime | Node.js 20+ |
 | Framework | Express.js |
-| Language | TypeScript |
-| Database | PostgreSQL + Prisma |
-| Validation | Zod |
+| Lenguaje | TypeScript |
+| Base de Datos | PostgreSQL + Prisma |
+| Validación | Zod |
 | Auth | JWT + bcrypt |
 
 ---
 
-## Directory Structure
+## Estructura de Directorios
 
 ```
-project-name/
+nombre-proyecto/
 ├── prisma/
 │   └── schema.prisma
 ├── src/
-│   ├── app.ts           # Express setup
-│   ├── config/          # Environment
-│   ├── routes/          # Route handlers
-│   ├── controllers/     # Business logic
-│   ├── services/        # Data access
+│   ├── app.ts           # Setup Express
+│   ├── config/          # Entorno
+│   ├── routes/          # Handlers de rutas
+│   ├── controllers/     # Lógica de negocio
+│   ├── services/        # Acceso a datos
 │   ├── middleware/
 │   │   ├── auth.ts      # JWT verify
 │   │   ├── error.ts     # Error handler
-│   │   └── validate.ts  # Zod validation
-│   ├── schemas/         # Zod schemas
+│   │   └── validate.ts  # Validación Zod
+│   ├── schemas/         # Schemas Zod
 │   └── utils/
 └── package.json
 ```
 
 ---
 
-## Middleware Stack
+## Stack de Middleware
 
-| Order | Middleware |
+| Orden | Middleware |
 |-------|------------|
-| 1 | helmet (security) |
+| 1 | helmet (seguridad) |
 | 2 | cors |
 | 3 | morgan (logging) |
 | 4 | body parsing |
@@ -54,30 +54,30 @@ project-name/
 
 ---
 
-## API Response Format
+## Formato de Respuesta API
 
-| Type | Structure |
+| Tipo | Estructura |
 |------|-----------|
-| Success | `{ success: true, data: {...} }` |
-| Error | `{ error: "message", details: [...] }` |
+| Éxito | `{ success: true, data: {...} }` |
+| Error | `{ error: "mensaje", details: [...] }` |
 
 ---
 
-## Setup Steps
+## Pasos de Setup
 
-1. Create project directory
+1. Crear directorio del proyecto
 2. `npm init -y`
-3. Install deps: `npm install express prisma zod bcrypt jsonwebtoken`
-4. Configure Prisma
+3. Instalar deps: `npm install express prisma zod bcrypt jsonwebtoken`
+4. Configurar Prisma
 5. `npm run db:push`
 6. `npm run dev`
 
 ---
 
-## Best Practices
+## Mejores Prácticas
 
-- Layer architecture (routes → controllers → services)
-- Validate all inputs with Zod
-- Centralized error handling
-- Environment-based config
-- Use Prisma for type-safe DB access
+- Arquitectura en capas (routes → controllers → services)
+- Validar todos los inputs con Zod
+- Manejo de errores centralizado
+- Configuración basada en entorno
+- Usar Prisma para acceso DB type-safe

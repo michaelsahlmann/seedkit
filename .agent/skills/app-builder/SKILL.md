@@ -1,75 +1,75 @@
 ---
 name: app-builder
-description: Main application building orchestrator. Creates full-stack applications from natural language requests. Determines project type, selects tech stack, coordinates agents.
+description: Orquestador principal de construcción de aplicaciones. Crea aplicaciones full-stack desde solicitudes en lenguaje natural. Determina tipo de proyecto, selecciona stack tech, coordina agentes.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 ---
 
-# App Builder - Application Building Orchestrator
+# App Builder - Orquestador de Construcción de Aplicaciones
 
-> Analyzes user's requests, determines tech stack, plans structure, and coordinates agents.
+> Analiza las solicitudes del usuario, determina stack tech, planifica estructura y coordina agentes.
 
-## 🎯 Selective Reading Rule
+## 🎯 Regla de Lectura Selectiva
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+**¡Lee SOLO archivos relevantes para la solicitud!** Revisa el mapa de contenido, encuentra lo que necesitas.
 
-| File | Description | When to Read |
+| Archivo | Descripción | Cuándo Leer |
 |------|-------------|--------------|
-| `project-detection.md` | Keyword matrix, project type detection | Starting new project |
-| `tech-stack.md` | 2026 default stack, alternatives | Choosing technologies |
-| `agent-coordination.md` | Agent pipeline, execution order | Coordinating multi-agent work |
-| `scaffolding.md` | Directory structure, core files | Creating project structure |
-| `feature-building.md` | Feature analysis, error handling | Adding features to existing project |
-| `templates/SKILL.md` | **Project templates** | Scaffolding new project |
+| `project-detection.md` | Matriz de keywords, detección de tipo de proyecto | Iniciando nuevo proyecto |
+| `tech-stack.md` | Stack default 2026, alternativas | Eligiendo tecnologías |
+| `agent-coordination.md` | Pipeline de agentes, orden de ejecución | Coordinando trabajo multi-agente |
+| `scaffolding.md` | Estructura de directorios, archivos core | Creando estructura de proyecto |
+| `feature-building.md` | Análisis de features, manejo de errores | Agregando features a proyecto existente |
+| `templates/SKILL.md` | **Plantillas de proyecto** | Scaffolding de nuevo proyecto |
 
 ---
 
-## 📦 Templates (13)
+## 📦 Plantillas (13)
 
-Quick-start scaffolding for new projects. **Read the matching template only!**
+Scaffolding de inicio rápido para nuevos proyectos. **¡Lee solo la plantilla que coincide!**
 
-| Template | Tech Stack | When to Use |
+| Plantilla | Stack Tech | Cuándo Usar |
 |----------|------------|-------------|
-| [nextjs-fullstack](templates/nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | Full-stack web app |
-| [nextjs-saas](templates/nextjs-saas/TEMPLATE.md) | Next.js + Stripe | SaaS product |
+| [nextjs-fullstack](templates/nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | App web full-stack |
+| [nextjs-saas](templates/nextjs-saas/TEMPLATE.md) | Next.js + Stripe | Producto SaaS |
 | [nextjs-static](templates/nextjs-static/TEMPLATE.md) | Next.js + Framer | Landing page |
-| [nuxt-app](templates/nuxt-app/TEMPLATE.md) | Nuxt 3 + Pinia | Vue full-stack app |
+| [nuxt-app](templates/nuxt-app/TEMPLATE.md) | Nuxt 3 + Pinia | App Vue full-stack |
 | [express-api](templates/express-api/TEMPLATE.md) | Express + JWT | REST API |
-| [python-fastapi](templates/python-fastapi/TEMPLATE.md) | FastAPI | Python API |
-| [react-native-app](templates/react-native-app/TEMPLATE.md) | Expo + Zustand | Mobile app |
-| [flutter-app](templates/flutter-app/TEMPLATE.md) | Flutter + Riverpod | Cross-platform mobile |
-| [electron-desktop](templates/electron-desktop/TEMPLATE.md) | Electron + React | Desktop app |
-| [chrome-extension](templates/chrome-extension/TEMPLATE.md) | Chrome MV3 | Browser extension |
-| [cli-tool](templates/cli-tool/TEMPLATE.md) | Node.js + Commander | CLI app |
+| [python-fastapi](templates/python-fastapi/TEMPLATE.md) | FastAPI | API Python |
+| [react-native-app](templates/react-native-app/TEMPLATE.md) | Expo + Zustand | App móvil |
+| [flutter-app](templates/flutter-app/TEMPLATE.md) | Flutter + Riverpod | Móvil cross-platform |
+| [electron-desktop](templates/electron-desktop/TEMPLATE.md) | Electron + React | App desktop |
+| [chrome-extension](templates/chrome-extension/TEMPLATE.md) | Chrome MV3 | Extensión de navegador |
+| [cli-tool](templates/cli-tool/TEMPLATE.md) | Node.js + Commander | App CLI |
 | [monorepo-turborepo](templates/monorepo-turborepo/TEMPLATE.md) | Turborepo + pnpm | Monorepo |
 
 ---
 
-## 🔗 Related Agents
+## 🔗 Agentes Relacionados
 
-| Agent | Role |
+| Agente | Rol |
 |-------|------|
-| `project-planner` | Task breakdown, dependency graph |
-| `frontend-specialist` | UI components, pages |
-| `backend-specialist` | API, business logic |
-| `database-architect` | Schema, migrations |
-| `devops-engineer` | Deployment, preview |
+| `project-planner` | Desglose de tareas, grafo de dependencias |
+| `frontend-specialist` | Componentes UI, páginas |
+| `backend-specialist` | API, lógica de negocio |
+| `database-architect` | Schema, migraciones |
+| `devops-engineer` | Despliegue, preview |
 
 ---
 
-## Usage Example
+## Ejemplo de Uso
 
 ```
-User: "Make an Instagram clone with photo sharing and likes"
+Usuario: "Hacer un clon de Instagram con compartir fotos y likes"
 
-App Builder Process:
-1. Project type: Social Media App
-2. Tech stack: Next.js + Prisma + Cloudinary + Clerk
-3. Create plan:
-   ├─ Database schema (users, posts, likes, follows)
-   ├─ API routes (12 endpoints)
-   ├─ Pages (feed, profile, upload)
-   └─ Components (PostCard, Feed, LikeButton)
-4. Coordinate agents
-5. Report progress
-6. Start preview
+Proceso de App Builder:
+1. Tipo de proyecto: Social Media App
+2. Stack tech: Next.js + Prisma + Cloudinary + Clerk
+3. Crear plan:
+   ├─ Schema de base de datos (users, posts, likes, follows)
+   ├─ Rutas API (12 endpoints)
+   ├─ Páginas (feed, profile, upload)
+   └─ Componentes (PostCard, Feed, LikeButton)
+4. Coordinar agentes
+5. Reportar progreso
+6. Iniciar preview
 ```

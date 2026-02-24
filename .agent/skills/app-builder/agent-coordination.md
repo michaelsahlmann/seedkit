@@ -1,29 +1,29 @@
-# Agent Coordination
+# Coordinación de Agentes
 
-> How App Builder orchestrates specialist agents.
+> Cómo App Builder orquesta agentes especializados.
 
-## Agent Pipeline
+## Pipeline de Agentes
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   APP BUILDER (Orchestrator)                 │
+│                   APP BUILDER (Orquestador)                 │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                     PROJECT PLANNER                          │
-│  • Task breakdown                                            │
-│  • Dependency graph                                          │
-│  • File structure planning                                   │
-│  • Create {task-slug}.md in project root (MANDATORY)             │
+│  • Desglose de tareas                                        │
+│  • Grafo de dependencias                                     │
+│  • Planificación de estructura de archivos                   │
+│  • Crear {task-slug}.md en raíz del proyecto (OBLIGATORIO)   │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              CHECKPOINT: PLAN VERIFICATION                   │
-│  🔴 VERIFY: Does {task-slug}.md exist in project root?       │
-│  🔴 If NO → STOP → Create plan file first                    │
-│  🔴 If YES → Proceed to specialist agents                    │
+│              CHECKPOINT: VERIFICACIÓN DE PLAN                │
+│  🔴 VERIFICAR: ¿Existe {task-slug}.md en raíz del proyecto?  │
+│  🔴 Si NO → DETENER → Crear archivo de plan primero         │
+│  🔴 Si SÍ → Proceder a agentes especializados                │
 └─────────────────────────────────────────────────────────────┘
                               │
           ┌───────────────────┼───────────────────┐
@@ -32,40 +32,40 @@
 │ DATABASE        │ │ BACKEND         │ │ FRONTEND        │
 │ ARCHITECT       │ │ SPECIALIST      │ │ SPECIALIST      │
 │                 │ │                 │ │                 │
-│ • Schema design │ │ • API routes    │ │ • Components    │
-│ • Migrations    │ │ • Controllers   │ │ • Pages         │
-│ • Seed data     │ │ • Middleware    │ │ • Styling       │
+│ • Diseño schema │ │ • Rutas API     │ │ • Componentes   │
+│ • Migraciones   │ │ • Controllers   │ │ • Páginas       │
+│ • Datos seed    │ │ • Middleware    │ │ • Estilos       │
 └─────────────────┘ └─────────────────┘ └─────────────────┘
           │                   │                   │
           └───────────────────┼───────────────────┘
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 PARALLEL PHASE (Optional)                    │
-│  • Security Auditor → Vulnerability check                   │
-│  • Test Engineer → Unit tests                               │
-│  • Performance Optimizer → Bundle analysis                  │
+│                 FASE PARALELA (Opcional)                     │
+│  • Security Auditor → Check de vulnerabilidades             │
+│  • Test Engineer → Pruebas unitarias                        │
+│  • Performance Optimizer → Análisis de bundle               │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                     DEVOPS ENGINEER                          │
-│  • Environment setup                                         │
-│  • Preview deployment                                        │
+│  • Configuración de entorno                                  │
+│  • Despliegue de preview                                     │
 │  • Health check                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Execution Order
+## Orden de Ejecución
 
-| Phase | Agent(s) | Parallel? | Prerequisite | CHECKPOINT |
+| Fase | Agente(s) | Paralelo? | Prerrequisito | CHECKPOINT |
 |-------|----------|-----------|--------------|------------|
-| 0 | Socratic Gate | ❌ | - | ✅ Ask 3 questions |
-| 1 | Project Planner | ❌ | Questions answered | ✅ **PLAN.md created** |
-| 1.5 | **PLAN VERIFICATION** | ❌ | PLAN.md exists | ✅ **File exists in root** |
-| 2 | Database Architect | ❌ | Plan ready | Schema defined |
-| 3 | Backend Specialist | ❌ | Schema ready | API routes created |
-| 4 | Frontend Specialist | ✅ | API ready (partial) | UI components ready |
-| 5 | Security Auditor, Test Engineer | ✅ | Code ready | Tests & audit pass |
-| 6 | DevOps Engineer | ❌ | All code ready | Deployment ready |
+| 0 | Puerta Socrática | ❌ | - | ✅ Hacer 3 preguntas |
+| 1 | Project Planner | ❌ | Preguntas respondidas | ✅ **PLAN.md creado** |
+| 1.5 | **VERIFICACIÓN DE PLAN** | ❌ | PLAN.md existe | ✅ **Archivo existe en raíz** |
+| 2 | Database Architect | ❌ | Plan listo | Schema definido |
+| 3 | Backend Specialist | ❌ | Schema listo | Rutas API creadas |
+| 4 | Frontend Specialist | ✅ | API lista (parcial) | Componentes UI listos |
+| 5 | Security Auditor, Test Engineer | ✅ | Código listo | Tests y audit pasan |
+| 6 | DevOps Engineer | ❌ | Todo el código listo | Deployment listo |
 
-> 🔴 **CRITICAL:** Phase 1.5 is MANDATORY. No specialist agents proceed without PLAN.md verification.
+> 🔴 **CRÍTICO:** La Fase 1.5 es OBLIGATORIA. Ningún agente especializado procede sin verificación de PLAN.md.

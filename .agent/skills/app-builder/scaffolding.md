@@ -1,28 +1,28 @@
-# Project Scaffolding
+# Scaffolding de Proyecto
 
-> Directory structure and core files for new projects.
+> Estructura de directorios y archivos core para nuevos proyectos.
 
 ---
 
-## Next.js Full-Stack Structure (2025 Optimized)
+## Estructura Next.js Full-Stack (Optimizada 2025)
 
 ```
-project-name/
+nombre-proyecto/
 ├── src/
-│   ├── app/                        # Routes only (thin layer)
+│   ├── app/                        # Solo rutas (capa delgada)
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   ├── globals.css
-│   │   ├── (auth)/                 # Route group - auth pages
+│   │   ├── (auth)/                 # Route group - páginas auth
 │   │   │   ├── login/page.tsx
 │   │   │   └── register/page.tsx
-│   │   ├── (dashboard)/            # Route group - dashboard layout
+│   │   ├── (dashboard)/            # Route group - layout dashboard
 │   │   │   ├── layout.tsx
 │   │   │   └── page.tsx
 │   │   └── api/
-│   │       └── [resource]/route.ts
+│   │       └── [recurso]/route.ts
 │   │
-│   ├── features/                   # Feature-based modules
+│   ├── features/                   # Módulos basados en features
 │   │   ├── auth/
 │   │   │   ├── components/
 │   │   │   ├── hooks/
@@ -36,15 +36,15 @@ project-name/
 │   │   └── cart/
 │   │       └── ...
 │   │
-│   ├── shared/                     # Shared utilities
-│   │   ├── components/ui/          # Reusable UI components
+│   ├── shared/                     # Utilidades compartidas
+│   │   ├── components/ui/          # Componentes UI reutilizables
 │   │   ├── lib/                    # Utils, helpers
-│   │   └── hooks/                  # Global hooks
+│   │   └── hooks/                  # Hooks globales
 │   │
-│   └── server/                     # Server-only code
-│       ├── db/                     # Database client (Prisma)
-│       ├── auth/                   # Auth config
-│       └── services/               # External API integrations
+│   └── server/                     # Código solo-servidor
+│       ├── db/                     # Cliente de base de datos (Prisma)
+│       ├── auth/                   # Config de auth
+│       └── services/               # Integraciones API externas
 │
 ├── prisma/
 │   ├── schema.prisma
@@ -62,29 +62,29 @@ project-name/
 
 ---
 
-## Structure Principles
+## Principios de Estructura
 
-| Principle | Implementation |
+| Principio | Implementación |
 |-----------|----------------|
-| **Feature isolation** | Each feature in `features/` with its own components, hooks, actions |
-| **Server/Client separation** | Server-only code in `server/`, prevents accidental client imports |
-| **Thin routes** | `app/` only for routing, logic lives in `features/` |
-| **Route groups** | `(groupName)/` for layout sharing without URL impact |
-| **Shared code** | `shared/` for truly reusable UI and utilities |
+| **Aislamiento de features** | Cada feature en `features/` con sus propios componentes, hooks, actions |
+| **Separación Server/Client** | Código solo-servidor en `server/`, previene imports client accidentales |
+| **Rutas delgadas** | `app/` solo para routing, lógica vive en `features/` |
+| **Route groups** | `(groupName)/` para compartir layout sin impacto en URL |
+| **Código compartido** | `shared/` para UI y utilidades realmente reutilizables |
 
 ---
 
-## Core Files
+## Archivos Core
 
-| File | Purpose |
+| Archivo | Propósito |
 |------|---------|
-| `package.json` | Dependencies |
+| `package.json` | Dependencias |
 | `tsconfig.json` | TypeScript + path aliases (`@/features/*`) |
-| `tailwind.config.ts` | Tailwind config |
-| `.env.example` | Environment template |
-| `README.md` | Project documentation |
-| `.gitignore` | Git ignore rules |
-| `prisma/schema.prisma` | Database schema |
+| `tailwind.config.ts` | Config de Tailwind |
+| `.env.example` | Template de entorno |
+| `README.md` | Documentación del proyecto |
+| `.gitignore` | Reglas de git ignore |
+| `prisma/schema.prisma` | Schema de base de datos |
 
 ---
 
@@ -105,14 +105,14 @@ project-name/
 
 ---
 
-## When to Use What
+## Cuándo Usar Qué
 
-| Need | Location |
+| Necesidad | Ubicación |
 |------|----------|
-| New page/route | `app/(group)/page.tsx` |
-| Feature component | `features/[name]/components/` |
-| Server action | `features/[name]/actions.ts` |
-| Data fetching | `features/[name]/queries.ts` |
-| Reusable button/input | `shared/components/ui/` |
-| Database query | `server/db/` |
-| External API call | `server/services/` |
+| Nueva página/ruta | `app/(grupo)/page.tsx` |
+| Componente de feature | `features/[nombre]/components/` |
+| Server action | `features/[nombre]/actions.ts` |
+| Data fetching | `features/[nombre]/queries.ts` |
+| Botón/input reutilizable | `shared/components/ui/` |
+| Query de base de datos | `server/db/` |
+| Llamada a API externa | `server/services/` |
