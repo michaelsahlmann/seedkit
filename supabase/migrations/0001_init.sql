@@ -1,5 +1,5 @@
 -- ============================================================================
--- Base General — esquema inicial
+-- Seedkit — esquema inicial
 -- Biblioteca de bloques -> playbooks (secuencias) -> runs (checklist vivo)
 -- Single-user (Master) en Fase 1, preparado para multiusuario/compartir.
 -- ============================================================================

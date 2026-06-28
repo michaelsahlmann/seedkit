@@ -21,7 +21,7 @@ export function Sidebar({ email, role }: { email: string | null; role: string })
   return (
     <aside className="flex w-60 shrink-0 flex-col border-r bg-muted/30 p-3">
       <div className="px-2 py-3">
-        <p className="font-heading text-xl">Base General</p>
+        <p className="font-heading text-xl">Seedkit</p>
         <p className="truncate text-xs text-muted-foreground">{email}</p>
         {role === "master" && (
           <span className="mt-1 inline-block rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium uppercase text-primary">

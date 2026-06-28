@@ -1,4 +1,6 @@
-# Base General
+# Seedkit
+
+> Carpeta `base_general` · repo `base_antigravity` · proyecto Supabase `seedkit` (nombres heredados; el producto es **Seedkit**).
 
 Banco de trabajo personal para arrancar proyectos: una biblioteca de **bloques**
 reutilizables (comandos `npx`, archivos como `CLAUDE.md`, skills, notas) que se ensamblan

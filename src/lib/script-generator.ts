@@ -27,12 +27,12 @@ export function generateScript(steps: ScriptStep[], target: ScriptTarget): strin
   const header =
     target === "sh"
       ? ["#!/usr/bin/env bash", "set -euo pipefail", ""]
-      : ["# PowerShell — generado por Base General", "$ErrorActionPreference = 'Stop'", ""];
+      : ["# PowerShell — generado por Seedkit", "$ErrorActionPreference = 'Stop'", ""];
 
   const out: string[] = [
     ...header,
     `${c} ============================================================`,
-    `${c} Script generado por Base General`,
+    `${c} Script generado por Seedkit`,
     `${c} Pasos: ${steps.length}`,
     `${c} ============================================================`,
     "",
@@ -82,6 +82,6 @@ export function generateScript(steps: ScriptStep[], target: ScriptTarget): strin
   return out.join("\n") + "\n";
 }
 
-export function scriptFilename(target: ScriptTarget, base = "base-general"): string {
+export function scriptFilename(target: ScriptTarget, base = "seedkit"): string {
   return `${base}.${target === "sh" ? "sh" : "ps1"}`;
 }

@@ -34,7 +34,7 @@ const palatino = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Base General",
+  title: "Seedkit",
   description: "Banco de trabajo para arrancar proyectos",
 };
 

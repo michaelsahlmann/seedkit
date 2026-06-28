@@ -22,7 +22,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export function ExportDialog({
   steps,
-  baseName = "base-general",
+  baseName = "seedkit",
   triggerLabel = "Exportar script",
 }: {
   steps: ScriptStep[];

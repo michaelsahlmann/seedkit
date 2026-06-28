@@ -22,7 +22,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Base General</CardTitle>
+          <CardTitle className="text-2xl">Seedkit</CardTitle>
           <CardDescription>Ingresá con tu cuenta Master.</CardDescription>
         </CardHeader>
         <CardContent>
