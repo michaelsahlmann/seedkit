@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[TÍTULO] | Varkentis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Manrope:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --primary: #304269;
+            --action: #F26101;
+            --text: #FFFFFF;
+            --subtext: #D9E8F5;
+            --muted: #1A1A1A;
+            --card: #0A0A0A;
+            --border: rgba(255,255,255,0.1);
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Manrope', sans-serif;
+            --font-system: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            font-weight: 300;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: hard-light;
+        }
+
+        .page-wrapper { position: relative; z-index: 1; }
+
+        /* ==================== COVER ==================== */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 30%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(242,97,1,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            bottom: -20%; right: -10%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(48,66,105,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cover-content { position: relative; z-index: 1; max-width: 700px; }
+
+        .cover-brand {
+            font-family: var(--font-system);
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--action); margin-bottom: 60px;
+        }
+
+        .cover-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem; font-weight: 300;
+            letter-spacing: 0.01em; line-height: 1.15;
+            color: var(--text); margin-bottom: 16px;
+        }
+
+        .cover-title em { font-style: italic; color: var(--action); }
+
+        .cover-subtitle {
+            font-family: var(--font-body);
+            font-size: 1.1rem; font-weight: 200;
+            color: var(--subtext); opacity: 0.7;
+            margin-bottom: 60px; line-height: 1.7;
+        }
+
+        .cover-line {
+            width: 60px; height: 1px;
+            background: var(--border); margin: 0 auto 40px;
+        }
+
+        .cover-meta {
+            display: flex; justify-content: center; gap: 40px;
+            font-family: var(--font-system);
+            font-size: 0.65rem; letter-spacing: 0.04em;
+            text-transform: uppercase; color: var(--subtext); opacity: 0.5;
+        }
+
+        .cover-slogan {
+            margin-top: 80px;
+            font-family: var(--font-display);
+            font-size: 1rem; font-weight: 300; font-style: italic;
+            color: var(--subtext); opacity: 0.4;
+        }
+
+        /* ==================== PAGES ==================== */
+        .page { padding: 60px 70px; max-width: 860px; margin: 0 auto; }
+        .page-break { page-break-before: always; }
+
+        .section-tag {
+            font-family: var(--font-system);
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--action); margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem; font-weight: 300;
+            letter-spacing: 0.01em; line-height: 1.15;
+            color: var(--text); margin-bottom: 10px;
+        }
+
+        .section-line {
+            width: 40px; height: 1px;
+            background: var(--action); margin-bottom: 28px;
+        }
+
+        .sub-heading {
+            font-family: var(--font-system);
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--action); margin: 28px 0 12px;
+        }
+
+        .body-text {
+            font-size: 0.95rem; font-weight: 300;
+            color: var(--subtext); line-height: 1.7; margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            border-left: 1px solid var(--action);
+            padding: 20px 24px; margin: 24px 0;
+            background: rgba(242,97,1,0.03);
+        }
+
+        .highlight-box p {
+            font-size: 0.92rem; font-weight: 300;
+            color: var(--subtext); line-height: 1.7;
+        }
+
+        .highlight-box strong { color: var(--text); font-weight: 600; }
+
+        /* ==================== OBJECTIVES ==================== */
+        .objectives-list { list-style: none; margin: 20px 0; }
+
+        .objectives-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex; gap: 16px; align-items: flex-start;
+        }
+
+        .objectives-list li:last-child { border-bottom: none; }
+
+        .obj-num {
+            font-family: var(--font-system);
+            font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em;
+            color: var(--action);
+            width: 26px; height: 26px;
+            border: 1px solid var(--action); border-radius: 9999px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 2px;
+        }
+
+        .obj-text {
+            font-size: 0.9rem; font-weight: 300;
+            color: var(--subtext); line-height: 1.6;
+        }
+
+        /* ==================== CARDS ==================== */
+        .cards-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 14px; margin: 20px 0;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 22px;
+        }
+
+        .card-icon { font-size: 1.2rem; margin-bottom: 12px; opacity: 0.9; }
+
+        .card-title {
+            font-family: var(--font-body);
+            font-size: 0.9rem; font-weight: 600;
+            color: var(--text); margin-bottom: 6px;
+        }
+
+        .card-text {
+            font-size: 0.85rem; font-weight: 300;
+            color: var(--subtext); opacity: 0.7; line-height: 1.6;
+        }
+
+        /* ==================== MODULES ==================== */
+        .module {
+            border: 1px solid var(--border);
+            border-radius: 12px; margin: 16px 0;
+            overflow: hidden; background: var(--card);
+        }
+
+        .module-header {
+            padding: 18px 22px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .module-tag {
+            font-family: var(--font-system);
+            font-size: 0.6rem; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--action); margin-bottom: 3px;
+        }
+
+        .module-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem; font-weight: 400;
+            color: var(--text); letter-spacing: 0.01em;
+        }
+
+        .module-duration {
+            font-family: var(--font-system);
+            font-size: 0.6rem; font-weight: 400; letter-spacing: 0.04em;
+            color: var(--subtext); opacity: 0.5;
+            border: 1px solid var(--border);
+            padding: 5px 14px; border-radius: 9999px; white-space: nowrap;
+        }
+
+        .module-body { padding: 18px 22px; }
+        .module-topics { list-style: none; }
+
+        .module-topics li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            display: flex; align-items: flex-start; gap: 12px;
+            font-size: 0.88rem; font-weight: 300;
+            color: var(--subtext); line-height: 1.5;
+        }
+
+        .module-topics li:last-child { border-bottom: none; }
+
+        .topic-dot {
+            width: 4px; height: 4px;
+            background: var(--action); border-radius: 50%;
+            margin-top: 7px; flex-shrink: 0;
+        }
+
+        /* ==================== BENEFITS ==================== */
+        .benefits-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px; margin: 24px 0;
+        }
+
+        .benefit-item {
+            text-align: center; padding: 22px 14px;
+            background: var(--card);
+            border: 1px solid var(--border); border-radius: 12px;
+        }
+
+        .benefit-icon { font-size: 1.2rem; margin-bottom: 10px; }
+
+        .benefit-title {
+            font-family: var(--font-body);
+            font-size: 0.85rem; font-weight: 600;
+            color: var(--text); margin-bottom: 6px;
+        }
+
+        .benefit-text {
+            font-size: 0.78rem; font-weight: 300;
+            color: var(--subtext); opacity: 0.6; line-height: 1.5;
+        }
+
+        /* ==================== MATERIAL ==================== */
+        .material-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 14px; margin: 20px 0;
+        }
+
+        .material-item {
+            display: flex; gap: 14px; padding: 18px;
+            background: var(--card);
+            border: 1px solid var(--border); border-radius: 12px;
+            align-items: flex-start;
+        }
+
+        .material-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+
+        .material-title {
+            font-size: 0.88rem; font-weight: 600;
+            color: var(--text); margin-bottom: 4px;
+        }
+
+        .material-text {
+            font-size: 0.8rem; font-weight: 300;
+            color: var(--subtext); opacity: 0.6; line-height: 1.5;
+        }
+
+        /* ==================== PRICE ==================== */
+        .price-card {
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 40px 36px;
+            text-align: center; margin: 28px 0;
+            position: relative; overflow: hidden;
+            background: var(--card);
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(242,97,1,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .price-label {
+            font-family: var(--font-system);
+            font-size: 0.6rem; font-weight: 500;
+            letter-spacing: 0.25em; text-transform: uppercase;
+            color: var(--subtext); opacity: 0.5;
+            margin-bottom: 10px; position: relative; z-index: 1;
+        }
+
+        .price-amount {
+            font-family: var(--font-display);
+            font-size: 3rem; font-weight: 300;
+            color: var(--text); margin-bottom: 4px;
+            position: relative; z-index: 1;
+        }
+
+        .price-currency {
+            font-family: var(--font-system);
+            font-size: 0.65rem; font-weight: 400;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--action); margin-bottom: 24px;
+            position: relative; z-index: 1;
+        }
+
+        .price-meta {
+            display: flex; justify-content: center; gap: 28px;
+            font-family: var(--font-system);
+            font-size: 0.6rem; letter-spacing: 0.04em;
+            color: var(--subtext); opacity: 0.5;
+            position: relative; z-index: 1;
+        }
+
+        /* ==================== TERMS ==================== */
+        .terms-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 18px; margin: 24px 0;
+        }
+
+        .term-item { display: flex; gap: 12px; align-items: flex-start; }
+
+        .term-icon {
+            font-size: 0.95rem; flex-shrink: 0; margin-top: 2px; opacity: 0.7;
+        }
+
+        .term-title {
+            font-family: var(--font-system);
+            font-size: 0.6rem; font-weight: 500;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--action); margin-bottom: 4px;
+        }
+
+        .term-text {
+            font-size: 0.85rem; font-weight: 300;
+            color: var(--subtext); opacity: 0.7; line-height: 1.5;
+        }
+
+        /* ==================== ABOUT ==================== */
+        .about-block {
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 32px;
+            margin: 28px 0; background: var(--card);
+        }
+
+        .about-text {
+            font-family: var(--font-display);
+            font-size: 1.15rem; font-weight: 300; font-style: italic;
+            color: var(--subtext); line-height: 1.6; margin-bottom: 16px;
+        }
+
+        .about-body {
+            font-size: 0.9rem; font-weight: 300;
+            color: var(--subtext); opacity: 0.7; line-height: 1.7;
+        }
+
+        /* ==================== CTA ==================== */
+        .cta-section {
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 36px 32px;
+            text-align: center; margin: 28px 0;
+            position: relative; overflow: hidden;
+            background: var(--card);
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(242,97,1,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem; font-weight: 300;
+            color: var(--text); margin-bottom: 10px;
+            position: relative; z-index: 1;
+        }
+
+        .cta-text {
+            font-size: 0.9rem; font-weight: 300;
+            color: var(--subtext); opacity: 0.6;
+            margin-bottom: 28px; position: relative; z-index: 1;
+        }
+
+        .cta-contacts {
+            display: flex; justify-content: center; gap: 32px;
+            flex-wrap: wrap; position: relative; z-index: 1;
+        }
+
+        .cta-contact-item {
+            font-family: var(--font-system);
+            font-size: 0.75rem; font-weight: 400;
+            letter-spacing: 0.04em; color: var(--subtext);
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            text-align: center; padding: 32px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-brand {
+            font-family: var(--font-system);
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--text); margin-bottom: 4px;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-display);
+            font-size: 0.85rem; font-weight: 300; font-style: italic;
+            color: var(--subtext); opacity: 0.4; margin-bottom: 12px;
+        }
+
+        .footer-date {
+            font-family: var(--font-system);
+            font-size: 0.55rem; font-weight: 400;
+            letter-spacing: 0.04em; color: var(--subtext); opacity: 0.3;
+        }
+
+        /* ==================== PRINT ==================== */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body { font-size: 10pt; background: #050505; }
+
+            body::before { position: absolute; height: 100%; }
+
+            .cover { min-height: 100vh; padding: 60px 40px; }
+
+            .page { padding: 12mm 16mm; max-width: 100%; }
+
+            .page-break { page-break-before: always; }
+
+            .module, .card, .benefit-item, .material-item, .term-item {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- COVER -->
+    <div class="cover">
+        <div class="cover-content">
+            <div class="cover-brand">Varkentis · Consultoría y Entrenamientos</div>
+            <h1 class="cover-title"><!-- TÍTULO --></h1>
+            <p class="cover-subtitle"><!-- SUBTÍTULO --></p>
+            <div class="cover-line"></div>
+            <div class="cover-meta">
+                <span><!-- FECHA --></span>
+                <span><!-- DURACIÓN --></span>
+                <span><!-- MODALIDAD --></span>
+            </div>
+            <div class="cover-slogan">"Paraguay puede estar atrasado. Vos no."</div>
+        </div>
+    </div>
+
+    <!-- PÁGINA: CONTEXTO -->
+    <div class="page page-break">
+        <div class="section-tag">Sección 01</div>
+        <h2 class="section-title">Contexto</h2>
+        <div class="section-line"></div>
+        <p class="body-text"><!-- PÁRRAFO DEL PROBLEMA --></p>
+        <div class="highlight-box">
+            <p><strong><!-- PROPUESTA DE VALOR --></strong></p>
+        </div>
+        <h3 class="sub-heading">Dirigido a</h3>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">◈</div>
+                <div class="card-title"><!-- PERFIL 1 --></div>
+                <div class="card-text"><!-- DESCRIPCIÓN 1 --></div>
+            </div>
+            <div class="card">
+                <div class="card-icon">◈</div>
+                <div class="card-title"><!-- PERFIL 2 --></div>
+                <div class="card-text"><!-- DESCRIPCIÓN 2 --></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA: OBJETIVOS -->
+    <div class="page page-break">
+        <div class="section-tag">Sección 01</div>
+        <h2 class="section-title">Objetivos</h2>
+        <div class="section-line"></div>
+        <ul class="objectives-list">
+            <!-- Repetir <li> por cada objetivo -->
+            <li>
+                <span class="obj-num">01</span>
+                <span class="obj-text"><!-- OBJETIVO --></span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- PÁGINA: PROGRAMA PARTE 1 -->
+    <div class="page page-break">
+        <div class="section-tag">Sección 02</div>
+        <h2 class="section-title">Programa</h2>
+        <div class="section-line"></div>
+        <p class="body-text"><!-- INTRO DEL PROGRAMA --></p>
+        <div class="module">
+            <div class="module-header">
+                <div>
+                    <div class="module-tag">Módulo 01</div>
+                    <div class="module-title"><!-- TÍTULO MÓDULO --></div>
+                </div>
+                <div class="module-duration"><!-- DURACIÓN --></div>
+            </div>
+            <div class="module-body">
+                <ul class="module-topics">
+                    <li><span class="topic-dot"></span><span><!-- TOPIC --></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA: METODOLOGÍA -->
+    <div class="page page-break">
+        <div class="section-tag">Sección 03</div>
+        <h2 class="section-title">Metodología</h2>
+        <div class="section-line"></div>
+        <p class="body-text"><!-- DESCRIPCIÓN --></p>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">▸</div>
+                <div class="benefit-title"><!-- --></div>
+                <div class="benefit-text"><!-- --></div>
+            </div>
+            <!-- 2 más -->
+        </div>
+        <div class="highlight-box">
+            <p><strong>Modalidad:</strong> ...<br>
+            <strong>Duración:</strong> ...<br>
+            <strong>Participantes:</strong> ...<br>
+            <strong>Material incluido:</strong> ...</p>
+        </div>
+        <h3 class="sub-heading">Material que recibe el participante</h3>
+        <div class="material-grid">
+            <div class="material-item">
+                <span class="material-icon">◈</span>
+                <div>
+                    <div class="material-title"><!-- --></div>
+                    <div class="material-text"><!-- --></div>
+                </div>
+            </div>
+            <!-- 3 más -->
+        </div>
+    </div>
+
+    <!-- PÁGINA: INVERSIÓN -->
+    <div class="page page-break">
+        <div class="section-tag">Sección 04</div>
+        <h2 class="section-title">Inversión</h2>
+        <div class="section-line"></div>
+        <div class="price-card">
+            <div class="price-label">Inversión total</div>
+            <div class="price-amount"><!-- MONTO --></div>
+            <div class="price-currency">Guaraníes</div>
+            <div class="price-meta">
+                <span><!-- DURACIÓN --></span>
+                <span><!-- PARTICIPANTES --></span>
+                <span><!-- MODALIDAD --></span>
+            </div>
+        </div>
+        <h3 class="sub-heading">Condiciones</h3>
+        <div class="terms-grid">
+            <div class="term-item">
+                <span class="term-icon">◈</span>
+                <div>
+                    <div class="term-title"><!-- --></div>
+                    <div class="term-text"><!-- --></div>
+                </div>
+            </div>
+            <!-- 5 más -->
+        </div>
+    </div>
+
+    <!-- PÁGINA: SOBRE VARKENTIS -->
+    <div class="page page-break">
+        <div class="section-tag">Sección 05</div>
+        <h2 class="section-title">Sobre Varkentis</h2>
+        <div class="section-line"></div>
+        <div class="about-block">
+            <div class="about-text">"No vendemos teoría. Producimos evidencia."</div>
+            <div class="about-body">
+                Varkentis Consultoría y Entrenamientos es un ecosistema de alto rendimiento especializado en la formación de equipos comerciales y financieros. Con más de 12 años de experiencia en el sistema financiero, diseñamos entrenamientos prácticos y orientados a resultados que impactan directamente en la gestión del negocio. Nuestro enfoque elimina el relleno: cada minuto del entrenamiento está diseñado para que los participantes salgan con herramientas ejecutables desde el día siguiente.
+            </div>
+        </div>
+        <div class="cta-section">
+            <div class="cta-title">¿Listo para fortalecer tu equipo?</div>
+            <div class="cta-text">Coordinemos fecha y resolvemos cualquier consulta.</div>
+            <div class="cta-contacts">
+                <div class="cta-contact-item"><span>◈</span><span>Michael Sahlmann</span></div>
+                <div class="cta-contact-item"><span>◈</span><span>michael@michaelsahlmann.com</span></div>
+                <div class="cta-contact-item"><span>◈</span><span>+595 981 328046</span></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-brand">VARKENTIS</div>
+            <div class="footer-tagline">Consultoría y Entrenamientos</div>
+            <div class="footer-date">Documento generado el [FECHA]</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
