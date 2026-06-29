@@ -33,6 +33,35 @@ function copyValue(block: Block): string {
   return block.content;
 }
 
+/** Slug ASCII a partir del título, para nombrar descargas. */
+function slug(s: string): string {
+  return (
+    s
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "bloque"
+  );
+}
+
+/** Nombre del archivo al descargar, según el tipo de bloque. */
+function downloadName(block: Block): string {
+  switch (block.type) {
+    case "file":
+      return block.metadata?.filename || "archivo.txt";
+    case "skill":
+      return "SKILL.md";
+    case "command":
+      return `${slug(block.title)}.${
+        block.metadata?.shell === "powershell" ? "ps1" : "sh"
+      }`;
+    case "note":
+      return `${slug(block.title)}.md`;
+  }
+}
+
 export function BlockCard({ block }: { block: Block }) {
   const Icon = ICONS[block.type];
 
@@ -72,10 +101,10 @@ export function BlockCard({ block }: { block: Block }) {
 
         <div className="mt-auto flex items-center gap-2 pt-2">
           {copyValue(block) && <CopyButton value={copyValue(block)} />}
-          {block.type === "file" && (
+          {block.content && (
             <DownloadButton
               content={block.content}
-              filename={block.metadata.filename || "archivo.txt"}
+              filename={downloadName(block)}
             />
           )}
           <Button
