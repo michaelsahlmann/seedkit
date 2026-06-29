@@ -61,7 +61,7 @@ function FloatingPaths({ position }: { position: number }) {
 export function BackgroundPaths({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-60 ${className}`}
+      className={`pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-40 ${className}`}
       aria-hidden="true"
     >
       <FloatingPaths position={1} />

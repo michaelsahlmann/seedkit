@@ -19,7 +19,7 @@ export function Sidebar({ email, role }: { email: string | null; role: string })
   const pathname = usePathname();
 
   return (
-    <aside className="flex w-60 shrink-0 flex-col border-r bg-muted/30 p-3">
+    <aside className="flex w-60 shrink-0 flex-col border-r bg-sidebar p-3">
       <div className="px-2 py-3">
         <p className="font-heading text-xl">Seedkit</p>
         <p className="truncate text-xs text-muted-foreground">{email}</p>
