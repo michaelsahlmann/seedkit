@@ -25,7 +25,9 @@ export default async function AppLayout({
   return (
     <div className="flex min-h-screen w-full">
       <Sidebar email={profile?.email ?? user.email ?? null} role={profile?.role ?? "user"} />
-      <main className="flex-1 overflow-auto">{children}</main>
+      <main className="m-3 flex-1 overflow-auto rounded-2xl bg-background shadow-sm ring-1 ring-foreground/10">
+        {children}
+      </main>
     </div>
   );
 }
