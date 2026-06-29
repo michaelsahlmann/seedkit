@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/shared/copy-button";
+import { DownloadButton } from "@/components/shared/download-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { deleteBlock } from "@/app/(app)/blocks/actions";
 
@@ -71,6 +72,12 @@ export function BlockCard({ block }: { block: Block }) {
 
         <div className="mt-auto flex items-center gap-2 pt-2">
           {copyValue(block) && <CopyButton value={copyValue(block)} />}
+          {block.type === "file" && (
+            <DownloadButton
+              content={block.content}
+              filename={block.metadata.filename || "archivo.txt"}
+            />
+          )}
           <Button
             variant="ghost"
             size="sm"
