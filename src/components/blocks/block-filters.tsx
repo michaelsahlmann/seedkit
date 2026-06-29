@@ -45,7 +45,7 @@ export function BlockFilters() {
       </div>
       <Input
         placeholder="Buscar por título…"
-        defaultValue={params.get("q") ?? ""}
+        value={params.get("q") ?? ""}
         onChange={(e) => setParam("q", e.target.value)}
         className="h-8 max-w-xs"
       />
