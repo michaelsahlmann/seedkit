@@ -34,7 +34,8 @@ export async function createPlaybook(formData: FormData) {
 
 export async function deletePlaybook(id: string) {
   const { supabase } = await requireUser();
-  await supabase.from("playbooks").delete().eq("id", id);
+  const { error } = await supabase.from("playbooks").delete().eq("id", id);
+  if (error) throw new Error(error.message);
   revalidatePath("/playbooks");
   redirect("/playbooks");
 }
@@ -64,7 +65,11 @@ export async function addStep(playbookId: string, blockId: string) {
 
 export async function removeStep(playbookId: string, stepId: string) {
   const { supabase } = await requireUser();
-  await supabase.from("playbook_steps").delete().eq("id", stepId);
+  const { error } = await supabase
+    .from("playbook_steps")
+    .delete()
+    .eq("id", stepId);
+  if (error) throw new Error(error.message);
   revalidatePath(`/playbooks/${playbookId}`);
 }
 

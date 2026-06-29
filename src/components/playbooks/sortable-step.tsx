@@ -7,6 +7,7 @@ import type { ResolvedStep } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/shared/copy-button";
+import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { stepCopyValue } from "@/lib/steps";
 
 const TYPE_LABEL = {
@@ -66,15 +67,22 @@ export function SortableStep({
 
       <div className="flex flex-col items-end gap-1">
         {value && <CopyButton value={value} size="icon" variant="ghost" />}
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="text-red-500"
-          onClick={() => onRemove(step.id)}
-        >
-          <Trash2 className="size-3.5" />
-        </Button>
+        <ConfirmDialog
+          onConfirm={() => onRemove(step.id)}
+          title="Eliminar paso"
+          description={`¿Quitar el paso "${step.title}" del playbook?`}
+          trigger={
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="text-red-500"
+              aria-label="Eliminar paso"
+            >
+              <Trash2 className="size-3.5" />
+            </Button>
+          }
+        />
       </div>
     </div>
   );

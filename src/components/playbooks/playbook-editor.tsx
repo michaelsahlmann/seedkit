@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExportDialog } from "@/components/shared/export-dialog";
+import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { SortableStep } from "@/components/playbooks/sortable-step";
 import { resolvedToScript } from "@/lib/steps";
 import {
@@ -99,17 +100,21 @@ export function PlaybookEditor({
             <Play className="size-4" />
             Iniciar ejecución
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-red-500"
-            onClick={() => {
-              if (confirm("¿Eliminar este playbook?"))
-                startTransition(() => deletePlaybook(playbook.id));
-            }}
-          >
-            <Trash2 className="size-4" />
-          </Button>
+          <ConfirmDialog
+            onConfirm={() => deletePlaybook(playbook.id)}
+            title="Eliminar playbook"
+            description={`¿Eliminar el playbook "${playbook.title}"? Esta acción no se puede deshacer.`}
+            trigger={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-red-500"
+                aria-label="Eliminar playbook"
+              >
+                <Trash2 className="size-4" />
+              </Button>
+            }
+          />
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/shared/copy-button";
+import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { deleteBlock } from "@/app/(app)/blocks/actions";
 
 const ICONS: Record<BlockType, typeof Terminal> = {
@@ -79,11 +80,21 @@ export function BlockCard({ block }: { block: Block }) {
             <Pencil className="size-3.5" />
             Editar
           </Button>
-          <form action={deleteBlock.bind(null, block.id)} className="ml-auto">
-            <Button variant="ghost" size="sm" className="text-red-500">
-              <Trash2 className="size-3.5" />
-            </Button>
-          </form>
+          <ConfirmDialog
+            onConfirm={() => deleteBlock(block.id)}
+            title="Eliminar bloque"
+            description={`¿Eliminar el bloque "${block.title}"? Esta acción no se puede deshacer.`}
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="ml-auto text-red-500"
+                aria-label="Eliminar bloque"
+              >
+                <Trash2 className="size-3.5" />
+              </Button>
+            }
+          />
         </div>
       </CardContent>
     </Card>

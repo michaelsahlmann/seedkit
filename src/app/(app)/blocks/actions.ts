@@ -117,6 +117,7 @@ export async function updateBlock(
 
 export async function deleteBlock(id: string) {
   const { supabase } = await requireUser();
-  await supabase.from("blocks").delete().eq("id", id);
+  const { error } = await supabase.from("blocks").delete().eq("id", id);
+  if (error) throw new Error(error.message);
   revalidatePath("/blocks");
 }

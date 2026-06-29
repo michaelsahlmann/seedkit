@@ -46,7 +46,8 @@ export async function toggleRunStep(
 
 export async function deleteRun(runId: string) {
   const { supabase } = await requireUser();
-  await supabase.from("runs").delete().eq("id", runId);
+  const { error } = await supabase.from("runs").delete().eq("id", runId);
+  if (error) throw new Error(error.message);
   revalidatePath("/runs");
   redirect("/runs");
 }

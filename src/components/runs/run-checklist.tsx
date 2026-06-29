@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CopyButton } from "@/components/shared/copy-button";
+import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ExportDialog } from "@/components/shared/export-dialog";
 import { stepCopyValue, runStepsToScript } from "@/lib/steps";
 import { toggleRunStep, deleteRun } from "@/app/(app)/runs/actions";
@@ -60,17 +61,21 @@ export function RunChecklist({
             steps={runStepsToScript(steps)}
             baseName={run.title.toLowerCase().replace(/\s+/g, "-")}
           />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-red-500"
-            onClick={() => {
-              if (confirm("¿Eliminar esta ejecución?"))
-                startTransition(() => deleteRun(run.id));
-            }}
-          >
-            <Trash2 className="size-4" />
-          </Button>
+          <ConfirmDialog
+            onConfirm={() => deleteRun(run.id)}
+            title="Eliminar ejecución"
+            description={`¿Eliminar la ejecución "${run.title}"? Esta acción no se puede deshacer.`}
+            trigger={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-red-500"
+                aria-label="Eliminar ejecución"
+              >
+                <Trash2 className="size-4" />
+              </Button>
+            }
+          />
         </div>
       </div>
 
