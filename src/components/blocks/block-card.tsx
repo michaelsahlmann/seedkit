@@ -40,7 +40,7 @@ function slug(s: string): string {
       .trim()
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "") || "bloque"
   );
@@ -50,12 +50,12 @@ function slug(s: string): string {
 function downloadName(block: Block): string {
   switch (block.type) {
     case "file":
-      return block.metadata.filename || "archivo.txt";
+      return block.metadata?.filename || "archivo.txt";
     case "skill":
       return "SKILL.md";
     case "command":
       return `${slug(block.title)}.${
-        block.metadata.shell === "powershell" ? "ps1" : "sh"
+        block.metadata?.shell === "powershell" ? "ps1" : "sh"
       }`;
     case "note":
       return `${slug(block.title)}.md`;
