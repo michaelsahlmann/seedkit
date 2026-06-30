@@ -84,22 +84,6 @@ export function BlockCard({ block }: { block: Block }) {
       </CardHeader>
 
       <CardContent className="flex flex-1 flex-col gap-3">
-        {copyValue(block) && (
-          <pre className="max-h-32 overflow-auto rounded-md bg-muted p-2 text-xs">
-            <code>{copyValue(block)}</code>
-          </pre>
-        )}
-
-        {block.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {block.tags.map((t) => (
-              <Badge key={t} variant="outline" className="text-[10px]">
-                {t}
-              </Badge>
-            ))}
-          </div>
-        )}
-
         <div className="mt-auto flex items-center gap-2 pt-2">
           {copyValue(block) && <CopyButton value={copyValue(block)} />}
           {block.content && (
