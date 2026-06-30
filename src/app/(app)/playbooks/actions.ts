@@ -40,10 +40,10 @@ export async function deletePlaybook(id: string) {
   redirect("/playbooks");
 }
 
-/** Agrega un bloque de la biblioteca como nuevo paso al final. */
-export async function addStep(playbookId: string, blockId: string) {
-  const { supabase } = await requireUser();
-
+async function nextPosition(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  playbookId: string,
+) {
   const { data: last } = await supabase
     .from("playbook_steps")
     .select("position")
@@ -51,14 +51,57 @@ export async function addStep(playbookId: string, blockId: string) {
     .order("position", { ascending: false })
     .limit(1)
     .maybeSingle();
+  return generateKeyBetween(last?.position ?? null, null);
+}
 
-  const position = generateKeyBetween(last?.position ?? null, null);
+/** Crea una línea del checklist con texto propio (sin bloque todavía). */
+export async function addLine(playbookId: string, title: string) {
+  const text = title.trim();
+  if (!text) return;
 
+  const { supabase } = await requireUser();
+  const position = await nextPosition(supabase, playbookId);
+
+  // Rama "inline" del check step_ref_or_inline: block_id null + inline_content not null.
   await supabase.from("playbook_steps").insert({
     playbook_id: playbookId,
-    block_id: blockId,
     position,
+    inline_title: text,
+    inline_type: "note",
+    inline_content: "",
   });
+
+  revalidatePath(`/playbooks/${playbookId}`);
+}
+
+/** Vincula un bloque a una línea existente (conserva el texto de la línea). */
+export async function linkBlock(
+  playbookId: string,
+  stepId: string,
+  blockId: string,
+) {
+  const { supabase } = await requireUser();
+
+  // Rama "referencia" del check: block_id not null + inline_content null.
+  await supabase
+    .from("playbook_steps")
+    .update({ block_id: blockId, inline_content: null })
+    .eq("id", stepId)
+    .eq("playbook_id", playbookId);
+
+  revalidatePath(`/playbooks/${playbookId}`);
+}
+
+/** Quita el bloque vinculado a una línea (la línea y su texto se mantienen). */
+export async function unlinkBlock(playbookId: string, stepId: string) {
+  const { supabase } = await requireUser();
+
+  // Vuelve a la rama "inline" del check.
+  await supabase
+    .from("playbook_steps")
+    .update({ block_id: null, inline_content: "", inline_type: "note" })
+    .eq("id", stepId)
+    .eq("playbook_id", playbookId);
 
   revalidatePath(`/playbooks/${playbookId}`);
 }
@@ -134,7 +177,7 @@ export async function startRun(playbookId: string) {
       run_id: run.id,
       position: i,
       type: b?.type ?? s.inline_type ?? "note",
-      title: b?.title ?? s.inline_title ?? "Paso",
+      title: s.inline_title ?? b?.title ?? "Paso",
       purpose: s.override_purpose ?? b?.purpose ?? null,
       content: b?.content ?? s.inline_content ?? "",
       metadata: b?.metadata ?? {},
