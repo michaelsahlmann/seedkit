@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { Run, RunStep } from "@/lib/types";
+import type { Block, Run, RunStep } from "@/lib/types";
 import { RunChecklist } from "@/components/runs/run-checklist";
 
 export default async function RunPage({
@@ -25,7 +25,16 @@ export default async function RunPage({
     .eq("run_id", id)
     .order("position", { ascending: true });
 
+  const { data: blockRows } = await supabase
+    .from("blocks")
+    .select("*")
+    .order("title", { ascending: true });
+
   return (
-    <RunChecklist run={run as Run} steps={(steps ?? []) as RunStep[]} />
+    <RunChecklist
+      run={run as Run}
+      steps={(steps ?? []) as RunStep[]}
+      library={(blockRows ?? []) as Block[]}
+    />
   );
 }
