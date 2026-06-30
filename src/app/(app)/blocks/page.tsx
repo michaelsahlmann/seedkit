@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BlockCard } from "@/components/blocks/block-card";
 import { BlockFilters } from "@/components/blocks/block-filters";
 
-const TYPES: BlockType[] = ["command", "file", "skill", "note"];
+const TYPES: BlockType[] = ["command", "file", "skill", "note", "agent"];
 
 export default async function BlocksPage({
   searchParams,
@@ -36,7 +36,7 @@ export default async function BlocksPage({
         <div>
           <h1 className="text-2xl font-semibold">Bloques</h1>
           <p className="mt-1 text-sm font-semibold text-muted-foreground">
-            Tu biblioteca de comandos, archivos, skills y notas.
+            Tu biblioteca de comandos, archivos, skills, notas y agentes.
           </p>
         </div>
         <Button nativeButton={false} render={<Link href="/blocks/new" />}>

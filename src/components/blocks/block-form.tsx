@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import Link from "next/link";
 import type { Block, BlockType } from "@/lib/types";
 import type { BlockFormState } from "@/app/(app)/blocks/actions";
@@ -21,9 +21,35 @@ const TYPE_OPTIONS: { value: BlockType; label: string }[] = [
   { value: "file", label: "Archivo (CLAUDE.md, etc.)" },
   { value: "skill", label: "Skill (repo + nombre)" },
   { value: "note", label: "Nota" },
+  { value: "agent", label: "Agente (.md con frontmatter)" },
 ];
 
 const initial: BlockFormState = { error: null };
+
+/**
+ * Parser de frontmatter en cliente (regex), sin gray-matter: extrae
+ * `key: value` por líneas. Suficiente para autocompletar el form de agentes.
+ */
+function parseAgentMarkdown(md: string): {
+  data: Record<string, string>;
+  body: string;
+} {
+  const fm = /^---\s*\n([\s\S]*?)\n---\s*\n?/.exec(md);
+  const data: Record<string, string> = {};
+  if (fm) {
+    for (const line of fm[1].split("\n")) {
+      const idx = line.indexOf(":");
+      if (idx <= 0) continue;
+      const key = line.slice(0, idx).trim();
+      const value = line
+        .slice(idx + 1)
+        .trim()
+        .replace(/^["'[]+|["'\]]+$/g, "");
+      if (key && value) data[key] = value;
+    }
+  }
+  return { data, body: fm ? md.slice(fm[0].length).trim() : md.trim() };
+}
 
 export function BlockForm({
   action,
@@ -34,9 +60,31 @@ export function BlockForm({
 }) {
   const [state, formAction, pending] = useActionState(action, initial);
   const [type, setType] = useState<BlockType>(block?.type ?? "command");
+  const [paste, setPaste] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  /** Autocompleta los campos del form a partir del .md pegado del agente. */
+  function fillFromPaste() {
+    if (!paste.trim() || !formRef.current) return;
+    const { data, body } = parseAgentMarkdown(paste);
+    const set = (name: string, value?: string) => {
+      const el = formRef.current?.elements.namedItem(name) as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | null;
+      if (el && value != null) el.value = value;
+    };
+    set("title", data.name);
+    set("purpose", data.description);
+    set("tools", data.tools);
+    set("model", data.model);
+    set("skills", data.skills);
+    set("source_url", data.source_url ?? data.source);
+    set("content", body);
+  }
 
   return (
-    <form action={formAction} className="max-w-2xl space-y-5">
+    <form ref={formRef} action={formAction} className="max-w-2xl space-y-5">
       <input type="hidden" name="type" value={type} />
 
       <div className="space-y-2">
@@ -128,15 +176,77 @@ export function BlockForm({
         </div>
       )}
 
+      {type === "agent" && (
+        <>
+          <div className="space-y-2 rounded-xl border border-border p-4">
+            <Label htmlFor="agent-paste">Pegar definición del agente (.md)</Label>
+            <Textarea
+              id="agent-paste"
+              value={paste}
+              onChange={(e) => setPaste(e.target.value)}
+              rows={4}
+              placeholder="Pegá el markdown del agente (con frontmatter name/description/tools/model/skills) y rellenamos los campos."
+              className="font-mono text-sm"
+            />
+            <Button type="button" variant="ghost" onClick={fillFromPaste}>
+              Rellenar campos desde el markdown
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="model">Modelo</Label>
+              <Input
+                id="model"
+                name="model"
+                defaultValue={block?.metadata.model ?? ""}
+                placeholder="sonnet, opus, haiku…"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="source_url">URL de origen</Label>
+              <Input
+                id="source_url"
+                name="source_url"
+                defaultValue={block?.metadata.source_url ?? ""}
+                placeholder="https://github.com/... (de dónde lo sacaste)"
+              />
+            </div>
+            <div className="space-y-2 sm:col-span-2">
+              <Label htmlFor="tools">Tools (herramientas permitidas)</Label>
+              <Input
+                id="tools"
+                name="tools"
+                defaultValue={block?.metadata.tools ?? ""}
+                placeholder="Read, Edit, Bash, …"
+              />
+            </div>
+            <div className="space-y-2 sm:col-span-2">
+              <Label htmlFor="skills">Skills asociadas</Label>
+              <Input
+                id="skills"
+                name="skills"
+                defaultValue={block?.metadata.skills ?? ""}
+                placeholder="separadas por coma"
+              />
+            </div>
+          </div>
+        </>
+      )}
+
       <div className="space-y-2">
         <Label htmlFor="content">
-          {type === "file" ? "Contenido del archivo" : "Contenido"}
+          {type === "file"
+            ? "Contenido del archivo"
+            : type === "agent"
+              ? "Prompt del agente"
+              : "Contenido"}
         </Label>
         <Textarea
           id="content"
           name="content"
           defaultValue={block?.content}
-          rows={type === "file" || type === "note" ? 10 : 4}
+          rows={type === "file" || type === "note" || type === "agent" ? 10 : 4}
           className="font-mono text-sm"
         />
       </div>

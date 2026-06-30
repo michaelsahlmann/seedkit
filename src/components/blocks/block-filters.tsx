@@ -12,6 +12,7 @@ const TYPES = [
   { value: "file", label: "Archivos" },
   { value: "skill", label: "Skills" },
   { value: "note", label: "Notas" },
+  { value: "agent", label: "Agentes" },
 ] as const;
 
 export function BlockFilters() {

@@ -1,7 +1,7 @@
 // Tipos de dominio + tipado mínimo de la base (hecho a mano).
 // Si más adelante querés generarlo: `supabase gen types typescript`.
 
-export type BlockType = "command" | "file" | "skill" | "note";
+export type BlockType = "command" | "file" | "skill" | "note" | "agent";
 export type AppRole = "master" | "user";
 export type RunStatus = "active" | "completed" | "archived";
 export type Visibility = "private" | "shared";
@@ -17,10 +17,11 @@ export interface BlockMetadata {
   repo_url?: string;
   skill_name?: string;
   install_cmd?: string;
-  // import / agentes
+  // agent / import
   tools?: string;
   model?: string;
   skills?: string;
+  source_url?: string;
   [key: string]: unknown;
 }
 

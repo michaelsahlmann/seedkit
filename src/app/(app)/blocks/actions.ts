@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { BlockMetadata } from "@/lib/types";
 
 const blockSchema = z.object({
-  type: z.enum(["command", "file", "skill", "note"]),
+  type: z.enum(["command", "file", "skill", "note", "agent"]),
   title: z.string().trim().min(1, "El título es obligatorio."),
   purpose: z.string().trim().optional().default(""),
   content: z.string().optional().default(""),
@@ -18,6 +18,11 @@ const blockSchema = z.object({
   repo_url: z.string().trim().optional(),
   skill_name: z.string().trim().optional(),
   install_cmd: z.string().trim().optional(),
+  // agent
+  tools: z.string().trim().optional(),
+  model: z.string().trim().optional(),
+  skills: z.string().trim().optional(),
+  source_url: z.string().trim().optional(),
 });
 
 export type BlockFormState = { error: string | null };
@@ -40,6 +45,13 @@ function buildMetadata(data: z.infer<typeof blockSchema>): BlockMetadata {
         repo_url: data.repo_url,
         skill_name: data.skill_name,
         install_cmd: data.install_cmd,
+      };
+    case "agent":
+      return {
+        tools: data.tools,
+        model: data.model,
+        skills: data.skills,
+        source_url: data.source_url,
       };
     default:
       return {};
