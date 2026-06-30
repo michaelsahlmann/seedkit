@@ -38,18 +38,33 @@ export async function proxy(request: NextRequest) {
   const isAuthRoute = path === "/login";
 
   if (!user && !isAuthRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+    return redirectKeepingCookies("/login", request, response);
   }
 
   if (user && isAuthRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url);
+    return redirectKeepingCookies("/", request, response);
   }
 
   return response;
+}
+
+/**
+ * Redirige conservando las cookies de sesión refrescadas por getUser().
+ * Sin esto, un NextResponse.redirect nuevo descarta los tokens renovados y la
+ * sesión se pierde tras un refresh (pitfall documentado de @supabase/ssr).
+ */
+function redirectKeepingCookies(
+  pathname: string,
+  request: NextRequest,
+  response: NextResponse,
+) {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  const redirectResponse = NextResponse.redirect(url);
+  response.cookies.getAll().forEach((cookie) => {
+    redirectResponse.cookies.set(cookie);
+  });
+  return redirectResponse;
 }
 
 export const config = {
