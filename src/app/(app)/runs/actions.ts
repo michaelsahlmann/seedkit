@@ -65,13 +65,15 @@ export async function toggleRunStep(
 export async function addRunStep(runId: string, blockId: string) {
   const { supabase } = await requireUser();
 
-  const { data: block } = await supabase
+  const { data: block, error: blockError } = await supabase
     .from("blocks")
     .select("*")
     .eq("id", blockId)
     .single<Block>();
 
-  if (!block) return;
+  if (blockError || !block) {
+    throw new Error("No se pudo encontrar el bloque a agregar.");
+  }
 
   const { data: last } = await supabase
     .from("run_steps")
@@ -83,7 +85,7 @@ export async function addRunStep(runId: string, blockId: string) {
 
   const position = (last?.position ?? -1) + 1;
 
-  await supabase.from("run_steps").insert({
+  const { error: insertError } = await supabase.from("run_steps").insert({
     run_id: runId,
     position,
     type: block.type,
@@ -93,6 +95,8 @@ export async function addRunStep(runId: string, blockId: string) {
     metadata: block.metadata,
     checked: false,
   });
+
+  if (insertError) throw new Error("No se pudo agregar el paso al checklist.");
 
   // Un paso nuevo sin marcar puede sacar al run de "completed".
   await recomputeRunStatus(supabase, runId);
@@ -104,10 +108,12 @@ export async function addRunStep(runId: string, blockId: string) {
 export async function setAllRunSteps(runId: string, checked: boolean) {
   const { supabase } = await requireUser();
 
-  await supabase
+  const { error } = await supabase
     .from("run_steps")
     .update({ checked, checked_at: checked ? new Date().toISOString() : null })
     .eq("run_id", runId);
+
+  if (error) throw new Error("No se pudieron actualizar los pasos del checklist.");
 
   await recomputeRunStatus(supabase, runId);
 

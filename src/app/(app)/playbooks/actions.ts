@@ -63,13 +63,15 @@ export async function addLine(playbookId: string, title: string) {
   const position = await nextPosition(supabase, playbookId);
 
   // Rama "inline" del check step_ref_or_inline: block_id null + inline_content not null.
-  await supabase.from("playbook_steps").insert({
+  const { error } = await supabase.from("playbook_steps").insert({
     playbook_id: playbookId,
     position,
     inline_title: text,
     inline_type: "note",
     inline_content: "",
   });
+
+  if (error) throw new Error(error.message);
 
   revalidatePath(`/playbooks/${playbookId}`);
 }
@@ -83,11 +85,13 @@ export async function linkBlock(
   const { supabase } = await requireUser();
 
   // Rama "referencia" del check: block_id not null + inline_content null.
-  await supabase
+  const { error } = await supabase
     .from("playbook_steps")
     .update({ block_id: blockId, inline_content: null })
     .eq("id", stepId)
     .eq("playbook_id", playbookId);
+
+  if (error) throw new Error(error.message);
 
   revalidatePath(`/playbooks/${playbookId}`);
 }
@@ -97,11 +101,13 @@ export async function unlinkBlock(playbookId: string, stepId: string) {
   const { supabase } = await requireUser();
 
   // Vuelve a la rama "inline" del check.
-  await supabase
+  const { error } = await supabase
     .from("playbook_steps")
     .update({ block_id: null, inline_content: "", inline_type: "note" })
     .eq("id", stepId)
     .eq("playbook_id", playbookId);
+
+  if (error) throw new Error(error.message);
 
   revalidatePath(`/playbooks/${playbookId}`);
 }

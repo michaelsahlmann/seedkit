@@ -81,7 +81,9 @@ export function parseAgent(content: string, fileName: string): ParsedBlock {
     content: body.trim(),
     tags: ["agent"],
     metadata: {
-      tools: (data.tools as string) ?? undefined,
+      tools: Array.isArray(data.tools)
+        ? (data.tools as string[]).join(", ")
+        : (data.tools as string) ?? undefined,
       model: (data.model as string) ?? undefined,
       skills: Array.isArray(data.skills)
         ? (data.skills as string[]).join(", ")
