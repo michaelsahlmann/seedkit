@@ -105,6 +105,14 @@ export interface ResolvedStep {
   blockId: string | null;
 }
 
+// Línea de un checklist (playbook): texto propio del usuario + bloque vinculado opcional.
+export interface PlaybookLine {
+  id: string;
+  position: string;
+  title: string; // texto de la línea (inline_title)
+  block: Block | null; // bloque vinculado, para el modal de copiar por campos
+}
+
 // Forma que consume el generador de scripts.
 export interface ScriptStep {
   title: string;

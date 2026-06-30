@@ -2,34 +2,57 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical, Trash2 } from "lucide-react";
-import type { ResolvedStep } from "@/lib/types";
+import {
+  GripVertical,
+  Trash2,
+  Link2,
+  X,
+  Terminal,
+  FileText,
+  Sparkles,
+  StickyNote,
+} from "lucide-react";
+import type { Block, BlockType, PlaybookLine } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CopyButton } from "@/components/shared/copy-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
-import { stepCopyValue } from "@/lib/steps";
+import { BlockCopyDialog } from "@/components/playbooks/block-copy-dialog";
+import { LinkBlockDialog } from "@/components/playbooks/link-block-dialog";
 
-const TYPE_LABEL = {
+const ICONS: Record<BlockType, typeof Terminal> = {
+  command: Terminal,
+  file: FileText,
+  skill: Sparkles,
+  note: StickyNote,
+};
+
+const TYPE_LABEL: Record<BlockType, string> = {
   command: "Comando",
   file: "Archivo",
   skill: "Skill",
   note: "Nota",
-} as const;
+};
 
-export function SortableStep({
-  step,
+export function SortableLine({
+  line,
   index,
+  library,
   onRemove,
+  onLink,
+  onUnlink,
 }: {
-  step: ResolvedStep;
+  line: PlaybookLine;
   index: number;
+  library: Block[];
   onRemove: (id: string) => void;
+  onLink: (stepId: string, blockId: string) => void;
+  onUnlink: (stepId: string) => void;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: step.id });
+    useSortable({ id: line.id });
 
-  const value = stepCopyValue(step);
+  const block = line.block;
+  const Icon = block ? ICONS[block.type] : null;
 
   return (
     <div
@@ -50,40 +73,71 @@ export function SortableStep({
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <span className="text-xs text-muted-foreground">{index + 1}.</span>
-          <span className="truncate font-medium">{step.title}</span>
-          <Badge variant="secondary" className="shrink-0">
-            {TYPE_LABEL[step.type]}
-          </Badge>
+          <span className="truncate font-medium">{line.title}</span>
         </div>
-        {step.purpose && (
-          <p className="mt-0.5 text-sm text-muted-foreground">{step.purpose}</p>
-        )}
-        {value && (
-          <pre className="mt-2 max-h-24 overflow-auto rounded bg-muted p-2 text-xs">
-            <code>{value}</code>
-          </pre>
-        )}
+
+        <div className="mt-2">
+          {block && Icon ? (
+            <div className="flex items-center gap-1">
+              <BlockCopyDialog
+                block={block}
+                trigger={
+                  <Button variant="outline" size="sm" className="max-w-full">
+                    <Icon className="size-3.5 shrink-0" />
+                    <span className="truncate">{block.title}</span>
+                    <Badge variant="secondary" className="ml-1 shrink-0">
+                      {TYPE_LABEL[block.type]}
+                    </Badge>
+                  </Button>
+                }
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="text-muted-foreground"
+                aria-label="Desvincular bloque"
+                onClick={() => onUnlink(line.id)}
+              >
+                <X className="size-3.5" />
+              </Button>
+            </div>
+          ) : (
+            <LinkBlockDialog
+              library={library}
+              onPick={(blockId) => onLink(line.id, blockId)}
+              trigger={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="text-muted-foreground"
+                >
+                  <Link2 className="size-3.5" />
+                  Vincular bloque
+                </Button>
+              }
+            />
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-col items-end gap-1">
-        {value && <CopyButton value={value} size="icon" variant="ghost" />}
-        <ConfirmDialog
-          onConfirm={() => onRemove(step.id)}
-          title="Eliminar paso"
-          description={`¿Quitar el paso "${step.title}" del playbook?`}
-          trigger={
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="text-red-500"
-              aria-label="Eliminar paso"
-            >
-              <Trash2 className="size-3.5" />
-            </Button>
-          }
-        />
-      </div>
+      <ConfirmDialog
+        onConfirm={() => onRemove(line.id)}
+        title="Eliminar línea"
+        description={`¿Quitar la línea "${line.title}" del checklist?`}
+        trigger={
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="text-red-500"
+            aria-label="Eliminar línea"
+          >
+            <Trash2 className="size-3.5" />
+          </Button>
+        }
+      />
     </div>
   );
 }
