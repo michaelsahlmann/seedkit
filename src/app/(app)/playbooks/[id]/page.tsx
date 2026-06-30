@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { Block, Playbook, ResolvedStep } from "@/lib/types";
+import type { Block, Playbook, PlaybookLine } from "@/lib/types";
 import { PlaybookEditor } from "@/components/playbooks/playbook-editor";
 
 export default async function PlaybookEditorPage({
@@ -28,27 +28,16 @@ export default async function PlaybookEditorPage({
   type StepRow = {
     id: string;
     position: string;
-    block_id: string | null;
-    override_purpose: string | null;
-    inline_type: Block["type"] | null;
     inline_title: string | null;
-    inline_content: string | null;
     blocks: Block | null;
   };
 
-  const steps: ResolvedStep[] = ((stepRows ?? []) as StepRow[]).map((s) => {
-    const b = s.blocks;
-    return {
-      id: s.id,
-      position: s.position,
-      type: b?.type ?? s.inline_type ?? "note",
-      title: b?.title ?? s.inline_title ?? "Paso",
-      purpose: s.override_purpose ?? b?.purpose ?? null,
-      content: b?.content ?? s.inline_content ?? "",
-      metadata: b?.metadata ?? {},
-      blockId: s.block_id,
-    };
-  });
+  const lines: PlaybookLine[] = ((stepRows ?? []) as StepRow[]).map((s) => ({
+    id: s.id,
+    position: s.position,
+    title: s.inline_title ?? s.blocks?.title ?? "Paso",
+    block: s.blocks,
+  }));
 
   const { data: blockRows } = await supabase
     .from("blocks")
@@ -58,7 +47,7 @@ export default async function PlaybookEditorPage({
   return (
     <PlaybookEditor
       playbook={playbook as Playbook}
-      steps={steps}
+      lines={lines}
       library={(blockRows ?? []) as Block[]}
     />
   );
