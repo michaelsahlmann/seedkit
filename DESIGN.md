@@ -1,6 +1,11 @@
-# VARKENTIS HOLDING - OFFICIAL BRAND BOOK v1.3
+# VARKENTIS HOLDING - OFFICIAL BRAND BOOK v1.4
 > **"Ecosistema para mentes que exigen resultados exponenciales."**
 
+> **Changelog v1.4** — Floating Paths en **Disruptive Orange** (`text-accent`,
+> `#F26101`) en vez de `currentColor`/foreground: el fondo ambiental ahora lleva el acento de
+> marca. Opacidades afinadas en producción para mayor presencia sin competir con el contenido
+> (capa `0.85`, trazo `0.15 → ~0.85`, pulso `0.45 ↔ 0.85`). Ver §2.4 y §4.
+>
 > **Changelog v1.3** — Migración del sistema tipográfico. La tríada pasa de
 > *Cormorant Garamond / Manrope / JetBrains Mono* a **Young Serif / Palatino / Geist Mono**,
 > validada en producción (Base General). Editorial-serif sobre editorial-serif; el lado
@@ -89,9 +94,10 @@ sino de **rol, peso y tamaño** entre una serif de display y una serif de texto.
     `pathLength`/`pathOffset` en loop infinito y lineal. Da sensación de "infraestructura en
     movimiento".
 *   *Comportamiento:* Capa **global, fija (`fixed inset-0`), detrás del contenido (`z-0`,
-    contenido en `z-10`), `pointer-events: none`**. Opacidad total de capa ~`0.6`; opacidad de
-    trazo creciente por índice (`0.06 → ~0.7`). Color por `currentColor` (`text-foreground`):
-    oscuro sobre claro, claro sobre oscuro.
+    contenido en `z-10`), `pointer-events: none`**. Opacidad total de capa `0.85`; opacidad de
+    trazo creciente por índice (`0.15 → ~0.85`) y pulso animado de opacidad (`0.45 ↔ 0.85`)
+    para presencia sin competir con el contenido. Color **Disruptive Orange** vía
+    `text-accent` + `stroke="currentColor"` (`#F26101`): el acento de marca como fondo vivo.
 *   *Regla anti-bug:* La `duration` de cada trazo debe ser **determinista por índice**
     (`20 + (i % 12) * 1.5`). **Nunca** `Math.random()` en el render → rompe la hidratación SSR.
 *   *Implementación de referencia (Base General):* `src/components/shared/background-paths.tsx`
@@ -177,9 +183,11 @@ tokens:
     hover-lift: "-translate-y-1"  # Elevación sutil en hover de CTAs
 
   background:                     # Floating Paths (§2.4) — capa global obligatoria.
-    layer-opacity: "0.6"          # Opacidad de la capa completa.
-    stroke-base: "0.06"           # Opacidad de trazo del primero.
-    stroke-step: "0.018"          # Incremento por índice.
+    color: "text-accent"          # Disruptive Orange #F26101 (antes currentColor/foreground).
+    layer-opacity: "0.85"         # Opacidad de la capa completa.
+    stroke-base: "0.15"           # Opacidad de trazo del primero.
+    stroke-step: "0.02"           # Incremento por índice (hasta ~0.85).
+    pulse-opacity: "[0.45, 0.85, 0.45]"  # Pulso animado de opacidad por trazo.
     paths: 36                     # Trazos por juego (x2 espejados).
     duration: "20 + (i % 12) * 1.5s"  # Determinista. NUNCA Math.random (rompe hidratación).
     easing: "linear"

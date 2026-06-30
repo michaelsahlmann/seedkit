@@ -23,7 +23,7 @@ function FloatingPaths({ position }: { position: number }) {
   return (
     <div className="absolute inset-0">
       <svg
-        className="h-full w-full text-foreground"
+        className="h-full w-full text-accent"
         viewBox="0 0 696 316"
         fill="none"
         aria-hidden="true"
@@ -34,11 +34,11 @@ function FloatingPaths({ position }: { position: number }) {
             d={path.d}
             stroke="currentColor"
             strokeWidth={path.width}
-            strokeOpacity={0.06 + path.id * 0.018}
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
+            strokeOpacity={0.15 + path.id * 0.02}
+            initial={{ pathLength: 0.3, opacity: 0.8 }}
             animate={{
               pathLength: 1,
-              opacity: [0.2, 0.5, 0.2],
+              opacity: [0.45, 0.85, 0.45],
               pathOffset: [0, 1, 0],
             }}
             transition={{
@@ -61,7 +61,7 @@ function FloatingPaths({ position }: { position: number }) {
 export function BackgroundPaths({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-40 ${className}`}
+      className={`pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-85 ${className}`}
       aria-hidden="true"
     >
       <FloatingPaths position={1} />
