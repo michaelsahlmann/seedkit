@@ -73,15 +73,27 @@ export function RunChecklist({
   }
 
   function setAll(checked: boolean) {
+    const prevSteps = steps;
     setSteps((prev) => prev.map((s) => ({ ...s, checked })));
-    startTransition(() => setAllRunSteps(run.id, checked));
+    startTransition(async () => {
+      try {
+        await setAllRunSteps(run.id, checked);
+      } catch {
+        setSteps(prevSteps); // revertir el optimista si falla el servidor
+        toast.error("No se pudieron actualizar los pasos");
+      }
+    });
   }
 
   function add(block: Block) {
     startTransition(async () => {
-      await addRunStep(run.id, block.id);
-      router.refresh();
-      toast.success(`«${block.title}» agregado al checklist`);
+      try {
+        await addRunStep(run.id, block.id);
+        router.refresh();
+        toast.success(`«${block.title}» agregado al checklist`);
+      } catch {
+        toast.error("No se pudo agregar el bloque al checklist");
+      }
     });
   }
 

@@ -34,21 +34,30 @@ function parseAgentMarkdown(md: string): {
   data: Record<string, string>;
   body: string;
 } {
-  const fm = /^---\s*\n([\s\S]*?)\n---\s*\n?/.exec(md);
+  const trimmed = md.trim();
+  const fm = /^---\s*\n([\s\S]*?)\n---\s*\n?/.exec(trimmed);
   const data: Record<string, string> = {};
   if (fm) {
     for (const line of fm[1].split("\n")) {
       const idx = line.indexOf(":");
       if (idx <= 0) continue;
       const key = line.slice(0, idx).trim();
-      const value = line
-        .slice(idx + 1)
-        .trim()
-        .replace(/^["'[]+|["'\]]+$/g, "");
+      let value = line.slice(idx + 1).trim();
+      if (value.startsWith("[") && value.endsWith("]")) {
+        // Array YAML/JSON inline (ej. tools: ["Read", "Edit"]) -> "Read, Edit".
+        try {
+          const parsed = JSON.parse(value);
+          value = Array.isArray(parsed) ? parsed.join(", ") : String(parsed);
+        } catch {
+          value = value.replace(/[[\]"']/g, "").trim();
+        }
+      } else {
+        value = value.replace(/^["']|["']$/g, "").trim();
+      }
       if (key && value) data[key] = value;
     }
   }
-  return { data, body: fm ? md.slice(fm[0].length).trim() : md.trim() };
+  return { data, body: fm ? trimmed.slice(fm[0].length).trim() : trimmed };
 }
 
 export function BlockForm({

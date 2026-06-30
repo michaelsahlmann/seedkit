@@ -29,15 +29,20 @@ export function AddToChecklistDialog({ block }: { block: Block }) {
       setLoading(true);
       listActiveRuns()
         .then(setRuns)
+        .catch(() => toast.error("No se pudieron cargar los checklists activos"))
         .finally(() => setLoading(false));
     }
   }
 
   function add(runId: string, title: string) {
     startTransition(async () => {
-      await addRunStep(runId, block.id);
-      setOpen(false);
-      toast.success(`«${block.title}» agregado a ${title}`);
+      try {
+        await addRunStep(runId, block.id);
+        setOpen(false);
+        toast.success(`«${block.title}» agregado a ${title}`);
+      } catch {
+        toast.error("No se pudo agregar el bloque al checklist");
+      }
     });
   }
 
