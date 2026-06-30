@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/shared/copy-button";
 import { DownloadButton } from "@/components/shared/download-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { AddToChecklistDialog } from "@/components/blocks/add-to-checklist-dialog";
 import { deleteBlock } from "@/app/(app)/blocks/actions";
 
 const ICONS: Record<BlockType, typeof Terminal> = {
@@ -107,6 +108,7 @@ export function BlockCard({ block }: { block: Block }) {
               filename={downloadName(block)}
             />
           )}
+          <AddToChecklistDialog block={block} />
           <Button
             variant="ghost"
             size="sm"

@@ -1,16 +1,40 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { CheckCircle2, Trash2, ChevronDown, ChevronRight } from "lucide-react";
-import type { Run, RunStep, BlockType } from "@/lib/types";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import {
+  CheckCircle2,
+  Trash2,
+  ChevronDown,
+  ChevronRight,
+  CheckCheck,
+  RotateCcw,
+  Plus,
+  Search,
+} from "lucide-react";
+import type { Block, Run, RunStep, BlockType } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { CopyButton } from "@/components/shared/copy-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { ExportDialog } from "@/components/shared/export-dialog";
 import { stepCopyValue, runStepsToScript } from "@/lib/steps";
-import { toggleRunStep, deleteRun } from "@/app/(app)/runs/actions";
+import {
+  toggleRunStep,
+  addRunStep,
+  setAllRunSteps,
+  deleteRun,
+} from "@/app/(app)/runs/actions";
 
 const TYPE_LABEL: Record<BlockType, string> = {
   command: "Comando",
@@ -22,10 +46,13 @@ const TYPE_LABEL: Record<BlockType, string> = {
 export function RunChecklist({
   run,
   steps: initial,
+  library,
 }: {
   run: Run;
   steps: RunStep[];
+  library: Block[];
 }) {
+  const router = useRouter();
   const [steps, setSteps] = useState(initial);
   const [showDone, setShowDone] = useState(false);
   const [, startTransition] = useTransition();
@@ -44,6 +71,19 @@ export function RunChecklist({
     startTransition(() => toggleRunStep(run.id, step.id, checked));
   }
 
+  function setAll(checked: boolean) {
+    setSteps((prev) => prev.map((s) => ({ ...s, checked })));
+    startTransition(() => setAllRunSteps(run.id, checked));
+  }
+
+  function add(block: Block) {
+    startTransition(async () => {
+      await addRunStep(run.id, block.id);
+      router.refresh();
+      toast.success(`«${block.title}» agregado al checklist`);
+    });
+  }
+
   return (
     <div className="mx-auto max-w-3xl p-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -56,7 +96,36 @@ export function RunChecklist({
             {done} de {total} pasos completados
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <AddBlockDialog library={library} onAdd={add} />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setAll(true)}
+            disabled={total === 0 || done === total}
+          >
+            <CheckCheck className="size-4" />
+            Marcar todo
+          </Button>
+          {done > 0 ? (
+            <ConfirmDialog
+              onConfirm={() => setAll(false)}
+              title="Reiniciar checklist"
+              description={`Se desmarcarán los ${done} pasos completados. Los pasos se mantienen.`}
+              confirmLabel="Reiniciar"
+              trigger={
+                <Button variant="outline" size="sm">
+                  <RotateCcw className="size-4" />
+                  Reset
+                </Button>
+              }
+            />
+          ) : (
+            <Button variant="outline" size="sm" disabled>
+              <RotateCcw className="size-4" />
+              Reset
+            </Button>
+          )}
           <ExportDialog
             steps={runStepsToScript(steps)}
             baseName={run.title.toLowerCase().replace(/\s+/g, "-")}
@@ -125,6 +194,74 @@ export function RunChecklist({
         </div>
       )}
     </div>
+  );
+}
+
+function AddBlockDialog({
+  library,
+  onAdd,
+}: {
+  library: Block[];
+  onAdd: (block: Block) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [filter, setFilter] = useState("");
+
+  const filtered = library.filter((b) =>
+    b.title.toLowerCase().includes(filter.toLowerCase()),
+  );
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger
+        render={
+          <Button variant="default" size="sm">
+            <Plus className="size-4" />
+            Agregar bloque
+          </Button>
+        }
+      />
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Agregar bloque al checklist</DialogTitle>
+        </DialogHeader>
+        <div className="relative">
+          <Search className="absolute left-2 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Buscar bloque…"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="h-8 pl-7"
+            autoFocus
+          />
+        </div>
+        <div className="max-h-[60vh] space-y-1 overflow-auto">
+          {filtered.length === 0 ? (
+            <p className="py-4 text-center text-xs text-muted-foreground">
+              Sin resultados.
+            </p>
+          ) : (
+            filtered.map((b) => (
+              <button
+                key={b.id}
+                type="button"
+                onClick={() => {
+                  onAdd(b);
+                  setOpen(false);
+                }}
+                className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted"
+              >
+                <Plus className="size-3.5 shrink-0 text-muted-foreground" />
+                <span className="truncate">{b.title}</span>
+                <Badge variant="outline" className="ml-auto shrink-0 text-[10px]">
+                  {b.type}
+                </Badge>
+              </button>
+            ))
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
