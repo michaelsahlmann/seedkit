@@ -41,6 +41,7 @@ const TYPE_LABEL: Record<BlockType, string> = {
   file: "Archivo",
   skill: "Skill",
   note: "Nota",
+  agent: "Agente",
 };
 
 export function RunChecklist({

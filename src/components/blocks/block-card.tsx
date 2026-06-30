@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Pencil, Trash2, Terminal, FileText, Sparkles, StickyNote } from "lucide-react";
+import { Pencil, Trash2, Terminal, FileText, Sparkles, StickyNote, Bot } from "lucide-react";
 import type { Block, BlockType } from "@/lib/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,7 @@ const ICONS: Record<BlockType, typeof Terminal> = {
   file: FileText,
   skill: Sparkles,
   note: StickyNote,
+  agent: Bot,
 };
 
 const TYPE_LABEL: Record<BlockType, string> = {
@@ -24,6 +25,7 @@ const TYPE_LABEL: Record<BlockType, string> = {
   file: "Archivo",
   skill: "Skill",
   note: "Nota",
+  agent: "Agente",
 };
 
 /** Texto que se copia según el tipo de bloque. */
@@ -59,6 +61,7 @@ function downloadName(block: Block): string {
         block.metadata?.shell === "powershell" ? "ps1" : "sh"
       }`;
     case "note":
+    case "agent":
       return `${slug(block.title)}.md`;
   }
 }

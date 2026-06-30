@@ -11,6 +11,7 @@ import {
   FileText,
   Sparkles,
   StickyNote,
+  Bot,
 } from "lucide-react";
 import type { Block, BlockType, PlaybookLine } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +25,7 @@ const ICONS: Record<BlockType, typeof Terminal> = {
   file: FileText,
   skill: Sparkles,
   note: StickyNote,
+  agent: Bot,
 };
 
 const TYPE_LABEL: Record<BlockType, string> = {
@@ -31,6 +33,7 @@ const TYPE_LABEL: Record<BlockType, string> = {
   file: "Archivo",
   skill: "Skill",
   note: "Nota",
+  agent: "Agente",
 };
 
 export function SortableLine({

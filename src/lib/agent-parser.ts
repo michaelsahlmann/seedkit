@@ -70,12 +70,12 @@ export function parseSkill(content: string, dirName: string): ParsedBlock {
   };
 }
 
-/** Agente: `.agent/agents/<name>.md` -> bloque tipo 'note'. */
+/** Agente: `.agent/agents/<name>.md` -> bloque tipo 'agent'. */
 export function parseAgent(content: string, fileName: string): ParsedBlock {
   const { data, content: body } = safeMatter(content);
   const name = (data.name as string) || fileName.replace(/\.md$/, "");
   return {
-    type: "note",
+    type: "agent",
     title: name,
     purpose: (data.description as string) ?? null,
     content: body.trim(),
@@ -86,6 +86,7 @@ export function parseAgent(content: string, fileName: string): ParsedBlock {
       skills: Array.isArray(data.skills)
         ? (data.skills as string[]).join(", ")
         : (data.skills as string) ?? undefined,
+      source_url: (data.source_url as string) ?? (data.source as string) ?? undefined,
     },
     source: "import:agent",
   };

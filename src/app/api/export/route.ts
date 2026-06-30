@@ -13,7 +13,7 @@ const schema = z.object({
     z.object({
       title: z.string(),
       purpose: z.string().nullable().optional(),
-      type: z.enum(["command", "file", "skill", "note"]),
+      type: z.enum(["command", "file", "skill", "note", "agent"]),
       content: z.string(),
       metadata: z.record(z.string(), z.unknown()).optional(),
     }),
