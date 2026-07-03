@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import type { Route } from "next";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,10 @@ export function BlockFilters() {
   const pathname = usePathname();
   const params = useSearchParams();
   const activeType = params.get("type") ?? "";
+  const urlQuery = params.get("q") ?? "";
+
+  // Texto local: escribir es instantáneo. La búsqueda se dispara al dar Enter.
+  const [q, setQ] = useState(urlQuery);
 
   function setParam(key: string, value: string) {
     const next = new URLSearchParams(params.toString());
@@ -28,6 +33,11 @@ export function BlockFilters() {
     const qs = next.toString();
     router.replace((qs ? `${pathname}?${qs}` : pathname) as Route);
   }
+
+  // Sincroniza el input si la URL cambia por fuera (back/forward, limpiar filtros).
+  useEffect(() => {
+    setQ(urlQuery);
+  }, [urlQuery]);
 
   return (
     <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -44,12 +54,19 @@ export function BlockFilters() {
           </Button>
         ))}
       </div>
-      <Input
-        placeholder="Buscar por título…"
-        value={params.get("q") ?? ""}
-        onChange={(e) => setParam("q", e.target.value)}
-        className="h-8 max-w-xs"
-      />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setParam("q", q.trim());
+        }}
+      >
+        <Input
+          placeholder="Buscar por título… (Enter)"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="h-8 max-w-xs"
+        />
+      </form>
     </div>
   );
 }

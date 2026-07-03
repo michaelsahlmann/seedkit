@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-03
+
+### Agregado
+
+- búsqueda de bloques con Enter (formulario) en vez de filtrar en cada tecla
+
 ## [0.2.0] - 2026-06-30
 
 ### Agregado
