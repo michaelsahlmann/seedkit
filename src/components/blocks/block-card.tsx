@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Pencil, Trash2, Terminal, FileText, Sparkles, StickyNote, Bot } from "lucide-react";
-import type { Block, BlockType } from "@/lib/types";
+import { Pencil, Trash2 } from "lucide-react";
+import type { Block } from "@/lib/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,118 +11,91 @@ import { CopyButton } from "@/components/shared/copy-button";
 import { DownloadButton } from "@/components/shared/download-button";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { AddToChecklistDialog } from "@/components/blocks/add-to-checklist-dialog";
+import { BlockPreviewDialog } from "@/components/blocks/block-preview-dialog";
+import {
+  ICONS,
+  TYPE_LABEL,
+  copyValue,
+  downloadName,
+} from "@/components/blocks/block-meta";
 import { deleteBlock } from "@/app/(app)/blocks/actions";
-
-const ICONS: Record<BlockType, typeof Terminal> = {
-  command: Terminal,
-  file: FileText,
-  skill: Sparkles,
-  note: StickyNote,
-  agent: Bot,
-};
-
-const TYPE_LABEL: Record<BlockType, string> = {
-  command: "Comando",
-  file: "Archivo",
-  skill: "Skill",
-  note: "Nota",
-  agent: "Agente",
-};
-
-/** Texto que se copia según el tipo de bloque. */
-function copyValue(block: Block): string {
-  if (block.type === "skill" && block.metadata.install_cmd) {
-    return block.metadata.install_cmd;
-  }
-  return block.content;
-}
-
-/** Slug ASCII a partir del título, para nombrar descargas. */
-function slug(s: string): string {
-  return (
-    s
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "") || "bloque"
-  );
-}
-
-/** Nombre del archivo al descargar, según el tipo de bloque. */
-function downloadName(block: Block): string {
-  switch (block.type) {
-    case "file":
-      return block.metadata?.filename || "archivo.txt";
-    case "skill":
-      return "SKILL.md";
-    case "command":
-      return `${slug(block.title)}.${
-        block.metadata?.shell === "powershell" ? "ps1" : "sh"
-      }`;
-    case "note":
-    case "agent":
-      return `${slug(block.title)}.md`;
-  }
-}
 
 export function BlockCard({ block }: { block: Block }) {
   const Icon = ICONS[block.type];
+  const [open, setOpen] = useState(false);
 
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="space-y-2 pb-3">
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Icon className="size-4 text-muted-foreground" />
-            <span className="font-medium">{block.title}</span>
+    <>
+      <Card
+        role="button"
+        tabIndex={0}
+        onClick={() => setOpen(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+        }}
+        className="flex cursor-pointer flex-col"
+      >
+        <CardHeader className="space-y-2 pb-3">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Icon className="size-4 text-muted-foreground" />
+              <span className="font-medium">{block.title}</span>
+            </div>
+            <Badge variant="secondary" className="shrink-0">
+              {TYPE_LABEL[block.type]}
+            </Badge>
           </div>
-          <Badge variant="secondary" className="shrink-0">
-            {TYPE_LABEL[block.type]}
-          </Badge>
-        </div>
-        {block.purpose && (
-          <p className="text-sm text-muted-foreground">{block.purpose}</p>
-        )}
-      </CardHeader>
-
-      <CardContent className="flex flex-1 flex-col gap-3">
-        <div className="mt-auto flex items-center gap-2 pt-2">
-          {copyValue(block) && <CopyButton value={copyValue(block)} />}
-          {block.content && (
-            <DownloadButton
-              content={block.content}
-              filename={downloadName(block)}
-            />
+          {block.purpose && (
+            <p className="text-sm text-muted-foreground">{block.purpose}</p>
           )}
-          <AddToChecklistDialog block={block} />
-          <Button
-            variant="ghost"
-            size="sm"
-            nativeButton={false}
-            render={<Link href={`/blocks/${block.id}`} />}
+        </CardHeader>
+
+        <CardContent className="flex flex-1 flex-col gap-3">
+          {/* Los botones no deben disparar el modal de vista previa. */}
+          <div
+            className="mt-auto flex items-center gap-2 pt-2"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Pencil className="size-3.5" />
-            Editar
-          </Button>
-          <ConfirmDialog
-            onConfirm={() => deleteBlock(block.id)}
-            title="Eliminar bloque"
-            description={`¿Eliminar el bloque "${block.title}"? Esta acción no se puede deshacer.`}
-            trigger={
-              <Button
-                variant="ghost"
-                size="sm"
-                className="ml-auto text-red-500"
-                aria-label="Eliminar bloque"
-              >
-                <Trash2 className="size-3.5" />
-              </Button>
-            }
-          />
-        </div>
-      </CardContent>
-    </Card>
+            {copyValue(block) && <CopyButton value={copyValue(block)} />}
+            {block.content && (
+              <DownloadButton
+                content={block.content}
+                filename={downloadName(block)}
+              />
+            )}
+            <AddToChecklistDialog block={block} />
+            <Button
+              variant="ghost"
+              size="sm"
+              nativeButton={false}
+              render={<Link href={`/blocks/${block.id}`} />}
+            >
+              <Pencil className="size-3.5" />
+              Editar
+            </Button>
+            <ConfirmDialog
+              onConfirm={() => deleteBlock(block.id)}
+              title="Eliminar bloque"
+              description={`¿Eliminar el bloque "${block.title}"? Esta acción no se puede deshacer.`}
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="ml-auto text-red-500"
+                  aria-label="Eliminar bloque"
+                >
+                  <Trash2 className="size-3.5" />
+                </Button>
+              }
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      <BlockPreviewDialog block={block} open={open} onOpenChange={setOpen} />
+    </>
   );
 }
