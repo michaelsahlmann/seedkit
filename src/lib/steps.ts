@@ -38,6 +38,7 @@ export function blockCopyFields(block: Block): CopyField[] {
     case "file":
       if (m.filename)
         fields.push({ label: "Nombre de archivo", value: String(m.filename) });
+      if (m.language) fields.push({ label: "Lenguaje", value: String(m.language) });
       if (block.content) fields.push({ label: "Contenido", value: block.content });
       break;
     case "skill":
@@ -48,6 +49,14 @@ export function blockCopyFields(block: Block): CopyField[] {
       break;
     case "note":
       if (block.content) fields.push({ label: "Contenido", value: block.content });
+      break;
+    case "agent":
+      if (m.model) fields.push({ label: "Modelo", value: String(m.model) });
+      if (m.tools) fields.push({ label: "Tools", value: String(m.tools) });
+      if (m.skills) fields.push({ label: "Skills", value: String(m.skills) });
+      if (m.source_url)
+        fields.push({ label: "Origen", value: String(m.source_url) });
+      if (block.content) fields.push({ label: "Prompt", value: block.content });
       break;
   }
 
