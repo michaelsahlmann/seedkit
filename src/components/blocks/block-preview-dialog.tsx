@@ -34,9 +34,11 @@ export function BlockPreviewDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <div className="flex items-center gap-2">
-            <Icon className="size-4 text-muted-foreground" />
-            <DialogTitle>{block.title}</DialogTitle>
+          <div className="flex flex-wrap items-center gap-2">
+            <Icon className="size-4 shrink-0 text-muted-foreground" />
+            <DialogTitle className="min-w-0 break-words">
+              {block.title}
+            </DialogTitle>
             <Badge variant="secondary" className="shrink-0">
               {TYPE_LABEL[block.type]}
             </Badge>
@@ -65,8 +67,8 @@ export function BlockPreviewDialog({
                     variant="outline"
                   />
                 </div>
-                <pre className="max-h-80 overflow-auto rounded-md bg-muted p-3 text-xs">
-                  <code>{f.value}</code>
+                <pre className="max-h-80 overflow-y-auto whitespace-pre-wrap break-words rounded-md bg-muted p-3 text-xs">
+                  <code className="break-words">{f.value}</code>
                 </pre>
               </div>
             ))

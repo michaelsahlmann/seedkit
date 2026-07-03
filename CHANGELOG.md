@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-07-03
+
+### Corregido
+
+- wrap del contenido en el modal de vista previa de bloques (sin scroll
+  horizontal) y header tolerante a títulos largos
+- sincronizar el input de búsqueda con la URL durante el render en vez de
+  un efecto (regla react-hooks/set-state-in-effect)
+
 ## [0.3.0] - 2026-07-03
 
 ### Agregado

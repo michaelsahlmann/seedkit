@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import type { Route } from "next";
 import { Input } from "@/components/ui/input";
@@ -26,6 +26,14 @@ export function BlockFilters() {
   // Texto local: escribir es instantáneo. La búsqueda se dispara al dar Enter.
   const [q, setQ] = useState(urlQuery);
 
+  // Sincroniza el input si la URL cambia por fuera (back/forward, limpiar
+  // filtros): ajuste de estado durante el render, sin efecto.
+  const [prevUrlQuery, setPrevUrlQuery] = useState(urlQuery);
+  if (urlQuery !== prevUrlQuery) {
+    setPrevUrlQuery(urlQuery);
+    setQ(urlQuery);
+  }
+
   function setParam(key: string, value: string) {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
@@ -33,11 +41,6 @@ export function BlockFilters() {
     const qs = next.toString();
     router.replace((qs ? `${pathname}?${qs}` : pathname) as Route);
   }
-
-  // Sincroniza el input si la URL cambia por fuera (back/forward, limpiar filtros).
-  useEffect(() => {
-    setQ(urlQuery);
-  }, [urlQuery]);
 
   return (
     <div className="mt-5 flex flex-wrap items-center gap-2">
