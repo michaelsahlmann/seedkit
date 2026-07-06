@@ -1,0 +1,27 @@
+{
+  "name": "create-seedkit",
+  "version": "0.1.0",
+  "description": "Andamia un proyecto Seedkit: descarga la plantilla, configura Supabase y te deja listo para npm run dev.",
+  "type": "module",
+  "bin": {
+    "create-seedkit": "index.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "seedkit",
+    "create",
+    "scaffold",
+    "supabase",
+    "nextjs"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "giget": "^1.2.3"
+  }
+}
