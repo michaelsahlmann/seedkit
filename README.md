@@ -16,6 +16,10 @@ se copia al portapapeles y la secuencia se exporta como un **script** descargabl
 
 ## Puesta en marcha
 
+> **Atajo:** `npx create-seedkit mi-app` descarga esta plantilla, te pide los datos de
+> Supabase y escribe `.env.local` por vos. Si lo usás, saltá al paso 2 (Supabase). Ver
+> [`create-seedkit/`](create-seedkit/).
+
 1. **Dependencias**
 
    ```bash
