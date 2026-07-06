@@ -4,6 +4,7 @@ import { useActionState, useRef, useState } from "react";
 import Link from "next/link";
 import type { Block, BlockType } from "@/lib/types";
 import type { BlockFormState } from "@/app/(app)/blocks/actions";
+import { skillInstallCmd } from "@/lib/skills";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -70,7 +71,11 @@ export function BlockForm({
   const [state, formAction, pending] = useActionState(action, initial);
   const [type, setType] = useState<BlockType>(block?.type ?? "command");
   const [paste, setPaste] = useState("");
+  const [repoUrl, setRepoUrl] = useState(block?.metadata.repo_url ?? "");
+  const [skillName, setSkillName] = useState(block?.metadata.skill_name ?? "");
   const formRef = useRef<HTMLFormElement>(null);
+
+  const derivedInstallCmd = skillInstallCmd(repoUrl, skillName);
 
   /** Autocompleta los campos del form a partir del .md pegado del agente. */
   function fillFromPaste() {
@@ -161,8 +166,9 @@ export function BlockForm({
             <Input
               id="repo_url"
               name="repo_url"
-              defaultValue={block?.metadata.repo_url ?? ""}
-              placeholder="https://github.com/..."
+              value={repoUrl}
+              onChange={(e) => setRepoUrl(e.target.value)}
+              placeholder="https://github.com/owner/repo"
             />
           </div>
           <div className="space-y-2">
@@ -170,17 +176,29 @@ export function BlockForm({
             <Input
               id="skill_name"
               name="skill_name"
-              defaultValue={block?.metadata.skill_name ?? ""}
+              value={skillName}
+              onChange={(e) => setSkillName(e.target.value)}
+              placeholder="grill-me"
             />
           </div>
           <div className="space-y-2 sm:col-span-2">
-            <Label htmlFor="install_cmd">Comando de instalación</Label>
+            <Label htmlFor="install_cmd">
+              Comando de instalación (opcional — se genera solo)
+            </Label>
             <Input
               id="install_cmd"
               name="install_cmd"
               defaultValue={block?.metadata.install_cmd ?? ""}
-              placeholder="npx skills add <url> --skill <nombre>"
+              placeholder={derivedInstallCmd ?? "npx skills add owner/repo --skill nombre"}
             />
+            {derivedInstallCmd && (
+              <p className="text-sm text-muted-foreground">
+                Se instalará con:{" "}
+                <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
+                  {derivedInstallCmd}
+                </code>
+              </p>
+            )}
           </div>
         </div>
       )}

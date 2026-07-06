@@ -4,6 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { skillInstallCmd } from "@/lib/skills";
 import type { BlockMetadata } from "@/lib/types";
 
 const blockSchema = z.object({
@@ -44,7 +45,8 @@ function buildMetadata(data: z.infer<typeof blockSchema>): BlockMetadata {
       return {
         repo_url: data.repo_url,
         skill_name: data.skill_name,
-        install_cmd: data.install_cmd,
+        install_cmd:
+          data.install_cmd || skillInstallCmd(data.repo_url, data.skill_name),
       };
     case "agent":
       return {

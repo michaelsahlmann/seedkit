@@ -1,3 +1,4 @@
+import { skillInstallCmd } from "@/lib/skills";
 import type {
   Block,
   PlaybookLine,
@@ -15,8 +16,11 @@ interface StepLike {
 
 /** Valor a copiar/ejecutar: para skills se prefiere el comando de instalación. */
 export function stepCopyValue(step: StepLike): string {
-  if (step.type === "skill" && step.metadata?.install_cmd) {
-    return step.metadata.install_cmd;
+  if (step.type === "skill") {
+    const cmd =
+      step.metadata?.install_cmd ||
+      skillInstallCmd(step.metadata?.repo_url, step.metadata?.skill_name);
+    if (cmd) return cmd;
   }
   return step.content;
 }
