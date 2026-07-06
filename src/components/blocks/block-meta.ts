@@ -1,4 +1,5 @@
 import { Terminal, FileText, Sparkles, StickyNote, Bot } from "lucide-react";
+import { skillInstallCmd } from "@/lib/skills";
 import type { Block, BlockType } from "@/lib/types";
 
 export const ICONS: Record<BlockType, typeof Terminal> = {
@@ -19,8 +20,11 @@ export const TYPE_LABEL: Record<BlockType, string> = {
 
 /** Texto que se copia según el tipo de bloque. */
 export function copyValue(block: Block): string {
-  if (block.type === "skill" && block.metadata.install_cmd) {
-    return block.metadata.install_cmd;
+  if (block.type === "skill") {
+    const cmd =
+      block.metadata.install_cmd ||
+      skillInstallCmd(block.metadata.repo_url, block.metadata.skill_name);
+    if (cmd) return cmd;
   }
   return block.content;
 }

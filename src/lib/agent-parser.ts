@@ -1,4 +1,5 @@
 import matter from "gray-matter";
+import { skillInstallCmd } from "@/lib/skills";
 import type { BlockType, BlockMetadata } from "@/lib/types";
 
 /**
@@ -49,11 +50,18 @@ function firstHeading(body: string): string | null {
   return m ? m[1].trim() : null;
 }
 
-/** Skill: `.agent/skills/<dir>/SKILL.md` -> bloque tipo 'skill'. */
-export function parseSkill(content: string, dirName: string): ParsedBlock {
+/**
+ * Skill: `.agent/skills/<dir>/SKILL.md` -> bloque tipo 'skill'.
+ * `repoUrl` es opcional: en el import el repo real suele ser desconocido, así que no se
+ * inventa uno. Si se pasa, se deriva el `install_cmd` con la convención `npx skills`.
+ */
+export function parseSkill(
+  content: string,
+  dirName: string,
+  repoUrl?: string,
+): ParsedBlock {
   const { data, content: body } = safeMatter(content);
   const name = (data.name as string) || dirName;
-  const repoBase = "https://github.com/<tu-repo>/skills";
   return {
     type: "skill",
     title: name,
@@ -62,8 +70,8 @@ export function parseSkill(content: string, dirName: string): ParsedBlock {
     tags: ["skill"],
     metadata: {
       skill_name: name,
-      repo_url: repoBase,
-      install_cmd: `npx skills add ${repoBase} --skill ${name}`,
+      repo_url: repoUrl,
+      install_cmd: skillInstallCmd(repoUrl, name),
       tools: (data["allowed-tools"] as string) ?? undefined,
     },
     source: "import:agent",

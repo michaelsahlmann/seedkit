@@ -1,3 +1,4 @@
+import { skillInstallCmd } from "@/lib/skills";
 import type { ScriptStep } from "@/lib/types";
 
 export type ScriptTarget = "sh" | "ps1";
@@ -50,14 +51,19 @@ export function generateScript(steps: ScriptStep[], target: ScriptTarget): strin
       case "command":
         out.push(step.content.trim());
         break;
-      case "skill":
-        // Preferir el install_cmd si existe; si no, comentar el contenido.
-        if (step.metadata?.install_cmd) {
-          out.push(step.metadata.install_cmd.trim());
+      case "skill": {
+        // Preferir el install_cmd si existe; derivarlo del repo+skill si no; y si
+        // tampoco, comentar el contenido.
+        const cmd =
+          step.metadata?.install_cmd ||
+          skillInstallCmd(step.metadata?.repo_url, step.metadata?.skill_name);
+        if (cmd) {
+          out.push(cmd.trim());
         } else if (step.content.trim()) {
           out.push(commentLines(step.content.trim(), c));
         }
         break;
+      }
       case "file":
         if (filename) {
           out.push(
