@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-07-07
+
+### Corregido
+
+- mostrar el botón de eliminar en todas las tarjetas de bloque: la fila de
+  acciones ahora envuelve (`flex-wrap`) en vez de recortarse fuera del card
+  cuando aparece el botón Descargar
+
 ## [0.3.1] - 2026-07-03
 
 ### Corregido

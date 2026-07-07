@@ -56,7 +56,7 @@ export function BlockCard({ block }: { block: Block }) {
         <CardContent className="flex flex-1 flex-col gap-3">
           {/* Los botones no deben disparar el modal de vista previa. */}
           <div
-            className="mt-auto flex items-center gap-2 pt-2"
+            className="mt-auto flex flex-wrap items-center gap-2 pt-2"
             onClick={(e) => e.stopPropagation()}
           >
             {copyValue(block) && <CopyButton value={copyValue(block)} />}

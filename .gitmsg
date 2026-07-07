@@ -1,3 +1,0 @@
-feat(proxy): agregar middleware de proxy para sesión Supabase
-
-Refactoriza la ubicación del archivo a src/ y actualiza la lógica de autenticación para usar supabase.auth.getUser.
