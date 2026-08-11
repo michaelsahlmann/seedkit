@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import type { Route } from "next";
-import { Input } from "@/components/ui/input";
+import { SearchInput } from "@/components/ui/search-input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -43,15 +43,15 @@ export function BlockFilters() {
   }
 
   return (
-    <div className="mt-5 flex flex-wrap items-center gap-2">
-      <div className="flex gap-1">
+    <div className="mt-5 flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap gap-1">
         {TYPES.map((t) => (
           <Button
             key={t.value}
             size="sm"
             variant={activeType === t.value ? "default" : "outline"}
             onClick={() => setParam("type", t.value)}
-            className={cn("h-8")}
+            className={cn("h-9 rounded-lg")}
           >
             {t.label}
           </Button>
@@ -62,14 +62,20 @@ export function BlockFilters() {
           e.preventDefault();
           setParam("q", q.trim());
         }}
+        className="flex-1 sm:flex-initial"
       >
-        <Input
-          placeholder="Buscar por título… (Enter)"
+        <SearchInput
+          placeholder="Buscar por título... (Enter)"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          className="h-8 max-w-xs"
+          onClear={() => {
+            setQ("");
+            setParam("q", "");
+          }}
+          containerClassName="w-full sm:w-80 min-w-[240px]"
         />
       </form>
     </div>
   );
 }
+
