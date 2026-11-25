@@ -226,26 +226,16 @@ Luego preguntar: **"¿Apruebas el merge a main? (sí/no)"**. Solo continuar si r
 gh pr merge <n> --merge
 ```
 - Método por defecto: `--merge` (conserva los commits). Ofrecer `--squash` o `--rebase` si el usuario lo pide.
-- **No usar `--delete-branch`** cuando se trabaja con worktrees: falla con
-  `'main' is already used by worktree`. El borrado de la rama se hace en el Paso 4, desde el
-  directorio principal. Verificar siempre el estado real tras el merge:
+- Verificar siempre el estado real tras el merge:
   ```bash
   gh pr view <n> --json state,mergedAt,mergeCommit
   ```
   Confirmar `state: MERGED` antes de asumir fallo.
 
-**Paso 4 — Sincronizar main local y limpiar (desde el directorio principal)**
-`git checkout main` falla si `main` ya está tomado por el worktree principal, y no se puede
-eliminar un worktree desde dentro de sí mismo. Por eso, primero ir al repo principal y detectar
-la ruta del worktree **dinámicamente** (no adivinar el slug: si el `worktree remove` no ocurre,
-el `git branch -d` fallará porque la rama sigue activa en su worktree).
+**Paso 4 — Sincronizar main local y limpiar**
 ```bash
-MAIN_DIR=$(cd "$(git rev-parse --git-common-dir)/.." && pwd)   # robusto ante rutas con espacios
-WT_PATH=$(git worktree list --porcelain | awk -v b="refs/heads/<rama>" \
-  '$1=="worktree"{wt=substr($0,10)} $1=="branch" && $2==b{print wt}')
-cd "$MAIN_DIR"
+git checkout main
 git pull origin main
-[ -n "$WT_PATH" ] && git worktree remove "$WT_PATH"
 git branch -D <rama>                                            # -D: no falla si se mergeó con squash/rebase
 git push origin --delete <rama> 2>/dev/null || true
 git remote prune origin
@@ -395,9 +385,7 @@ Seguir la estructura:
 ### Manejo de errores
 1. Si `git`/`gh` retorna exit code != 0: mostrar `[ERROR] Fallo en: <comando>. Output: <stderr>`
 2. Si fue después de commit: mostrar `[AVISO] Para revertir: git reset --soft HEAD~1`
-3. **Excepción merge**: si `gh pr merge --delete-branch` falla por worktree, verificar `state: MERGED`
-   con `gh pr view` antes de tratarlo como error (el merge remoto sí ocurrió).
-4. Abortar flujo. Mostrar resumen de completado vs pendiente.
+3. Abortar flujo. Mostrar resumen de completado vs pendiente.
 
 ## Archivos temporales
 - `.gitmsg`: Mensaje de commit multilínea (eliminar después de commit)
