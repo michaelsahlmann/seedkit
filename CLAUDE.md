@@ -1,14 +1,8 @@
-# AGENTS.md
+# Instructions
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## Perfil de comunicación
 
-- Sé directo. Sin adornos, sin disculpas innecesarias, sin rodeos.
-- No expliques lo obvio. Si la respuesta es "sí" o "no", dilo así.
-- Cuando haya múltiples opciones, presenta las mejores 2-3 con tradeoffs claros, no un catálogo completo.
-- Prefiere soluciones ejecutables sobre análisis extensos.
-- Si algo no está claro, pregunta antes de asumir.
 - Para cosas simples y velocidad usas Subagentes, run, spawn, send.
 
 ## 1. Think Before Coding
@@ -72,32 +66,9 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
-## 5. Trabajo en worktree (solo en repos git)
+## 5. Trabajo directo en main
 
-**Si el proyecto es un repo git, aíslate antes de tocar código. Una tarea = una rama + un worktree.**
-
-Si el proyecto NO es git (`git rev-parse --is-inside-work-tree` falla), omite esta regla.
-
-Al iniciar cualquier tarea:
-
-1. Nunca trabajes en el directorio principal ni en `main`.
-2. Revisa qué hay activo antes de empezar:
-   ```bash
-   git worktree list && git branch -a
-   ```
-3. Crea tu rama + worktree con nombre único desde `main` actualizado:
-   ```bash
-   git fetch origin
-   git worktree add ../wt/<slug-tarea> -b <tipo>/<slug-tarea> origin/main
-   cd ../wt/<slug-tarea>
-   ```
-   - `<tipo>` = `feat` | `fix` | `chore` | `docs`
-   - Si la rama o carpeta ya existe, usa otro slug (la está usando otro agente).
-4. Trabaja siempre dentro de `../wt/<slug-tarea>`.
-5. Al terminar: commit, push de tu rama, PR hacia `main`, y limpia:
-   ```bash
-   git worktree remove ../wt/<slug-tarea>
-   ```
+Trabaja directo en `main`: sin ramas, sin worktrees y sin PR. Haz commit y push a `main` al terminar.
 
 ---
 
@@ -106,11 +77,19 @@ Al iniciar cualquier tarea:
 ## Environment
 - **OS:** Arch Linux (pacman, SDDM, KDE/Plasma)
 - **Shell:** bash + zsh
-- **Repo git** (Next.js 16 + Supabase) — usa ramas/worktree (ver regla 5)
+
+## Perfil de comunicación
+
+- Sé directo. Sin adornos, sin disculpas innecesarias, sin rodeos.
+- No expliques lo obvio. Si la respuesta es "sí" o "no", dilo así.
+- Cuando haya múltiples opciones, presenta las mejores 2-3 con tradeoffs claros, no un catálogo completo.
+- Prefiere soluciones ejecutables sobre análisis extensos.
+- Si algo no está claro, pregunta antes de asumir.
+- Para cosas simples y velocidad usas Subagentes, run, spawn, send.
+
+## Environment
+- **OS:** Arch Linux
+- **Repo git** (Next.js + Supabase)
 
 ## Conventions
 - Spanish-speaking user.
-
-## Time Awareness
-- Do NOT run `date` manually. The current date/time is already injected into the system prompt by the date-context plugin.
-- Use the date/time from the system prompt when temporal context matters.
