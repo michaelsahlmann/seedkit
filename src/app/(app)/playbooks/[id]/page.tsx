@@ -11,19 +11,18 @@ export default async function PlaybookEditorPage({
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: playbook } = await supabase
-    .from("playbooks")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const [{ data: playbook }, { data: stepRows }, { data: blockRows }] =
+    await Promise.all([
+      supabase.from("playbooks").select("*").eq("id", id).single(),
+      supabase
+        .from("playbook_steps")
+        .select("*, blocks(*)")
+        .eq("playbook_id", id)
+        .order("position", { ascending: true }),
+      supabase.from("blocks").select("*").order("title", { ascending: true }),
+    ]);
 
   if (!playbook) notFound();
-
-  const { data: stepRows } = await supabase
-    .from("playbook_steps")
-    .select("*, blocks(*)")
-    .eq("playbook_id", id)
-    .order("position", { ascending: true });
 
   type StepRow = {
     id: string;
@@ -38,11 +37,6 @@ export default async function PlaybookEditorPage({
     title: s.inline_title ?? s.blocks?.title ?? "Paso",
     block: s.blocks,
   }));
-
-  const { data: blockRows } = await supabase
-    .from("blocks")
-    .select("*")
-    .order("title", { ascending: true });
 
   return (
     <PlaybookEditor

@@ -11,24 +11,17 @@ export default async function RunPage({
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: run } = await supabase
-    .from("runs")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const [{ data: run }, { data: steps }, { data: blockRows }] = await Promise.all([
+    supabase.from("runs").select("*").eq("id", id).single(),
+    supabase
+      .from("run_steps")
+      .select("*")
+      .eq("run_id", id)
+      .order("position", { ascending: true }),
+    supabase.from("blocks").select("*").order("title", { ascending: true }),
+  ]);
 
   if (!run) notFound();
-
-  const { data: steps } = await supabase
-    .from("run_steps")
-    .select("*")
-    .eq("run_id", id)
-    .order("position", { ascending: true });
-
-  const { data: blockRows } = await supabase
-    .from("blocks")
-    .select("*")
-    .order("title", { ascending: true });
 
   return (
     <RunChecklist

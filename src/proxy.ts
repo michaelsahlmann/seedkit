@@ -29,10 +29,10 @@ export async function proxy(request: NextRequest) {
     },
   );
 
-  // IMPORTANTE: usar getUser() (verifica contra el auth server), no getSession().
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // IMPORTANTE: getClaims() verifica la firma del JWT (local con llaves asimétricas,
+  // sin ir al auth server) y refresca la sesión si hace falta. Nunca getSession().
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims;
 
   const path = request.nextUrl.pathname;
   const isAuthRoute = path === "/login";
@@ -49,7 +49,7 @@ export async function proxy(request: NextRequest) {
 }
 
 /**
- * Redirige conservando las cookies de sesión refrescadas por getUser().
+ * Redirige conservando las cookies de sesión refrescadas por getClaims().
  * Sin esto, un NextResponse.redirect nuevo descarta los tokens renovados y la
  * sesión se pierde tras un refresh (pitfall documentado de @supabase/ssr).
  */
