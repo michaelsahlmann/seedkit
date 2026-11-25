@@ -46,3 +46,6 @@ next-env.d.ts
 
 # Mensaje temporal de commit (Bard)
 .gitmsg
+
+# worktrees de agentes
+.worktrees/

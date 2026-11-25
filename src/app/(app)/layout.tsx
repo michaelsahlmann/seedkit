@@ -8,9 +8,9 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // getClaims() verifica el JWT localmente (llaves ES256): evita otro viaje al auth server.
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims;
 
   if (!user) {
     redirect("/login");
@@ -19,7 +19,7 @@ export default async function AppLayout({
   const { data: profile } = await supabase
     .from("profiles")
     .select("role, email")
-    .eq("id", user.id)
+    .eq("id", user.sub)
     .single();
 
   return (
